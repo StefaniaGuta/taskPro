@@ -1,6 +1,6 @@
 {
     "startPage": {
-      "mainText": "Cresteți productivitatea și controlați sarcinile cu Task Pro - Nu așteptați, începeți acum să atingeți obiectivele dumneavoastră!",
+      "mainText": "Creșteți productivitatea și controlați sarcinile cu Task Pro - Nu așteptați, începeți acum să atingeți obiectivele dumneavoastră!",
       "regLink": "Înregistrare",
       "loginLink": "Autentificare"
     },
@@ -128,12 +128,12 @@
       "step1": "1. Verificați adresa URL pentru greșeli de scriere și încercați din nou.",
       "step2": "2. Reveniți la pagina de pornire și navigați de acolo.",
       "step3": "3. Contactați administratorul site-ului web pentru asistență.",
-      "stillTrouble": "Dacă mai aveți probleme, nu ezitați să contactați. Suntem aici pentru a vă ajuta!",
+      "stillTrouble": "Dacă mai aveți probleme, nu ezitați să ne contactați. Suntem aici pentru a vă ajuta!",
       "homeLink": "Înapoi la pagina home",
       "helpButton": "Contactați-ne"
     },
     "deleteModal": {
-      "title": "Sunteți sigură, că doriți să ștergeți acest panou?",
+      "title": "Sunteți sigură că doriți să ștergeți acest panou?",
       "confirm": "Confirmare"
     },
     "developersModal": {
