@@ -65,7 +65,7 @@ const SideBar = () => {
             <button className={style.CreateBoardBtn}>+</button>
           </div>
 
-          <div className={style.ProjectSection}>
+          <div className={style.ProjectSection} tabIndex="0">
             <div className={style.NameDiv}>
             <img src={Project} alt='project'/>
             <h2 className={style.PojectName}>Project office</h2>
