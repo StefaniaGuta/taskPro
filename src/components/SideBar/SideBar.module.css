@@ -1,0 +1,254 @@
+:root {
+  --font-family : Poppins, sans-serif;
+}
+
+.OpenCloseBtn{
+  border: none;
+  background-color: #FFFFFF;
+}
+
+.SideLogo {
+  margin: 15px 0 35px 10px;
+  cursor: pointer;
+}
+
+.Sidebar {
+  width: 225px;
+  height: 100vh;
+}
+
+.Boards {
+  width: 197px;
+  height: 18px;
+  padding: 10px;
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #16161680;
+  margin: 0;
+}
+
+.CreateBoardSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 197px;
+  height: 70px;
+  margin-left: 10px;
+  border-top: 1px solid #1616161A;
+  border-bottom: 1px solid #1616161A;
+}
+
+.CreateBoard {
+  width: 76px;
+  height: 42px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin: 0;
+
+}
+
+.CreateBoardBtn {
+  width: 40px;
+  height: 36px;
+  background: #BEDBB0;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.ProjectSection {
+  width: 225px;
+  height: 61px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+  margin: 20px 0 0 0;
+  position: relative;
+}
+
+.NameDiv {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 10px;
+}
+
+.icons{
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  right: 15px;
+}
+
+.ProjectSection:hover,
+.ProjectSection:focus {
+  background-color: #F6F6F7;
+}
+
+.ProjectSection:hover::after,
+.ProjectSection:focus::after {
+  content: '';
+  width: 4px;
+  height: 61px;
+  border-radius: 4px 0px 0px 4px;
+  background: #BEDBB0;
+  position: absolute;
+  right: 0;
+}
+
+.PojectName {
+  width: 88px;
+  height: 21px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin: 0 0 0 10px;
+}
+
+.NeonProject {
+  width: 197px;
+  height: 61px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  margin-bottom: 30px;
+}
+
+.NeonProject h2 {
+  width: 122px;
+  height: 21px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #16161680;
+  margin: 0 0 0 10px;
+}
+
+.HelpSection {
+  width: 180px;
+  height: 200px;
+  border-radius: 8px;
+  background-color: #F6F6F7;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.HelpSection p {
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  width: 150px;
+  height: 80px;
+}
+
+.HelpSection span {
+  color: #BEDBB0;
+}
+
+.HelpBtn{
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  border: none;
+  background-color: #F6F6F7;
+  display: flex;
+  align-items: center;
+}
+
+.HelpBtn img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.LogOut {
+  width: 105px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  background-color: #FFFFFF;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  text-align: left;
+  margin: 20px 0 0 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .Sidebar{
+    width: 260px;
+    height: 1024px;
+  }
+
+  .CreateBoardSection,
+  .Boards {
+    width: 212px;
+    padding-left: 15px;
+  }
+
+  
+
+  .ProjectSection{
+    width: 245px;
+    height: 61px;
+    padding-left: 15px;
+  }
+
+  .HelpSection {
+    width: 212px;
+    margin: 35px 0 0 15px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .SideLogo {
+    margin: 15px 0 45px 10px;
+  }
+
+  .ProjectSection {
+    margin-top: 60px;
+  }
+
+  
+  .ProjectSection:focus::after {
+    content: '';
+    width: 4px;
+    height: 61px;
+    border-radius: 4px 0px 0px 4px;
+    background: #BEDBB0;
+    margin-left: 15px;
+  }
+
+  .HelpSection {
+    margin-top: 50px;
+  }
+}
