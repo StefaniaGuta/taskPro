@@ -4,17 +4,18 @@ import { useAuth } from 'hooks';
 import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { refreshUser } from '../../redux/auth/authOperations';
-import { PrivateRoute, PublicRoute } from 'routes';
+import { PrivateRoute} from '../../routes/PrivateRoute';
+import { PublicRoute } from '../../routes/PublicRoute';
 import SharedLayout from 'layouts/SharedLayout';
-import Loader from 'components/Loader';
+import Loader from '../Loader/Loader';
 
-const WelcomePage = lazy(() => import('pages/WelcomePage'));
-const AuthPage = lazy(() => import('pages/AuthPage'));
-const HomePage = lazy(() => import('pages/HomePage'));
-const ScreensPage = lazy(() => import('pages/ScreensPage'));
-const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
-const StatsPage = lazy(() => import('pages/StatsPage'));
-const SchedulePage = lazy(() => import('pages/SchedulePage'));
+const WelcomePage = lazy(() => import('../../pages/WelcomePage'));
+const AuthPage = lazy(() => import('../../pages/AuthPage'));
+const HomePage = lazy(() => import('../../pages/HomePage'));
+const ScreensPage = lazy(() => import('../../pages/ScreensPage'));
+const NotFoundPage = lazy(() => import('../../pages/NotFoundPage'));
+const StatsPage = lazy(() => import('../../pages/StatsPage'));
+const SchedulePage = lazy(() => import('../../pages/SchedulePage'));
 
 const App = () => {
   const dispatch = useDispatch();

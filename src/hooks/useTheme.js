@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getTheme } from '../redux/theme/themeOperation';
-import { selectTheme } from '../redux/theme/themeSelector';
+import { selectTheme } from '../redux/theme/ThemeSelectors';
 import { useAuth } from './useAuth';
 
 export const useTheme = () => {

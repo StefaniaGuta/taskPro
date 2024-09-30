@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ENDPOINTS, axiosInstance } from 'api';
+import { ENDPOINTS, axiosInstance } from '../../api';
 
 const TOASTER_CONFIG = { className: 'themed_toaster', duration: 1500 };
 
