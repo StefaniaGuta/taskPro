@@ -9,12 +9,12 @@ import { PublicRoute } from '../../routes/PublicRoute';
 import SharedLayout from 'layouts/SharedLayout';
 import Loader from '../Loader/Loader';
 
-const WelcomePage = lazy(() => import('../../pages/WelcomePage'));
+//const WelcomePage = lazy(() => import('../../pages/WelcomePage'));
 const AuthPage = lazy(() => import('../../pages/AuthPage'));
-const HomePage = lazy(() => import('../../pages/HomePage'));
-const ScreensPage = lazy(() => import('../../pages/ScreensPage'));
+const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+const ScreensPage = lazy(() => import('../../pages/ScreenPage'));
 const NotFoundPage = lazy(() => import('../../pages/NotFoundPage'));
-const StatsPage = lazy(() => import('../../pages/StatsPage'));
+//const StatsPage = lazy(() => import('../../pages/StatsPage'));
 const SchedulePage = lazy(() => import('../../pages/SchedulePage'));
 
 const App = () => {
@@ -33,13 +33,13 @@ const App = () => {
 
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <PublicRoute component={<WelcomePage />} redirectTo="/home" />
-            }
-          />
-          <Route
+         <Route
+         //   path="/"
+           // element={
+           //   <PublicRoute component={<WelcomePage />} redirectTo="/home" />
+        //    }
+        //  />
+          
             path="/auth/:id"
             element={
               <PublicRoute component={<AuthPage />} redirectTo="/home" />
@@ -68,7 +68,7 @@ const App = () => {
               path="stats"
               element={
                 <PrivateRoute
-                  component={<StatsPage />}
+                 // component={<StatsPage />}
                   redirectTo={'/auth/login'}
                 />
               }
