@@ -4,11 +4,11 @@
   "private": true,
   "homepage": "https://StefaniaGuta.github.io/taskPro/",
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.7",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.1",
     "@mui/styled-engine": "^6.1.1",
+    "@reduxjs/toolkit": "^2.2.7",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",

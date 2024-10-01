@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+.project-office-container {
+  margin-left: 200px;
+  padding-top: 78px;
+  padding-bottom: 20px;
+  background-color: #f6f6f7;
+  overflow-y: auto;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.project-office-title {
+  margin-bottom: 10px;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.top-card-row {
+  display: flex;
+  gap: 34px;
+  margin-bottom: 24px;
+}
+
+.card {
+  width: 334px;
+  height: 56px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  gap: 3.5px;
+}
+.card1 {
+  width: 334px;
+  height: 56px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.card-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  width: 100%;
+}
+
+.card-columns {
+  display: flex;
+  gap: 34px;
+  margin-bottom: 34px;
+}
+
+.card-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-card {
+  width: 334px;
+  height: 154px;
+  border-radius: 8px 0px 0px 0px;
+  background-color: #ffffff;
+}
+
+.bottom-card-row {
+  display: flex;
+  gap: 34px;
+}
+
+.add-card {
+  width: 334px;
+  height: 56px;
+  padding: 14px 0;
+  color: #161616;
+  text-align: center;
+  background-color: #bedbb0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+}
+
+.project-office-container {
+  scrollbar-width: thin;
+  scrollbar-color: #bedbb0 transparent;
+}
+
+.project-office-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.project-office-container::-webkit-scrollbar-thumb {
+  background-color: #bedbb0;
+  border-radius: 4px;
+}
+
+.filters-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.filters-text {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin-right: 8px;
+}
+
+.filters-image {
+  width: 16px;
+  height: auto;
+}
+
+.title-filters-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.project-office-title {
+  margin: 0;
+}
+
+.filters-section {
+  display: flex;
+  align-items: center;
+}
+
+.icon-image {
+  size: 16px;
+  gap: 8px;
+  align-items: center;
+}
+
+.add-button {
+  width: 28px;
+  height: 28px;
+  background: #161616;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.add-card-content {
+  display: flex;
+  align-items: center;
+}
+.task-card {
+  position: relative;
+  padding: 20px;
+  background-color: white;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+}
+
+.left-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 8px;
+}
+.card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}
+
+.card-description {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #161616;
+  margin-bottom: 16px;
+  letter-spacing: -2%;
+}
+
+.bottom-left {
+  display: flex;
+}
+
+.deadline-section {
+  padding-left: 14px;
+}
+
+.priority-icon {
+  width: 12px;
+}
+
+.priority-section {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.right-icons {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.icon {
+  width: 16px;
+}
+
+.priority-section span,
+.deadline-section span {
+  font-family: 'Poppins', sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.priority-section .priority-value,
+.deadline-section .deadline-value {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.priority-section .priority-value {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.priority-section,
+.deadline-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 31px;
+}
