@@ -268,3 +268,139 @@
   gap: 14px;
   height: 31px;
 }
+
+@media only screen and (max-width: 768px) {
+  /* Row for top cards */
+  /* Row for top cards */
+  .top-card-row {
+    display: flex;
+    gap: 34px; /* Space between cards */
+    flex-wrap: nowrap; /* Prevent wrapping to new lines */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+  .top-card-row > .card {
+    flex: 0 0 calc(50% - 34px); /* 50% width minus the gap */
+    max-width: calc(50% - 34px); /* Prevent shrinking */
+    margin-bottom: 24px;
+    min-width: 0; /* Prevent shrinking to smaller than 0 */
+  }
+
+  /* Bottom row for "Add another card" */
+  .bottom-card-row {
+    display: flex;
+    gap: 34px; /* Space between cards */
+    flex-wrap: nowrap; /* Prevent wrapping to new lines */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+  .bottom-card-row > .add-card {
+    flex: 0 0 calc(50% - 34px); /* 50% width minus the gap */
+    max-width: calc(50% - 34px); /* Prevent shrinking */
+    margin-bottom: 24px;
+    min-width: 0; /* Prevent shrinking to smaller than 0 */
+  }
+
+  /* Scrollable card section */
+  .card-columns {
+    display: flex;
+    gap: 34px;
+    padding-bottom: 10px;
+  }
+
+  /* Scrollbar customization */
+  .card-columns::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .card-columns::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* Row for top cards */
+  .top-card-row {
+    display: flex;
+    gap: 34px; /* Space between cards */
+    flex-wrap: nowrap; /* Prevent wrapping to new lines */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+  .top-card-row > .card {
+    flex: 0 0 calc(50% - 34px); /* 50% width minus the gap */
+    max-width: calc(50% - 34px); /* Prevent shrinking */
+    margin-bottom: 24px;
+    min-width: 0; /* Prevent shrinking to smaller than 0 */
+  }
+
+  /* Bottom row for "Add another card" */
+  .bottom-card-row {
+    display: flex;
+    gap: 34px; /* Space between cards */
+    flex-wrap: nowrap; /* Prevent wrapping to new lines */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+  .bottom-card-row > .add-card {
+    flex: 0 0 calc(50% - 34px); /* 50% width minus the gap */
+    max-width: calc(50% - 34px); /* Prevent shrinking */
+    margin-bottom: 24px;
+    min-width: 0; /* Prevent shrinking to smaller than 0 */
+  }
+
+  /* Scrollable card section */
+  .card-columns {
+    display: flex;
+    gap: 34px; /* Space between columns */
+    padding-bottom: 10px;
+  }
+
+  /* Scrollbar customization */
+  .card-columns::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .card-columns::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  /* Row for top cards */
+  .top-card-row {
+    display: flex;
+    gap: 16px; /* Smaller gap for mobile */
+    flex-wrap: nowrap; /* Prevent wrapping to new lines */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+  .top-card-row > .card {
+    flex: 0 0 calc(100% - 16px); /* Full width minus gap for mobile */
+    max-width: calc(100% - 16px); /* Prevent shrinking */
+    margin-bottom: 16px; /* Adjust margin for mobile */
+  }
+
+  /* Bottom row for "Add another card" */
+  .bottom-card-row {
+    display: flex;
+    gap: 16px; /* Smaller gap for mobile */
+    flex-wrap: nowrap; /* Prevent wrapping to new lines */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+  .bottom-card-row > .add-card {
+    flex: 0 0 calc(100% - 16px); /* Full width minus gap for mobile */
+    max-width: calc(100% - 16px); /* Prevent shrinking */
+    margin-bottom: 16px; /* Adjust margin for mobile */
+  }
+
+  /* Scrollable card section */
+  .card-columns {
+    display: flex;
+    gap: 16px; /* Smaller gap for mobile */
+    padding-bottom: 10px;
+  }
+}
