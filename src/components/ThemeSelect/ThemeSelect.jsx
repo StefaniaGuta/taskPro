@@ -1,14 +1,14 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
 import { updateTheme } from '../../redux/theme/themeOperation';
 import { useTheme } from 'hooks/useTheme';
 import './ThemeSelect.css';
-import { SelectWrap } from './ThemeSelect.styled';
+//import { SelectWrap } from './ThemeSelect.styled';
 
 function ThemeSelect() {
-  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  //const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   useTheme();
   const { t } = useTranslation();
@@ -25,7 +25,7 @@ function ThemeSelect() {
   };
 
   return (
-    <SelectWrap $isMenuOpen={isSelectOpen}>
+    <section >
       <Select
         classNamePrefix="custom-select"
         onChange={event => {
@@ -34,10 +34,9 @@ function ThemeSelect() {
         options={THEME_OPTIONS}
         placeholder={`${t('header.theme')}`}
         isSearchable={false}
-        onMenuOpen={() => setIsSelectOpen(true)}
-        onMenuClose={() => setIsSelectOpen(false)}
+        
       />
-    </SelectWrap>
+    </section>
   );
 }
 
