@@ -1,31 +1,19 @@
-import toast from 'react-hot-toast';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ENDPOINTS, axiosInstance } from 'api';
+import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const TOASTER_CONFIG = { className: 'themed_toaster', duration: 1500 };
 
-const setAuthorizationHeader = token => {
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
-
-const unsetAuthorizationHeader = () => {
-  axiosInstance.defaults.headers.common.Authorization = '';
-};
+const API_URL = 'https://taskpro-app-bcac9d37037a.herokuapp.com/';
 
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await axiosInstance.post(
-        ENDPOINTS.auth.register,
-        credentials
-      );
-      setAuthorizationHeader(data.user.tokenAccess);
-
-      return data;
+      const { data } = await axios.post(`${API_URL}api/users/signup`, credentials);
+      const { token } = data;
+      localStorage.setItem('token', token);
+      return data; 
     } catch (error) {
-      toast.error(error.response.data.message, TOASTER_CONFIG);
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
@@ -34,57 +22,61 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await axiosInstance.post(
-        ENDPOINTS.auth.login,
-        credentials
-      );
-
-      setAuthorizationHeader(data.user.tokenAccess);
-
+      const { data } = await axios.post(`${API_URL}api/users/login`, credentials);
+      const { token } = data;
+      localStorage.setItem('token', token);
       return data;
     } catch (error) {
-      toast.error(error.response.data.message);
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response.data);
     }
   }
 );
 
-export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
-  const refreshToken = state.auth.token;
 
-  if (!refreshToken) {
-    return thunkAPI.rejectWithValue('No refresh token');
+export const logOut = createAsyncThunk(
+  'auth/logout',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token || localStorage.getItem('token');
+
+    if (!token) {
+      return thunkAPI.rejectWithValue('No token available for logout');
+    }
+
+    try {
+      await axios.get(`${API_URL}api/users/logout`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   }
+);
 
-  try {
-    await axiosInstance.post(ENDPOINTS.auth.logout, {
-      refreshToken,
-    });
-
-    localStorage.removeItem('refreshToken');
-    unsetAuthorizationHeader();
-  } catch (error) {
-    toast.error(error.response.data.message, TOASTER_CONFIG);
-    return thunkAPI.rejectWithValue(error.message);
-  }
-});
-
-export const refreshUser = createAsyncThunk(
+export const refreshUser  = createAsyncThunk(
   'auth/current',
   async (_, thunkAPI) => {
-    try {
-      const { data } = await axiosInstance.get(ENDPOINTS.users.current);
-
-      return data.user;
-    } catch ({ message }) {
-      return thunkAPI.rejectWithValue(message);
+    const state = thunkAPI.getState();
+    const persistedToken = state.auth.token;
+  
+    if (persistedToken === null) {
+      return thunkAPI.rejectWithValue('Unable to fetch user');
     }
-  }
-);
+  
+    try {
+      const token = localStorage.getItem('token');
+    const res = await axios.get(`${API_URL}api/users/current`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+      return res.data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  });
+
 
 export const editUser = createAsyncThunk(
-  'user/editUser',
+  'api/user/editUser',
   async (dataUser, thunkAPI) => {
     const formData = new FormData();
     const { avatar_url, name, email, password } = dataUser;
@@ -96,7 +88,7 @@ export const editUser = createAsyncThunk(
     }
 
     try {
-      const { data } = await axiosInstance.patch('users/current', formData, {
+      const { data } = await axios.patch('users/current', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

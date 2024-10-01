@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../redux/auth/authOperations';
 import menu from '../../images/menu.png';
 import SidebarLogo from '../../images/Sidebar-logo.png';
 import NeedHelpImg from '../../images/NeedHelpImg.png';
@@ -13,11 +15,14 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 
+
+
 import style from './SideBar.module.css';
 
 const SideBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1200);
+  const dispatch = useDispatch();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -90,7 +95,9 @@ const SideBar = () => {
               Need help?
             </button>
           </div>
-          <button className={style.LogOut}>
+          <button className={style.LogOut} 
+          type='button'
+            onClick={() => dispatch(logOut())}>
             <img src={logoutImg} alt='logout'/>
             Log out
           </button>

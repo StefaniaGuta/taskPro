@@ -3,41 +3,24 @@ import styles from './Login.module.css';
 import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { logIn } from '../../redux/auth/authOperations';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState({ username: '', password: '' });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const dispatch = useDispatch();
+  const [form, setForm] = useState({ email: '', password: '' });
 
-    let valid = true;
-    let newErrors = { username: '', password: '' };
 
-    if (!username) {
-      newErrors.username = 'Email is required.';
-      valid = false;
-    } else if (!/\S+@\S+\.\S+/.test(username)) {
-      newErrors.username = 'Email is invalid.';
-      valid = false;
-    }
+  const handleSubmit = event => {
+    event.preventDefault();
+    dispatch(logIn({ ...form }));
+    setForm({ email: '', password: '' });
 
-    if (!password) {
-      newErrors.password = 'Password is required.';
-      valid = false;
-    } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters long.';
-      valid = false;
-    }
-
-    setErrors(newErrors);
-
-    if (valid) {
-      console.log('Username:', username);
-      console.log('Password:', password);
-    }
   };
 
   const togglePasswordVisibility = () => {
@@ -69,11 +52,12 @@ const Login = () => {
               type="text"
               id="username"
               placeholder="Enter your email"
+              required
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className={errors.username ? styles.inputError : ''}
+             
             />
-            {errors.username && <span className={styles.errorMessage}>{errors.username}</span>}
+            
           </div>
           <div className={styles.inputGroup}>
             <div className={styles.passwordWrapper}>
@@ -81,9 +65,10 @@ const Login = () => {
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 placeholder="Enter your password"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={errors.password ? styles.inputError : ''}
+               
               />
               <span 
                 className={styles.passwordToggle}
@@ -92,7 +77,7 @@ const Login = () => {
                 {showPassword ? '🙈' : '👁️'}
               </span>
             </div>
-            {errors.password && <span className={styles.errorMessage}>{errors.password}</span>}
+            
           </div>
           <button type="submit" className={styles.submitBtn}>Log In Now</button>
         </form>
