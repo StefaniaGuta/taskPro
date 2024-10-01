@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Sidebar from '../components/Sidebar/SideBar';
+import Sidebar from '../components/SideBar/SideBar';
 
 import Header from '../components/Header/Header';
 import { Outlet } from 'react-router-dom';
@@ -14,8 +14,6 @@ const SharedLayout = () => {
   return (
     <>
       <Header openMenu={openMenu} />
-
-      <Sidebar />
       <Sidebar isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
 
       <main>

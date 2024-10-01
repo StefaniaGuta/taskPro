@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Card } from './ScheduleItem.styled';
+//import { Card } from './ScheduleItem.styled';
 import { useSelector } from 'react-redux';
 import { selectAllCards } from '../../../redux/board/boardSelectors';
 import compareDates  from '../../../helpers/compareDates';
@@ -20,7 +20,7 @@ const ScheduleItem = ({ date }) => {
     t('schedule.saturday'),
   ];
   return (
-    <Card>
+    <div>
       <p>
         {date.toLocaleDateString()} {daysOfTheWeek[date.getDay()]}
       </p>
@@ -39,7 +39,7 @@ const ScheduleItem = ({ date }) => {
           </li>
         )}
       </ul>
-    </Card>
+    </div>
   );
 };
 

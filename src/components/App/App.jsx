@@ -1,87 +1,78 @@
-import { Suspense, lazy, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useAuth } from 'hooks';
+import { Suspense, lazy } from 'react';
+//import { useDispatch } from 'react-redux';
+//import { useAuth } from 'hooks/useAuth';
 import { Routes, Route } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-import { refreshUser } from '../../redux/auth/authOperations';
-import { PrivateRoute} from '../../routes/PrivateRoute';
+//import { Toaster } from 'react-hot-toast';
+//import { refreshUser } from '../../redux/auth/authOperations';
+//import { PrivateRoute} from '../../routes/PrivateRoute';
 import { PublicRoute } from '../../routes/PublicRoute';
 import SharedLayout from 'layouts/SharedLayout';
 import Loader from '../Loader/Loader';
 
 //const WelcomePage = lazy(() => import('../../pages/WelcomePage'));
-const AuthPage = lazy(() => import('../../pages/AuthPage'));
+//const AuthPage = lazy(() => import('../../pages/AuthPage'));
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
 const ScreensPage = lazy(() => import('../../pages/ScreenPage'));
 const NotFoundPage = lazy(() => import('../../pages/NotFoundPage'));
 //const StatsPage = lazy(() => import('../../pages/StatsPage'));
 const SchedulePage = lazy(() => import('../../pages/SchedulePage'));
+const RegistrationPage = lazy(() => import('../../pages/RegistrationPage/RegistrationPage'));
+const LoginPage = lazy(() => import('../../pages/LogInPage/LoginPage'));
+const MainPage = lazy(() => import('../../pages/MainPage/MainPage'));
 
 const App = () => {
-  const dispatch = useDispatch();
-  const { isRefreshing } = useAuth();
 
-  useEffect(() => {
-    dispatch(refreshUser());
-  }, [dispatch]);
-
-  return isRefreshing ? (
-    <Loader strokeColor="#fff" />
-  ) : (
+  return (
     <>
-      <Toaster position="top-center" />
-
       <Suspense fallback={<Loader />}>
         <Routes>
          <Route
-         //   path="/"
-           // element={
-           //   <PublicRoute component={<WelcomePage />} redirectTo="/home" />
-        //    }
-        //  />
-          
-            path="/auth/:id"
+            path="/"
             element={
-              <PublicRoute component={<AuthPage />} redirectTo="/home" />
+              <PublicRoute component={<HomePage />} />
             }
           />
-          <Route path="/home" element={<SharedLayout />}>
-            <Route
-              index
-              element={
-                <PrivateRoute
-                  component={<HomePage />}
-                  redirectTo={'/auth/login'}
-                />
-              }
-            />
+          <Route
+            path="register"
+            element={
+              <PublicRoute component={<RegistrationPage/>} />
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <PublicRoute component={<LoginPage />} />
+            }
+          />
+          <Route
+            path="page"
+            element={
+              <PublicRoute component={<MainPage />} />
+            }
+          />
+
+          
+           
             <Route
               path="board/:boardId"
               element={
-                <PrivateRoute
+                <PublicRoute
                   component={<ScreensPage />}
                   redirectTo={'/auth/login'}
                 />
               }
             />
-            <Route
-              path="stats"
-              element={
-                <PrivateRoute
-                 // component={<StatsPage />}
-                  redirectTo={'/auth/login'}
-                />
-              }
-            />
+            
             <Route
               path="schedule"
               element={
-                <PrivateRoute
+                <PublicRoute
                   component={<SchedulePage />}
                   redirectTo={'/auth/login'}
                 />
               }
             />
+                <Route path="/home" element={<SharedLayout />}>
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />
