@@ -1,5 +1,6 @@
 {
-  "name": "taskPro",
+
+  "name": "taskpro",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://StefaniaGuta.github.io/taskPro/",
@@ -32,10 +33,15 @@
     "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "react-select": "^5.8.1",
+<<<<<<< HEAD
     "react-toastify": "^10.0.5",
+=======
+    "recharts": "^2.12.7",
+>>>>>>> 8c8da78dbc4389aefe80c6dabd66558ebd12f0d1
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.13",
-    "web-vitals": "^2.1.3"
+    "web-vitals": "^2.1.3",
+    "yup": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
