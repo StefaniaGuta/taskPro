@@ -1,14 +1,13 @@
 {
   "files": {
-    "main.css": "/taskPro/static/css/main.2e03cd45.css",
-    "main.js": "/taskPro/static/js/main.25486afd.js",
-    "static/media/img+logo.png": "/taskPro/static/media/img+logo.176367d2eb639129b063.png",
+    "main.css": "/taskPro/static/css/main.7acaea2f.css",
+    "main.js": "/taskPro/static/js/main.07d3183d.js",
     "index.html": "/taskPro/index.html",
-    "main.2e03cd45.css.map": "/taskPro/static/css/main.2e03cd45.css.map",
-    "main.25486afd.js.map": "/taskPro/static/js/main.25486afd.js.map"
+    "main.7acaea2f.css.map": "/taskPro/static/css/main.7acaea2f.css.map",
+    "main.07d3183d.js.map": "/taskPro/static/js/main.07d3183d.js.map"
   },
   "entrypoints": [
-    "static/css/main.2e03cd45.css",
-    "static/js/main.25486afd.js"
+    "static/css/main.7acaea2f.css",
+    "static/js/main.07d3183d.js"
   ]
 }
