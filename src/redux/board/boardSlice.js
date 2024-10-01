@@ -16,7 +16,7 @@ import {
   getStatistics,
   getAllCards,
   changeCardOrder,
-} from '../cards/cardsOperations';
+} from '../cards/cardsOpeartions';
 import {
   addColumn,
   editColumn,

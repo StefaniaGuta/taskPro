@@ -4,18 +4,17 @@ import { useAuth } from 'hooks';
 import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { refreshUser } from '../../redux/auth/authOperations';
-import { PrivateRoute} from '../../routes/PrivateRoute';
-import { PublicRoute } from '../../routes/PublicRoute';
+import { PrivateRoute, PublicRoute } from 'routes';
 import SharedLayout from 'layouts/SharedLayout';
-import Loader from '../Loader/Loader';
+import Loader from 'components/Loader';
 
-//const WelcomePage = lazy(() => import('../../pages/WelcomePage'));
-const AuthPage = lazy(() => import('../../pages/AuthPage'));
-const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
-const ScreensPage = lazy(() => import('../../pages/ScreenPage'));
-const NotFoundPage = lazy(() => import('../../pages/NotFoundPage'));
-//const StatsPage = lazy(() => import('../../pages/StatsPage'));
-const SchedulePage = lazy(() => import('../../pages/SchedulePage'));
+const WelcomePage = lazy(() => import('pages/WelcomePage'));
+const AuthPage = lazy(() => import('pages/AuthPage'));
+const HomePage = lazy(() => import('pages/HomePage'));
+const ScreensPage = lazy(() => import('pages/ScreensPage'));
+const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
+const StatsPage = lazy(() => import('pages/StatsPage'));
+const SchedulePage = lazy(() => import('pages/SchedulePage'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,13 +32,13 @@ const App = () => {
 
       <Suspense fallback={<Loader />}>
         <Routes>
-         <Route
-         //   path="/"
-           // element={
-           //   <PublicRoute component={<WelcomePage />} redirectTo="/home" />
-        //    }
-        //  />
-          
+          <Route
+            path="/"
+            element={
+              <PublicRoute component={<WelcomePage />} redirectTo="/home" />
+            }
+          />
+          <Route
             path="/auth/:id"
             element={
               <PublicRoute component={<AuthPage />} redirectTo="/home" />
@@ -68,7 +67,7 @@ const App = () => {
               path="stats"
               element={
                 <PrivateRoute
-                 // component={<StatsPage />}
+                  component={<StatsPage />}
                   redirectTo={'/auth/login'}
                 />
               }
