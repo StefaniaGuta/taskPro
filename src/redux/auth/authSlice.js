@@ -4,13 +4,8 @@ import {
   logIn,
   logOut,
   refreshUser,
-  editUser,
 } from './authOperations';
-import {
-  handleRegLogFulfilled,
-  handlePending,
-  handleRejected,
-} from '../helpers';
+
 
 const initialState = {
   user: { name: null, email: null },
@@ -26,16 +21,15 @@ export const authSlice = createSlice({
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(register.pending, handlePending)
-      .addCase(logIn.pending, handlePending)
-      .addCase(logOut.pending, handlePending)
-      .addCase(editUser.pending, handlePending)
+      .addCase(register.pending)
+      .addCase(logIn.pending)
+      .addCase(logOut.pending)
       .addCase(refreshUser.pending, state => {
         state.isLoading = true;
         state.isRefreshing = true;
       })
-      .addCase(register.fulfilled, handleRegLogFulfilled)
-      .addCase(logIn.fulfilled, handleRegLogFulfilled)
+      .addCase(register.fulfilled)
+      .addCase(logIn.fulfilled)
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
@@ -44,27 +38,21 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
-        state.user = { ...payload };
-        state.token = payload.tokenAccess;
+        state.user = { ...payload };  // Asigură-te că payload-ul conține 'name' și 'email'
+        state.token = payload.tokenAccess;  // Dacă 'tokenAccess' este prezent în payload
         state.isLoggedIn = true;
         state.isRefreshing = false;
         state.isLoading = false;
       })
-      .addCase(editUser.fulfilled, (state, { payload }) => {
-        state.user = { ...state.user, ...payload.user };
-        state.user.avatar_url = payload.user.avatar_url;
-        state.isLoggedIn = true;
-        state.isLoading = false;
-      })
-      .addCase(register.rejected, handleRejected)
-      .addCase(logIn.rejected, handleRejected)
-      .addCase(logOut.rejected, handleRejected)
+      .addCase(register.rejected)
+      .addCase(logIn.rejected)
+      .addCase(logOut.rejected)
       .addCase(refreshUser.rejected, (state, { payload }) => {
         state.isRefreshing = false;
         state.isLoading = false;
         state.error = payload;
       })
-      .addCase(editUser.rejected, handleRejected);
+      
   },
 });
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCreateBoardMutation } from '../../../redux/boardApi/boardApi';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
-import { Loader } from '../../Loader/Loader';
+import  Loader  from '../../Loader/Loader';
 import { useGetMiniImgQuery } from '../../../redux/miniImgApi/miniImgApi';
 import urlIcon from '../../../images/icons/sprite.svg';
 import icons from '../icons.json';

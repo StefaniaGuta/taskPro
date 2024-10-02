@@ -35,9 +35,9 @@ import {
   BtnName,
 } from './EditCard.styled.js';
 
-const ModalEditCard = ({ componentName }) => {
+const ModalEditCard = ({ componentName={} }) => {
   const {
-    task: { title, description, priority, deadline, column, _id },
+    task: { title='', description='', priority='', deadline='', column='', _id='' },
   } = componentName;
 
   const idTask = _id.toString();

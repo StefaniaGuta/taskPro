@@ -1,6 +1,7 @@
 import style from './MainPage.module.css'
 import Header from 'components/Header/Header';
 import filter from '../../images/filter.png';
+//import Filters from '../../components/PopUp/Filters/Filters';
 const MainPage = () => {
     return (
         <>

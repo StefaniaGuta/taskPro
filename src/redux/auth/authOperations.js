@@ -8,13 +8,21 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await axios.post(`${API_URL}api/users/signup`, credentials);
-      const { token } = data;
-      localStorage.setItem('token', token);
-      return data; 
+      const response = await axios.post(`${API_URL}api/auth/register`, credentials)
+
+      if (response.status === 201) {
+        const { token } = response.data;
+
+        console.log(response.data)
+
+        localStorage.setItem('token', token);
+      }
+      console.log(credentials);
+      console.log('registred')
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
+     console.log(error)
+     return thunkAPI.rejectWithValue(error.response.data);
+  };
   }
 );
 
@@ -22,9 +30,11 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await axios.post(`${API_URL}api/users/login`, credentials);
+      const { data } = await axios.post(`${API_URL}api/auth/login`, credentials);
       const { token } = data;
       localStorage.setItem('token', token);
+      console.log('login')
+      console.log(data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -44,10 +54,12 @@ export const logOut = createAsyncThunk(
     }
 
     try {
-      await axios.get(`${API_URL}api/users/logout`, {
+      await axios.get(`${API_URL}api/auth/logout`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log('logout')
     } catch (error) {
+      console.log(error)
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
@@ -65,9 +77,11 @@ export const refreshUser  = createAsyncThunk(
   
     try {
       const token = localStorage.getItem('token');
-    const res = await axios.get(`${API_URL}api/users/current`, {
+    const res = await axios.get(`https://taskpro-app-bcac9d37037a.herokuapp.com/api/auth/current`, {
       headers: { Authorization: `Bearer ${token}` },
     });
+  
+    console.log('current')
       return res.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -75,26 +89,3 @@ export const refreshUser  = createAsyncThunk(
   });
 
 
-export const editUser = createAsyncThunk(
-  'api/user/editUser',
-  async (dataUser, thunkAPI) => {
-    const formData = new FormData();
-    const { avatar_url, name, email, password } = dataUser;
-    formData.append('avatar_url', avatar_url);
-    formData.append('name', name);
-    formData.append('email', email);
-    if (password) {
-      formData.append('password', password);
-    }
-
-    try {
-      const { data } = await axios.patch('users/current', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import urlIcon from '../../../images/icons/sprite.svg';
 import CloseButton from '../CloseButton/CloseButton';
-import { Loader } from '../../Loader/Loader';
+import Loader from '../../Loader/Loader';
 import {
   Form,
   FormFieldTitle,
@@ -17,12 +17,12 @@ import {
   ContainerIconButton,
 } from './ModalAddColumn.styled';
 
-const ModalAddColumn = ({ componentName }) => {
+const ModalAddColumn = ({ componentName={} }) => {
   const dispatch = useDispatch();
   const [createColumn, { isLoading: isCreteLoading }] =
     useCreateColumnMutation();
   const handleSubmit = async (values) => {
-    const { boardId } = componentName;
+    const { boardId='' } = componentName;
     await createColumn({ values, boardId });
     dispatch(closeModal());
   };

@@ -1,6 +1,6 @@
 import url from '../../../images/icons/sprite.svg';
 import { Button, ContainerIconButton } from './ButtonModal.styled';
-import { Loader } from '../../Loader/Loader';
+import Loader from '../../Loader/Loader';
 
 const ButtonModal = ({ buttonName, isLoading }) => {
   return (

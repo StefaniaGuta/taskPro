@@ -29,7 +29,7 @@ const Filters = ({ componentName }) => {
   const [editBoard] = useEditBoardMutation();
 
   const updateBackground = async (name) => {
-    const { data } = await editBoard({
+    await editBoard({
       values: { backgroundId: name },
       id: componentName.boardId,
     });

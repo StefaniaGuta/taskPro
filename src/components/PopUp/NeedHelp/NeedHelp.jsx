@@ -17,7 +17,7 @@ import {
 import CloseButton from '../CloseButton/CloseButton';
 import { closeModal } from '../../../redux/modal/modalSlice.js';
 import { useDispatch } from 'react-redux';
-import { Loader } from '../../Loader/Loader';
+import  Loader  from '../../Loader/Loader';
 
 const schema = yup.object().shape({
   email: yup

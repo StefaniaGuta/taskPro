@@ -8,9 +8,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const navigate = useNavigate();
@@ -19,11 +16,15 @@ const Registration = () => {
     setForm({ name: '', email: '', password: '' });
   };
   
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(register({ ...form }));
-    resetForm();
-    navigate("/page");
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      await dispatch(register({ ...form }));
+      resetForm();
+      navigate("/page");
+    } catch(error) {
+      console.log(error)
+    }
   };
 
   const location = useLocation();
@@ -52,8 +53,8 @@ const Registration = () => {
               id="username"
               placeholder="Enter your name"
               required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={form.name}
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
               
             />
             
@@ -64,8 +65,8 @@ const Registration = () => {
               id="email"
               placeholder="Enter your email"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
              
             />
            
@@ -76,8 +77,8 @@ const Registration = () => {
               id="password"
               placeholder="Create a password"
               required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
              
             />
            

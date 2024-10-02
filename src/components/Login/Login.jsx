@@ -1,31 +1,42 @@
 import React, { useState } from 'react';
 import styles from './Login.module.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+import {selectIsLoggedIn} from '../../redux/auth/authSelectors';
 import { logIn } from '../../redux/auth/authOperations';
 
+
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
   const [form, setForm] = useState({ email: '', password: '' });
 
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    dispatch(logIn({ ...form }));
-    setForm({ email: '', password: '' });
-
+  
+  
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      await dispatch(logIn({ ...form }));
+      setForm({ email: '', password: '' });
+      
+      if(selectIsLoggedIn){
+        navigate("/page");
+      }
+    } catch(error) {
+      console.log(error)
+    }
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const { email, password } = form;
 
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
@@ -53,8 +64,8 @@ const Login = () => {
               id="username"
               placeholder="Enter your email"
               required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
              
             />
             
@@ -67,7 +78,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 required
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
                
               />
               <span 

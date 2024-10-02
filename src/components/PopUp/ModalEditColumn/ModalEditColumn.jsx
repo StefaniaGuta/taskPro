@@ -5,7 +5,7 @@ import CloseButton from '../CloseButton/CloseButton';
 import { useEditColumnMutation } from '../../../redux/boardApi/boardApi';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
-import { Loader } from '../../Loader/Loader';
+import Loader  from '../../Loader/Loader';
 import {
   Form,
   FormFieldTitle,
@@ -17,9 +17,9 @@ import {
   ContainerIconButton,
 } from './ModalEditColumn.styled';
 
-const ModalEditColumn = ({ componentName }) => {
+const ModalEditColumn = ({ componentName={} }) => {
   const dispatch = useDispatch();
-  const { id, title } = componentName;
+  const { id='', title='' } = componentName;
   const [editColumn, { isLoading: isEditLoading }] = useEditColumnMutation();
 
   const handleSubmit = async (values) => {

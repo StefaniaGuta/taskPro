@@ -1,4 +1,9 @@
 import React from 'react';
+import ModalEditColumn from 'components/PopUp/ModalEditColumn/ModalEditColumn';
+import ModalEditCard from 'components/PopUp/EditCard/EditCard';
+import ModalAddColumn from 'components/PopUp/ModalAddColumn/ModalAddColumn';
+import ModalAddCard from 'components/PopUp/AddCard/AddCard';
+import { useState } from 'react';
 import SideBar from '../SideBar/SideBar';
 import styles from './ProjectOffice.module.css';
 import filtersImage from '../../images/filter.png';
@@ -18,6 +23,10 @@ import priorityIcon3 from '../../images/Ellipsegreen.png';
 import bell from '../../images/bell.png';
 
 const ProjectOffice = () => {
+  const [isEditColumnModalOpen, setIsEditColumnModalOpen] = useState(false);
+  const [isEditCardModalOpen, setIsEditCardModalOpen] = useState(false);
+  const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
+  const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
   return (
     <div
       style={{ display: 'flex', backgroundColor: '#F6F6F7', height: '100vh' }}
@@ -44,6 +53,7 @@ const ProjectOffice = () => {
                 src={firstImage}
                 alt="First"
                 className={styles['icon-image']}
+                onClick={() => setIsEditColumnModalOpen(true)}
               />
               <img
                 src={secondImage}
@@ -52,7 +62,7 @@ const ProjectOffice = () => {
               />
             </div>
           </div>
-
+          {isEditColumnModalOpen && <ModalEditColumn onClose={() => setIsEditColumnModalOpen(false)} />}
           <div className={`${styles.card1} ${styles['in-progress-card']}`}>
             In Progress
             <div className={styles['card-icons']}>
@@ -84,7 +94,13 @@ const ProjectOffice = () => {
               />
             </div>
           </div>
+          <button className={styles.AddColumBtn} onClick={() => setIsAddColumnModalOpen(true)}>
+            <span>+</span>
+            Add another column
+          </button>
         </div>
+        {isAddColumnModalOpen && <ModalAddColumn onClose={() => setIsAddColumnModalOpen(false)} />}
+
 
         <div className={styles['card-columns']}>
           {/* First Column */}
@@ -120,11 +136,11 @@ const ProjectOffice = () => {
               </div>
               <div className={styles['right-icons']}>
                 <img src={icon1} alt="Icon 1" className={styles['icon']} />
-                <img src={icon2} alt="Icon 2" className={styles['icon']} />
+                <img src={icon2} alt="Icon 2" className={styles['icon']} onClick={() => setIsEditCardModalOpen(true)} />
                 <img src={icon3} alt="Icon 3" className={styles['icon']} />
               </div>
             </div>
-
+            {isEditCardModalOpen && <ModalEditCard onClose={() => setIsEditCardModalOpen(false)} />}
             {/* Second Card */}
             <div className={styles['task-card']}>
               <img
@@ -426,13 +442,13 @@ const ProjectOffice = () => {
             </div>
           </div>
         </div>
-
         {/* Bottom row of cards */}
         <div className={styles['bottom-card-row']}>
-          <div className={`${styles.card} ${styles['add-card']}`}>
+          <div className={`${styles.card} ${styles['add-card']}`} onClick={() => setIsAddCardModalOpen(true)}>
             Add another card
             <button className={styles['add-button']}>+</button>
           </div>
+        {isAddCardModalOpen && <ModalAddCard onClose={() => setIsAddCardModalOpen(false)} />}
           <div className={`${styles.card} ${styles['add-card']}`}>
             Add another card
             <button className={styles['add-button']}>+</button>

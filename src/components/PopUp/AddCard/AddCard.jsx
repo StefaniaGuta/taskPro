@@ -36,8 +36,8 @@ import {
   BtnName,
 } from './AddCard.styled.js';
 
-const ModalAddCard = ({ componentName }) => {
-  const { boardId, columnId } = componentName;
+const ModalAddCard = ({ componentName={} }) => {
+  const { boardId='', columnId='' } = componentName;
   const [date, setDate] = useState(new Date());
   const [select, setSelect] = useState('without');
   const [formattedDate, setFormattedDate] = useState('');

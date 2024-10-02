@@ -1,4 +1,4 @@
-import url from '../../../images/icons/sprite/icons.svg';
+import url from '../../../images/icons/sprite.svg';
 import { closeModal } from '../../../redux/modal/modalSlice.js';
 import { useDispatch } from 'react-redux';
 import { IconButton } from './CloseButton.styled';

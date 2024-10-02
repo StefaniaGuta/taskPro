@@ -24,6 +24,40 @@
   display: flex;
   gap: 34px;
   margin-bottom: 24px;
+  width: 7000px;
+}
+
+.AddColumBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 334px;
+  height: 56px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: none;
+  gap: 10px;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.AddColumBtn span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #161616;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ffffff;
+
 }
 
 .card {
@@ -403,4 +437,5 @@
     gap: 16px; /* Smaller gap for mobile */
     padding-bottom: 10px;
   }
+
 }

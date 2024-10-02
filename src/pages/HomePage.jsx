@@ -8,6 +8,8 @@ import BeforeStart from 'components/Dashboard/BeforeStart';
 import { selectIsLoading } from '../redux/theme/themeSelector';
 import Loader from 'components/Loader';
 
+
+
 const HomePage = () => {
   const allBoards = useSelector(selectBoards);
   const dispatch = useDispatch();
