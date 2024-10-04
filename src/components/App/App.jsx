@@ -7,6 +7,8 @@ import { PublicRoute } from '../../routes/PublicRoute';
 import { PrivateRoute }  from '../../routes/PrivateRoute';
 import SharedLayout from 'layouts/SharedLayout';
 import Loader from 'components/Loader';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 
 
@@ -22,11 +24,17 @@ const MainPage = lazy(() => import('../../pages/MainPage/MainPage'));
 const ProjectOffice = lazy(() => import('../ProjectOffice/ProjectOffice')); 
 
 const App = () => {
+  const theme = useSelector(state => state.auth.user.theme);
 
+  useEffect(() => {
+    if (theme) {
+      document.body.setAttribute('data-theme', theme);
+    }
+  }, [theme]);
   
 
   return (
-    <>
+    <section className='App'>
       <Suspense fallback={<Loader />}>
         <Routes>
           
@@ -69,7 +77,7 @@ const App = () => {
         </Routes>
       </Suspense>
       
-    </>
+    </section>
   );
 };
 

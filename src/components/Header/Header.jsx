@@ -3,10 +3,12 @@ import { HeaderSection} from "./Header.styled";
 import Profile from "components/Profile/Profile";
 import ThemeSelect from "components/ThemeSelect/ThemeSelect";
 import SideBar from "components/SideBar/SideBar";
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const theme = useSelector(state => state.auth.user.theme);
     return (
-      <HeaderSection>
+      <HeaderSection theme={theme}>
         
           <SideBar/>
        

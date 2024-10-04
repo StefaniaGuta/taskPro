@@ -1,40 +1,51 @@
-//import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
 import { updateTheme } from '../../redux/theme/themeOperation';
-import { useTheme } from 'hooks/useTheme';
 import './ThemeSelect.css';
-//import { SelectWrap } from './ThemeSelect.styled';
 
 function ThemeSelect() {
-  //const [isSelectOpen, setIsSelectOpen] = useState(false);
-
-  useTheme();
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState(false);
+  const theme = useSelector((state) => state.auth.user.theme);
+
   const THEME_OPTIONS = [
-    { value: 'light', label: `${t('header.theme1')}` },
-    { value: 'dark', label: `${t('header.theme2')}` },
-    { value: 'violet', label: `${t('header.theme3')}` },
+    { value: 'light', label: `${t('Light')}` },
+    { value: 'dark', label: `${t('Dark')}` },
+    { value: 'violet', label: `${t('Violet')}` },
   ];
 
-  const onChangeTheme = event => {
-    dispatch(updateTheme({ theme: event.value }));
+  const onChangeTheme = async (selectedOption) => {
+    setLoading(true);
+
+    try {
+      const resultAction = await dispatch(updateTheme(selectedOption.value));
+
+      if (updateTheme.fulfilled.match(resultAction)) {
+        console.log(t('Theme updated successfully'));
+      } else if (updateTheme.rejected.match(resultAction)) {
+        console.log(resultAction.payload || t('Failed to update theme'));
+      }
+    } catch (error) {
+      console.log(t('An error occurred while updating the theme'));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <section >
+    <section>
       <Select
         classNamePrefix="custom-select"
-        onChange={event => {
-          onChangeTheme(event);
-        }}
+        onChange={onChangeTheme}
         options={THEME_OPTIONS}
-        placeholder={`${t('header.theme')}`}
+        defaultValue={THEME_OPTIONS.find(option => option.value === theme)}
+        placeholder={`${t('Theme')}`}
         isSearchable={false}
-        
+        isDisabled={loading}
       />
     </section>
   );

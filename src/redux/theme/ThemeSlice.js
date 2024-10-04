@@ -1,30 +1,44 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { handlePending, handleRejected } from '../helpers';
 import { getTheme, updateTheme } from './themeOperation';
+
+const initialState = {
+  theme: 'dark',
+  isLoading: false,
+  error: null,
+};
 
 const themeSlice = createSlice({
   name: 'theme',
-  initialState: {
-    theme: 'light',
-    isLoading: false,
-    error: null,
-  },
+  initialState,
   extraReducers: builder => {
     builder
-      .addCase(getTheme.pending, handlePending)
-      .addCase(updateTheme.pending, handlePending)
-      .addCase(getTheme.fulfilled, (state, { payload }) => {
-        state.theme = payload.theme;
+      .addCase(getTheme.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getTheme.fulfilled, (state, action) => {
+        state.theme = action.payload;
         state.isLoading = false;
         state.error = null;
       })
-      .addCase(updateTheme.fulfilled, (state, { payload }) => {
+      .addCase(getTheme.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateTheme.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateTheme.fulfilled, (state, action) => {
+        state.theme = action.payload;
         state.isLoading = false;
         state.error = null;
-        state.theme = payload.theme;
       })
-      .addCase(getTheme.rejected, handleRejected)
-      .addCase(updateTheme.rejected, handleRejected);
+      .addCase(updateTheme.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      });
   },
 });
+
 export const themeReducer = themeSlice.reducer;

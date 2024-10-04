@@ -33,6 +33,7 @@ export const logIn = createAsyncThunk(
       const { data } = await axios.post(`${API_URL}api/auth/login`, credentials);
       const { token } = data;
       localStorage.setItem('token', token);
+      console.log(data)
       console.log('login')
       return data;
     } catch (error) {
@@ -68,8 +69,18 @@ export const logOut = createAsyncThunk(
 export const refreshUser = createAsyncThunk(
   'auth/current',
   async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.token;
+    
+    
     try {
-      const res = await axios.get(`${API_URL}/api/auth/current`);
+      const res = await axios.get(`${API_URL}api/auth/current`, {
+        headers: {
+          Authorization: `Bearer ${token}` 
+        }
+      });
+      
+      console.log(res.data);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
