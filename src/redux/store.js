@@ -17,6 +17,7 @@ import { supportReducer } from './support/supportSlice';
 import { boardSearchReducer } from './search/searchSlice';
 import { filterReducer } from './filter/filterSlice';
 import { miniImgApi } from '../redux/miniImgApi/miniImgApi';
+import { helpApi } from '../redux/helpApi/helpApi'
 
 const authPersistConfig = {
   key: 'auth',
@@ -33,13 +34,14 @@ export const store = configureStore({
     search: boardSearchReducer,
     filter: filterReducer,
     [miniImgApi.reducerPath]: miniImgApi.reducer,
+    [helpApi.reducerPath]: helpApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(miniImgApi.middleware),
+    }).concat(miniImgApi.middleware, helpApi.middleware),
 });
 
 export const persistor = persistStore(store);

@@ -10,49 +10,34 @@ import {
 const initialState = {
   user: { name: null, email: null },
   token: null,
-  refreshToken: null,
-  isLoggedIn: false,
-  isRefreshing: false,
-  isLoading: false,
+  isLoggedIn: null
 };
 
-export const authSlice = createSlice({
+const authSlice = createSlice({
   name: 'auth',
   initialState,
   extraReducers: builder => {
     builder
-      .addCase(register.pending)
-      .addCase(logIn.pending)
-      .addCase(logOut.pending)
-      .addCase(refreshUser.pending, state => {
-        state.isLoading = true;
-        state.isRefreshing = true;
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = null;
+        state.isLoggedIn = false;
       })
-      .addCase(register.fulfilled)
-      .addCase(logIn.fulfilled)
+      .addCase(logIn.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+      })
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
-        state.refreshToken = null;
         state.isLoggedIn = false;
-        state.isLoading = false;
-      })
-      .addCase(refreshUser.fulfilled, (state, { payload }) => {
-        state.user = { ...payload };  // Asigură-te că payload-ul conține 'name' și 'email'
-        state.token = payload.tokenAccess;  // Dacă 'tokenAccess' este prezent în payload
-        state.isLoggedIn = true;
-        state.isRefreshing = false;
-        state.isLoading = false;
-      })
-      .addCase(register.rejected)
-      .addCase(logIn.rejected)
-      .addCase(logOut.rejected)
-      .addCase(refreshUser.rejected, (state, { payload }) => {
-        state.isRefreshing = false;
-        state.isLoading = false;
-        state.error = payload;
-      })
-      
+      });
   },
 });
 

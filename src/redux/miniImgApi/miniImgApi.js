@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const miniImgApi = createApi({
   reducerPath: 'miniImg',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://task-pro-app.onrender.com/api',
+    baseUrl: 'https://taskpro-app-bcac9d37037a.herokuapp.com/api/auth/users/{usersId}/set-background',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {

@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const helpApi = createApi({
   reducerPath: 'helpApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://task-pro-app.onrender.com/api',
+    baseUrl: 'https://taskpro-app-bcac9d37037a.herokuapp.com',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {
@@ -14,10 +14,10 @@ export const helpApi = createApi({
   }),
   endpoints: (builder) => ({
     postComment: builder.mutation({
-      query: ({ comment, email }) => ({
-        url: '/help/',
+      query: ({ comment }) => ({
+        url: '/api/need-help',
         method: 'POST',
-        body: { comment, email },
+        body: { comment },
       }),
     }),
   }),

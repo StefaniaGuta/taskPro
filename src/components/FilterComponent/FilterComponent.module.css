@@ -1,0 +1,18 @@
+.FilterBtn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f6f6f7;
+    border: 0;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #161616CC;
+    width: 60px;
+    padding: 0;
+    align-self: flex-start;
+    justify-self: self-end;
+}

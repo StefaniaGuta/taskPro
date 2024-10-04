@@ -6,11 +6,17 @@
 .OpenCloseBtn{
   border: none;
   background-color: #FFFFFF;
+  width: 24px;
+  height: 24px;
+  padding: 0;
 }
 
 .SideLogo {
-  margin: 15px 0 35px 10px;
-  cursor: pointer;
+  display: flex;
+  align-self: flex-end;
+  position: absolute;
+  top: 19px;
+  left: 10px;
 }
 
 .Sidebar {
@@ -29,7 +35,7 @@
   letter-spacing: -0.02em;
   text-align: left;
   color: #16161680;
-  margin: 0;
+  margin: 80px 0 0 0;
 }
 
 .CreateBoardSection {
@@ -223,13 +229,12 @@
     height: 1024px;
   }
 
+  
   .CreateBoardSection,
   .Boards {
     width: 212px;
     padding-left: 15px;
   }
-
-  
 
   .ProjectSection{
     width: 245px;
@@ -245,7 +250,7 @@
 
 @media screen and (min-width: 1200px) {
   .SideLogo {
-    margin: 15px 0 45px 10px;
+    top: 14px;
   }
 
   .ProjectSection {

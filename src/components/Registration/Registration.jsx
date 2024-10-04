@@ -17,15 +17,22 @@ const Registration = () => {
   };
   
   const handleSubmit = async (e) => {
+    e.preventDefault();
+  
     try {
-      e.preventDefault();
-      await dispatch(register({ ...form }));
-      resetForm();
-      navigate("/page");
-    } catch(error) {
-      console.log(error)
+      const resultAction = await dispatch(register({ ...form }));
+  
+      if (register.fulfilled.match(resultAction)) {
+        resetForm();
+        navigate("/page");
+      } else {
+        console.error("Eroare la înregistrare:", resultAction.error.message);
+      }
+    } catch (error) {
+      console.error("Eroare neașteptată:", error);
     }
   };
+  
 
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';

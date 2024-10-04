@@ -34,7 +34,6 @@ export const logIn = createAsyncThunk(
       const { token } = data;
       localStorage.setItem('token', token);
       console.log('login')
-      console.log(data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -58,6 +57,7 @@ export const logOut = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log('logout')
+      console.log(state);
     } catch (error) {
       console.log(error)
       return thunkAPI.rejectWithValue(error.response.data);
@@ -65,27 +65,16 @@ export const logOut = createAsyncThunk(
   }
 );
 
-export const refreshUser  = createAsyncThunk(
+export const refreshUser = createAsyncThunk(
   'auth/current',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const persistedToken = state.auth.token;
-  
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Unable to fetch user');
-    }
-  
     try {
-      const token = localStorage.getItem('token');
-    const res = await axios.get(`https://taskpro-app-bcac9d37037a.herokuapp.com/api/auth/current`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  
-    console.log('current')
+      const res = await axios.get(`${API_URL}/api/auth/current`);
       return res.data;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
     }
-  });
+  }
+);
 
 

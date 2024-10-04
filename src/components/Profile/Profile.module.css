@@ -1,0 +1,24 @@
+.MenuContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90px;
+}
+
+.MenuContainer h1 {
+    font-family: Poppins,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.Avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;;
+
+}

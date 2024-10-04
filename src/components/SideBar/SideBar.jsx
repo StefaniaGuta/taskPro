@@ -117,7 +117,8 @@ const SideBar = () => {
           <div className={style.HelpSection}>
             <img src={NeedHelpImg} alt='needhelp'/>
             <p>If you need help with <span>TaskPro</span>, check out our support resources or reach out to our customer support team.</p>
-            <button className={style.HelpBtn} onClick={() => setIsNeedModalOpen(true)}>
+            <button className={style.HelpBtn} onClick={() => setIsNeedModalOpen(prevState => !prevState)} 
+            >
               <img src={helpCircle} alt='help'/>
               Need help?
             </button>

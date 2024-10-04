@@ -3,8 +3,9 @@ import ModalEditColumn from 'components/PopUp/ModalEditColumn/ModalEditColumn';
 import ModalEditCard from 'components/PopUp/EditCard/EditCard';
 import ModalAddColumn from 'components/PopUp/ModalAddColumn/ModalAddColumn';
 import ModalAddCard from 'components/PopUp/AddCard/AddCard';
+import Header from 'components/Header/Header';
 import { useState } from 'react';
-import SideBar from '../SideBar/SideBar';
+import Filters from '../PopUp/Filters/Filters';
 import styles from './ProjectOffice.module.css';
 import filtersImage from '../../images/filter.png';
 import firstImage from '../../images/SidePencil.png';
@@ -27,22 +28,25 @@ const ProjectOffice = () => {
   const [isEditCardModalOpen, setIsEditCardModalOpen] = useState(false);
   const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
   const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
+  const [isModalFiltersOpen, setIsFilterModalOpen] = useState(false);
   return (
+    <>
+      <Header/>
+      {isModalFiltersOpen && <Filters onClose={() => setIsFilterModalOpen(false)}/>}
     <div
       style={{ display: 'flex', backgroundColor: '#F6F6F7', height: '100vh' }}
-    >
-      <SideBar />
+      >
       <div className={styles['project-office-container']} style={{ flex: 1 }}>
         <h1 className={styles['project-office-title']}>Project office</h1>
-
-        <div className={styles['filters-section']}>
+        
+        <button className={styles['filters-section']} onClick={() => setIsFilterModalOpen(true)}>
           <span className={styles['filters-text']}>Filters</span>
           <img
             src={filtersImage}
             alt="Filters"
             className={styles['filters-image']}
           />
-        </div>
+        </button>
 
         {/* Top row of cards */}
         <div className={styles['top-card-row']}>
@@ -54,12 +58,12 @@ const ProjectOffice = () => {
                 alt="First"
                 className={styles['icon-image']}
                 onClick={() => setIsEditColumnModalOpen(true)}
-              />
+                />
               <img
                 src={secondImage}
                 alt="Second"
                 className={styles['icon-image']}
-              />
+                />
             </div>
           </div>
           {isEditColumnModalOpen && <ModalEditColumn onClose={() => setIsEditColumnModalOpen(false)} />}
@@ -460,6 +464,7 @@ const ProjectOffice = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

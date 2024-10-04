@@ -36,8 +36,8 @@ const NeedHelpModal = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      await postComment(values);
-      Notify.success('Sol lucet omnibus');
+      await postComment(values).unwrap();
+      Notify.success('Comment sent');
 
       resetForm();
       dispatch(closeModal());

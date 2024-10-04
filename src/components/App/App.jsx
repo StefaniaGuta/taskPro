@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 //import { Toaster } from 'react-hot-toast';
 //import { refreshUser } from '../../redux/auth/authOperations';
 import { PublicRoute } from '../../routes/PublicRoute';
-//import  PrivateRoute  from '../../routes/PrivateRoute';
+import { PrivateRoute }  from '../../routes/PrivateRoute';
 import SharedLayout from 'layouts/SharedLayout';
 import Loader from 'components/Loader';
 
@@ -45,20 +45,20 @@ const App = () => {
           <Route
             path="login"
             element={
-              <PublicRoute component={<LoginPage />} />
+              <PublicRoute  component={<LoginPage />} />
             }
           />
         
             <Route
               path="page"
               element={
-                <PublicRoute component={<MainPage />} />
+                <PrivateRoute component={<MainPage />} />
               }
             />
             <Route
               path="office"
               element={
-                <PublicRoute component={<ProjectOffice />} />
+                <PrivateRoute component={<ProjectOffice />} />
               }
             />
 
