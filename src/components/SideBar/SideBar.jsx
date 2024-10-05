@@ -14,6 +14,7 @@ import logoutImg from '../../images/logoutImg.jpg';
 import helpCircle from '../../images/help-circle.png';
 import SideBin from '../../images/SideBin.png';
 import SidePencil from '../../images/SidePencil.png';
+import { useSelector } from 'react-redux';
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -32,7 +33,8 @@ const SideBar = () => {
   const [isEditBoardModalOpen, setIsEditBoardModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const theme = useSelector(state => state.auth.user.theme);
+  
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
@@ -73,7 +75,7 @@ const SideBar = () => {
   
   const DrawerList = (
     <Box 
-      className={style.Sidebar}
+      className={`${style.Sidebar} ${style[theme]}`}
       sx={{
         border: 'none', 
         boxShadow: 'none',
@@ -90,14 +92,14 @@ const SideBar = () => {
           <div className={style.CreateBoardSection}>
             <h2 className={style.CreateBoard}>Create a new board</h2>
             <button type='button' 
-              className={style.CreateBoardBtn} 
+              className={`${style.CreateBoardBtn} ${theme}`} 
               onClick={CreateBoard}
             >
               +
             </button>
           </div>
 
-          <div className={style.ProjectSection} tabIndex="0" onClick={() => navigate('/office')}>
+          <div className={`${style.ProjectSection} ${theme}`} tabIndex="0" onClick={() => navigate('/office')}>
             <div className={style.NameDiv}>
             <img src={Project} alt='project'/>
             <h2 className={style.PojectName}>Project office</h2>
@@ -109,7 +111,7 @@ const SideBar = () => {
             </div>
           </div>
 
-          <div className={style.NeonProject}>
+          <div className={`${style.NeonProject} ${theme}`}>
             <img src={puzzle} alt='puzzle'/>
             <h2>Neon Light Project</h2>
           </div>

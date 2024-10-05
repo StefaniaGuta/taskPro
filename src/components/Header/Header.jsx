@@ -1,4 +1,4 @@
-import { HeaderSection} from "./Header.styled";
+import { HeaderSection, HeaderUserWrap} from "./Header.styled";
 //import { TempForLanguages } from "components/TempForLanguages/TempForLanguage";
 import Profile from "components/Profile/Profile";
 import ThemeSelect from "components/ThemeSelect/ThemeSelect";
@@ -11,9 +11,11 @@ const Header = () => {
       <HeaderSection theme={theme}>
         
           <SideBar/>
-       
+          <HeaderUserWrap >
           <ThemeSelect />
           <Profile/>
+          </HeaderUserWrap>
+       
           
         
       </HeaderSection>

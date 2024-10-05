@@ -9,8 +9,6 @@ export const HeaderSection = styled.header`
   position: relative;
   background-color: ${({ theme }) => {
     switch (theme) {
-      case 'light':
-        return '#ffffff';
       case 'dark':
         return '#161616';
       case 'violet':
@@ -18,18 +16,22 @@ export const HeaderSection = styled.header`
       default:
         return '#ffffff';
     }
-  }
-}
+  }};  
+  color: ${({theme}) =>{
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      case 'violet':
+        return '#161616';
+      default:
+        return '#161616';
+    }
+  }}
+  
 `;
+
 
 export const HeaderUserWrap = styled.div`
   display: flex;
-  align-items: center;
-  gap: 6px;
-  @media screen and (min-width: 768px) {
-   gap:14px;
-  }
-  @media screen and (min-width: 1440px) {
-    gap: 25px;
-  }
+  gap: 10px;
 `;

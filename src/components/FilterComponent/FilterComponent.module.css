@@ -16,3 +16,16 @@
     align-self: flex-start;
     justify-self: self-end;
 }
+
+.dark {
+    background-color: #1F1F1F;
+    color: #FFFFFFCC;
+}
+
+.violet{
+    background-color: #D6D8FF;
+}
+
+.FilterBtn.dark img{
+    filter: invert(1);
+}

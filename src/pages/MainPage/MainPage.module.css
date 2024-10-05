@@ -22,18 +22,22 @@
 .Text span {
     color: #BEDBB0;
 }
+  
+.dark {
+background-color: #1F1F1F;
+}
 
-.MainSection.light {
-   background-color: #f6f6f7;
-  }
-  
-  .MainSection.dark {
-    background-color: #1F1F1F;
-  }
-  
-  .MainSection.violet {
-    background-color: #D6D8FF;
-  }
+.violet {
+background-color: #D6D8FF;
+}
+.MainSection.violet span{
+color: #5255BC;
+}
+
+.MainSection.dark p{
+color: #FFFFFF80;
+}
+ 
 
 @media screen and (min-width: 768px) {
     .MainSection {

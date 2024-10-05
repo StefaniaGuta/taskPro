@@ -13,7 +13,6 @@ import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/authSlice';
 import { boardsReducer } from './board/boardSlice';
 import { themeReducer } from './theme/ThemeSlice';
-import { supportReducer } from './support/supportSlice';
 import { boardSearchReducer } from './search/searchSlice';
 import { filterReducer } from './filter/filterSlice';
 import { miniImgApi } from '../redux/miniImgApi/miniImgApi';
@@ -31,7 +30,6 @@ export const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     boards: boardsReducer,
     theme: themeReducer,
-    support: supportReducer,
     search: boardSearchReducer,
     filter: filterReducer,
     [miniImgApi.reducerPath]: miniImgApi.reducer,
