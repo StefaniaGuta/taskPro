@@ -15,13 +15,11 @@ import helpCircle from '../../images/help-circle.png';
 import SideBin from '../../images/SideBin.png';
 import SidePencil from '../../images/SidePencil.png';
 import { useSelector } from 'react-redux';
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 
-
-
+//import NewBoardPage from 'pages/NewBoardPage/NewBoardPage';
 import style from './SideBar.module.css';
 
 
@@ -72,6 +70,10 @@ const SideBar = () => {
     setIsModalOpen(true)
     setIsOpen(false)
   }
+
+  const NavigateToNewBoard = () => {
+    navigate('/boards/:boardName/:boardId')
+  }
   
   const DrawerList = (
     <Box 
@@ -110,6 +112,9 @@ const SideBar = () => {
               <img className={style.ProjectIcon}  src={SideBin} alt='icon'/>
             </div>
           </div>
+          <button onClick={NavigateToNewBoard}>
+            New Board
+          </button>
 
           <div className={`${style.NeonProject} ${theme}`}>
             <img src={puzzle} alt='puzzle'/>

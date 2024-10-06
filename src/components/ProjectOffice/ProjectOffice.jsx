@@ -21,12 +21,14 @@ import priorityIcon2 from '../../images/Ellipsegray.png';
 import leftBarImage3 from '../../images/Greenbar.png';
 import priorityIcon3 from '../../images/Ellipsegreen.png';
 import bell from '../../images/bell.png';
+import { useSelector } from 'react-redux';
 
 const ProjectOffice = () => {
   const [isEditColumnModalOpen, setIsEditColumnModalOpen] = useState(false);
   const [isEditCardModalOpen, setIsEditCardModalOpen] = useState(false);
   const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
   const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
+  const theme = useSelector(state => state.auth.user.theme);
   return (
     <>
       <Header/>
@@ -34,7 +36,7 @@ const ProjectOffice = () => {
       {isEditColumnModalOpen && <ModalEditColumn onClose={() => setIsEditColumnModalOpen(false)} />}
       
     
-      <section className={styles.ProjectOfficeSection}>
+      <section className={`${styles.ProjectOfficeSection} ${styles[theme]}`}>
         <div className={styles['title-filters-container']}>
           <h1 className={styles['project-office-title']}>Project office</h1>
             <FilterComponent/>
@@ -166,8 +168,8 @@ const ProjectOffice = () => {
                 </div>
               </div>
               <button className={styles['add-card']} onClick={() => setIsAddCardModalOpen(true)}>
-              Add another card
-              <span className={styles['add-button']}>+</span>
+                <span className={styles['add-button']}>+</span>
+                Add another card
               </button>
               </div>
         </div>
@@ -298,8 +300,8 @@ const ProjectOffice = () => {
                 </div>
               </div>
             <button className={styles['add-card']}>
-              Add another card
               <span className={styles['add-button']}>+</span>
+              Add another card
             </button>
             </div>
         </div>
@@ -428,8 +430,8 @@ const ProjectOffice = () => {
               </div>
             </div>
             <button className={styles['add-card']}>
-              Add another card
               <span className={styles['add-button']}>+</span>
+              Add another card
             </button>
         </div>
           </div>

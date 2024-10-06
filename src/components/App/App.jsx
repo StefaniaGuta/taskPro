@@ -15,13 +15,14 @@ import { useSelector } from 'react-redux';
 //const AuthPage = lazy(() => import('pages/AuthPage'));
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 //const ScreensPage = lazy(() => import('pages/ScreensPage'));
-const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
+//const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 //const StatsPage = lazy(() => import('pages/StatsPage'));
 //const SchedulePage = lazy(() => import('pages/SchedulePage'));
 const RegistrationPage = lazy(() => import('../../pages/RegistrationPage/RegistrationPage'));
 const LoginPage = lazy(() => import('../../pages/LogInPage/LoginPage'));
 const MainPage = lazy(() => import('../../pages/MainPage/MainPage'));
 const ProjectOffice = lazy(() => import('../ProjectOffice/ProjectOffice')); 
+const NewBoardPage = lazy(() => import('../../pages/NewBoardPage/NewBoardPage'));
 
 const App = () => {
   const theme = useSelector(state => state.auth.user.theme);
@@ -69,11 +70,17 @@ const App = () => {
                 <PrivateRoute component={<ProjectOffice />} />
               }
             />
+            <Route
+              path="/boards/:boardName/:boardId"
+              element={
+                <PrivateRoute component={<NewBoardPage />} />
+              }
+            />
 
                 <Route path="/home" element={<SharedLayout />}>
           </Route>
 
-          <Route path="*" element={<NotFoundPage />} />
+          
         </Routes>
       </Suspense>
       

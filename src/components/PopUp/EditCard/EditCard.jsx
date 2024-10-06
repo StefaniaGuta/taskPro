@@ -92,7 +92,7 @@ const ModalEditCard = ({ componentName={} }) => {
 
   const handleSubmit = async (values) => {
     try {
-      await updateTask({ values, idTask });
+      await updateTask({ values, idTask }).unwrap();
       dispatch(closeModal());
     } catch (error) {
       console.log(error);

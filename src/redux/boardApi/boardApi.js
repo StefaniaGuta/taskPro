@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const boardsApi = createApi({
   reducerPath: 'boardsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://task-pro-app.onrender.com/api/',
+    baseUrl: 'https://taskpro-app-bcac9d37037a.herokuapp.com/api',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {
@@ -15,41 +15,41 @@ export const boardsApi = createApi({
   tagTypes: ['Boards', 'Columns', 'BoardsId', 'Profile', 'BoardBg'],
   endpoints: (builder) => ({
     getFetchBoards: builder.query({
-      query: () => '/board ',
+      query: () => '/ ',
       providesTags: ['Boards'],
     }),
     getFetchBoardById: builder.query({
-      query: (boardId) => `/board/getById/${boardId}`,
+      query: (boardName) => `/boards/${boardName}`,
       providesTags: ['BoardsId'],
     }),
     createBoard: builder.mutation({
-      query: (formData) => ({
-        url: `/board/create`,
+      query: ({values, name, icon, backgroundImage}) => ({
+        url: `/boards`,
         method: 'POST',
-        body: formData,
+        body: {values, name, icon, backgroundImage}
       }),
       invalidatesTags: ['Boards'],
     }),
     deleteBoard: builder.mutation({
-      query: (id) => ({
-        url: `/board/delete/${id}`,
+      query: (boardName) => ({
+        url: `/boards/${boardName}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['Boards', 'Columns'],
     }),
     createColumn: builder.mutation({
-      query: ({ values, boardId }) => ({
-        url: `/column/${boardId}`,
+      query: ({ name, value, boardName}) => ({
+        url: `/boards/${boardName}/column`,
         method: 'POST',
-        body: values,
+        body: {name, value, boardName}
       }),
-      invalidatesTags: ['BoardsId', 'Columns'],
+      invalidatesTags: ['BoardsName', 'Columns'],
     }),
     createTask: builder.mutation({
-      query: ({ values, boardId, columnId }) => ({
-        url: `/tasks/${boardId}/${columnId}`,
+      query: ({ values, boardName, id}) => ({
+        url: `/boards/${boardName}/column/${id}/card`,
         method: 'POST',
-        body: values,
+        body: { values, boardName, id}
       }),
       invalidatesTags: ['Profile', 'BoardsId'],
     }),
@@ -58,39 +58,39 @@ export const boardsApi = createApi({
       providesTags: ['Profile'],
     }),
     editColumn: builder.mutation({
-      query: ({ values, id }) => ({
-        url: `/column/${id}`,
+      query: ({ values, id, boardName }) => ({
+        url: `/boards/${boardName}/column/${id}`,
         method: 'PATCH',
-        body: values,
+        body: { values, boardName, id}
       }),
-      invalidatesTags: ['BoardsId', 'Columns'],
+      invalidatesTags: ['BoardsName', 'Columns'],
     }),
     deleteColumn: builder.mutation({
-      query: (id) => ({
-        url: `/column/${id}`,
+      query: ({id, boardName}) => ({
+        url: `boards/${boardName}/column/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['BoardsId', 'Columns'],
+      invalidatesTags: ['BoardsName', 'Columns'],
     }),
     editBoard: builder.mutation({
-      query: ({ values, id }) => ({
-        url: `/board/update/${id}`,
+      query: ({ values, boardName }) => ({
+        url: `/boards/${boardName}`,
         method: 'PATCH',
         body: values,
       }),
       invalidatesTags: ['Boards', 'BoardsId'],
     }),
     updateTask: builder.mutation({
-      query: ({ values, idTask }) => ({
-        url: `/tasks/${idTask}`,
+      query: ({values, id, boardName}) => ({
+        url: `/board/${boardName}/card/${id}`,
         method: 'PATCH',
-        body: values,
+        body: {id, boardName, values},
       }),
       invalidatesTags: ['BoardsId', 'Columns'],
     }),
     deleteTask: builder.mutation({
-      query: (id) => ({
-        url: `/tasks/${id}`,
+      query: ({id, boardName}) => ({
+        url: `/board/${boardName}/card/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['BoardsId', 'Columns'],

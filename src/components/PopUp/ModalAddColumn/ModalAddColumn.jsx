@@ -6,6 +6,7 @@ import { closeModal } from '../../../redux/modal/modalSlice';
 import urlIcon from '../../../images/icons/sprite.svg';
 import CloseButton from '../CloseButton/CloseButton';
 import Loader from '../../Loader/Loader';
+import { useParams } from 'react-router-dom';
 import {
   Form,
   FormFieldTitle,
@@ -17,15 +18,23 @@ import {
   ContainerIconButton,
 } from './ModalAddColumn.styled';
 
-const ModalAddColumn = ({ componentName={} }) => {
+const ModalAddColumn = () => {
   const dispatch = useDispatch();
+  const board = useParams();
+  console.log(board.boardName);
   const [createColumn, { isLoading: isCreteLoading }] =
     useCreateColumnMutation();
-  const handleSubmit = async (values) => {
-    const { boardId='' } = componentName;
-    await createColumn({ values, boardId });
-    dispatch(closeModal());
-  };
+  
+    const handleSubmit = async (values) => {
+      try {
+        const { title } = values;
+        await createColumn({ name: title, boardName: board.boardName }).unwrap();
+        dispatch(closeModal());
+        console.log(values, board);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
   return (
     <>

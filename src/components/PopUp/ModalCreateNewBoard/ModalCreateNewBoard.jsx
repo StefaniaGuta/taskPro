@@ -9,6 +9,7 @@ import { useGetMiniImgQuery } from '../../../redux/miniImgApi/miniImgApi';
 import urlIcon from '../../../images/icons/sprite.svg';
 import icons from '../icons.json';
 
+
 import CloseButton from '../CloseButton/CloseButton';
 import {
   ModalCard,
@@ -33,14 +34,20 @@ const ModalCreateNewBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useGetMiniImgQuery();
+  console.log(data);
 
   const [createBoard, { isLoading: isCreateBoard }] = useCreateBoardMutation();
 
-  const handleSubmit = async (values) => {
+ const handleSubmit = async (values) => {
+  try{
     const { data } = await createBoard(values);
-    navigate(`/${data?._id}/${data?.title}`, { replace: true });
+    navigate(`/boards/${data?.name}/${data?._id}`, { replace: true });
     dispatch(closeModal());
-  };
+    console.log(values)
+  }catch (error) {
+    console.log(error)
+  }
+};
 
   return (
     <>
@@ -50,8 +57,8 @@ const ModalCreateNewBoard = () => {
 
         <Formik
           initialValues={{
-            title: '',
-            iconId: icons[0].id,
+            name: '',
+            iconId: icons.length > 0 ? icons[0].id : '',
             backgroundId: 'default',
           }}
           validationSchema={schema}
@@ -61,12 +68,12 @@ const ModalCreateNewBoard = () => {
             <FormFieldTitle>
               <FieldTitle
                 type="text"
-                name="title"
+                name="name"
                 title="You need to enter the name of the column"
                 required
                 placeholder="Title"
               />
-              <ErrorMessage name="title" component="p" />
+              <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
             <Text id="my-radio-groupIcon">Icons</Text>
@@ -96,7 +103,7 @@ const ModalCreateNewBoard = () => {
                   </svg>
                 </ImgBox>
               </label>
-              {data?.map(({ _id, name, image }) => (
+              {Array.isArray(data) && data.map(({ _id, name, image }) => (
                 <label key={_id}>
                   <FormikFieldImage
                     type="radio"
@@ -127,15 +134,12 @@ const ModalCreateNewBoard = () => {
 };
 
 const schema = yup.object({
-  title: yup
+  name: yup
     .string()
     .min(2, 'Too Short!')
     .max(30, 'Maximum 30 characters')
-    .matches(
-      /^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9.%+\-_]*( [a-zA-Zа-яА-ЯёЁ0-9.%+\-_]+)*$/,
-      'Invalid name format'
-    )
-    .required('title is required!'),
+    
+    .required('title is required!'), 
   iconId: yup.string().required('Required!'),
   backgroundId: yup.string().required('Required!'),
 });
