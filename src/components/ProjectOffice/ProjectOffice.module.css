@@ -45,7 +45,6 @@
   overflow-x: auto;
   white-space: nowrap;
   display: flex;
-  gap: 10px;
 }
 
 .column{

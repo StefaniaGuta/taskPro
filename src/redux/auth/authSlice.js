@@ -10,7 +10,7 @@ import { updateTheme } from '../../redux/theme/themeOperation';
 
 
 const initialState = {
-  user: { name: null, email: null },
+  user: { name: null, email: null, avatarURL: null },
   token: null,
   isLoggedIn: null,
   theme: 'light'
@@ -24,7 +24,7 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = null;
-        state.isLoggedIn = false;
+        state.isLoggedIn = true;
         state.theme = action.payload.user.theme || 'light';
       })
       .addCase(logIn.fulfilled, (state, action) => {

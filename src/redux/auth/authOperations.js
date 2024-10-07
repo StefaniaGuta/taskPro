@@ -1,26 +1,33 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
+import Notiflix from "notiflix";
 
 const API_URL = 'https://taskpro-app-bcac9d37037a.herokuapp.com/';
+
+const clearAuthHeader = () => {
+  axios.defaults.headers.common.Authorization = '';
+};
+
+const setAuthHeader = token => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post(`${API_URL}api/auth/register`, credentials)
+      const res = await axios.post(`${API_URL}api/auth/register`, credentials)
 
-      if (response.status === 201) {
-        const { token } = response.data;
-
-        console.log(response.data)
-
-        localStorage.setItem('token', token);
+      console.log(res.data);
+      if (res.status === 201) {
+        Notiflix.Notify.success('Registartion successfully!')
       }
-      console.log(credentials);
-      console.log('registred')
+      return res.data;
     } catch (error) {
-     console.log(error)
+     if (error.response && error.response.status === 409) {
+        Notiflix.Notify.failure('Email already registered!');
+      } 
+      console.log(error);
      return thunkAPI.rejectWithValue(error.response.data);
   };
   }
@@ -32,9 +39,8 @@ export const logIn = createAsyncThunk(
     try {
       const { data } = await axios.post(`${API_URL}api/auth/login`, credentials);
       const { token } = data;
-      localStorage.setItem('token', token);
-      console.log(data)
-      console.log('login')
+     setAuthHeader(token);
+      console.log(data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -44,48 +50,30 @@ export const logIn = createAsyncThunk(
 
 
 export const logOut = createAsyncThunk(
-  'auth/logout',
-  async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.token || localStorage.getItem('token');
-
-    if (!token) {
-      return thunkAPI.rejectWithValue('No token available for logout');
-    }
-
+    'auth/logout',
+    async (_, thunkAPI) => {
     try {
-      await axios.get(`${API_URL}api/auth/logout`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log('logout')
-      console.log(state);
-    } catch (error) {
-      console.log(error)
-      return thunkAPI.rejectWithValue(error.response.data);
-    }
+      await axios.get(`${API_URL}api/auth/logout`) 
+      clearAuthHeader();
+      console.log('log out')
+      clearAuthHeader();
+  } catch (error) {
+    console.log(error)
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
+
 
 export const refreshUser = createAsyncThunk(
-  'auth/current',
+  'auth/currentUser',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-    
-    
     try {
-      const res = await axios.get(`${API_URL}api/auth/current`, {
-        headers: {
-          Authorization: `Bearer ${token}` 
-        }
-      });
-      
-      console.log(res.data);
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      const res = await axios.get(`${API_URL}api/auth/current`)
+        return res.data;
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error.message);
+      }
     }
-  }
-);
+  );
 
 
