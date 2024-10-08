@@ -7,7 +7,7 @@ import urlIcon from '../../../images/icons/sprite.svg';
 import CloseButton from '../CloseButton/CloseButton';
 import Loader from '../../Loader/Loader';
 import { useParams } from 'react-router-dom';
-import {addColumn } from '../../../redux/columns/columnsOperations';
+//import {addColumn } from '../../../redux/columns/columnsOperations';
 import { useState } from 'react';
 
 import {
@@ -25,23 +25,25 @@ import {
 const ModalAddColumn = () => {
   const dispatch = useDispatch();
   const boardId = useParams(); 
-  const [{ isLoading: isCreateLoading }] = useCreateColumnMutation();
+  const [createColumn, { isLoading: isCreateLoading }] = useCreateColumnMutation();
   const [isColumnCreated, setIsColumnCreated] = useState(false);
 
   const handleSubmit = async (values) => {
     try {
-      const { name} = values;
-      const response = await dispatch(addColumn({ name: name, boardName: boardId.boardId }));
+      const { name } = values;
+      if (!name) {
+        throw new Error('"name" is required');
+      }
+      const response = await createColumn({boardName: boardId.boardId, name});
 
       dispatch(closeModal());
-      setIsColumnCreated(true);
-      console.log(response)
-      
-      return response;
+      setIsColumnCreated(name);
+      console.log('created')
+      console.log(response);
+      return response.data;
 
-      //console.log(values.name);
     } catch (error) {
-      console.log(error);
+      console.log('erroare in timpul crearii coloanei', error);
     }
   };
 

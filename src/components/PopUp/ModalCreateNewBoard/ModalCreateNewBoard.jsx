@@ -66,8 +66,7 @@ const ModalCreateNewBoard = () => {
         <Formik
           initialValues={{
             name: '',
-            icon: icons.length > 0 ? icons[0].id : '',
-            backgroundImage: 'default',
+           
           }}
           validationSchema={schema}
           onSubmit={handleSubmit}
@@ -88,13 +87,13 @@ const ModalCreateNewBoard = () => {
             <IconContainer role="group" aria-labelledby="my-radio-groupIcon">
               {icons.map(({ id, path }) => (
                 <label key={id}>
-                  <FormikField type="radio" value={id} name="iconId" />
+                  <FormikField type="radio" value={id} name="icon" />
                   <Icon width="18" height="18">
                     <use xlinkHref={`${urlIcon}${path}`} />
                   </Icon>
                 </label>
               ))}
-              <ErrorMessage name="iconId" component="p" />
+              <ErrorMessage name="icon" component="p" />
             </IconContainer>
 
             <Text id="my-radio-groupImage">Background</Text>
@@ -102,7 +101,7 @@ const ModalCreateNewBoard = () => {
               <label>
                 <FormikFieldImage
                   type="radio"
-                  name="backgroundId"
+                  name="backgroundImage"
                   value="default"
                 />
                 <ImgBox>
@@ -123,7 +122,7 @@ const ModalCreateNewBoard = () => {
                   </ImgBox>
                 </label>
               ))}
-              <ErrorMessage name="backgroundId" component="p" />
+              <ErrorMessage name="backgroundImage" component="p" />
             </ImageContainer>
 
             <Button type="submit" disabled={isCreateBoard}>
@@ -148,8 +147,7 @@ const schema = yup.object({
     .max(30, 'Maximum 30 characters')
     
     .required('title is required!'), 
-  icon: yup.string(),
-  backgroundImage: yup.string(),
+  
 });
 
 export default ModalCreateNewBoard;
