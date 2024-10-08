@@ -37,9 +37,8 @@ const ModalAddColumn = () => {
       const response = await createColumn({boardName: boardId.boardId, name});
 
       dispatch(closeModal());
-      setIsColumnCreated(name);
-      console.log('created')
-      console.log(response);
+      setIsColumnCreated(values.name);
+
       return response.data;
 
     } catch (error) {
@@ -85,7 +84,7 @@ const ModalAddColumn = () => {
 
         {isColumnCreated && (
           <>
-          <h2> name: {isColumnCreated.name}</h2>
+          <h2> name: {isColumnCreated}</h2>
           <Button>
             <ContainerIconButton>
               <svg width="14" height="14">
