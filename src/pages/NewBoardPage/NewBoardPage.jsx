@@ -1,27 +1,31 @@
 import Header from "../../components/Header/Header";
 import FilterComponent from "components/FilterComponent/FilterComponent";
 import React from 'react';
-import { useSelector } from 'react-redux';
 import ModalAddColumn from "components/PopUp/ModalAddColumn/ModalAddColumn";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getAllBoards} from '../../redux/board/boardOperations'
 
 import styles from './NewBoardPage.module.css'
 
 const NewBoardPage = () => {
   const board = useParams();
-  console.log('hei')
-  console.log(board)
+  const dispatch = useDispatch();
 
-  console.log(useSelector((state) => state.boards));
   const [isAddColumnModalOpen, setIsAddColumnModalOpen] = useState(false);
+  
+  const showAllBoards = () => {
+    const allBoards = dispatch(getAllBoards());
+    console.log(allBoards);
+  }
   
     return (
         <>
         <Header/>
         <section className={styles.BoardsSection}>
           <h2>
-            Name {board.boardName}
+            Name {board.boardId}
           </h2>
         <FilterComponent/>
         <button className={styles.AddColumBtn} onClick={() => setIsAddColumnModalOpen(true)}>
@@ -29,6 +33,9 @@ const NewBoardPage = () => {
               Add another column
             </button>
             {isAddColumnModalOpen && <ModalAddColumn onClose={() => setIsAddColumnModalOpen(false)} />}   
+        <button onClick={showAllBoards}>
+          Show Boards
+        </button>
         </section>
         </>
     );

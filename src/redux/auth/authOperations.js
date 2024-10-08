@@ -20,7 +20,7 @@ export const register = createAsyncThunk(
 
       console.log(res.data);
       if (res.status === 201) {
-        Notiflix.Notify.success('Registartion successfully!')
+        console.log('Registartion successfully!')
       }
       return res.data;
     } catch (error) {
@@ -41,6 +41,7 @@ export const logIn = createAsyncThunk(
       const { token } = data;
      setAuthHeader(token);
       console.log(data);
+      console.log(token)
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -56,7 +57,6 @@ export const logOut = createAsyncThunk(
       await axios.get(`${API_URL}api/auth/logout`) 
       clearAuthHeader();
       console.log('log out')
-      clearAuthHeader();
   } catch (error) {
     console.log(error)
     return thunkAPI.rejectWithValue(error.message);

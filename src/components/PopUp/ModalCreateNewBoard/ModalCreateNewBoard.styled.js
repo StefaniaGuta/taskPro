@@ -9,6 +9,7 @@ export const ModalCard = styled.div`
   border: 1px solid var(--borderBoardColor);
   position: relative;
   padding: 24px;
+  z-index: 20000;
   @media screen and (min-width: 320px) {
     width: 90vw;
   }

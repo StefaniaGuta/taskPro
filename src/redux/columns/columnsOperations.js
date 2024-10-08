@@ -1,16 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance, ENDPOINTS } from '../../api';
+//import { axios, ENDPOINTS } from '../../api';
+import axios from 'axios';
+
+axios.defaults.baseURL =  'https://taskpro-app-bcac9d37037a.herokuapp.com'
 
 export const addColumn = createAsyncThunk(
   'columns/addColumn',
-  async (newColumn, thunkAPI) => {
+  async ({ boardName, name}, thunkAPI) => { 
     try {
-      const response = await axiosInstance.post(
-        ENDPOINTS.columns.allColumns,
-        newColumn
-      );
-      return response.data;
+      const { data } = await axios.post(`/api/boards/${boardName}/column`, {
+        name, 
+      });
+
+      console.log('column created');
+      console.log(data);
+      return data;
     } catch (error) {
+      console.log(error, 'error colum');
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -20,7 +26,7 @@ export const deleteColumn = createAsyncThunk(
   'columns/deleteColumn',
   async (columnId, thunkAPI) => {
     try {
-      await axiosInstance.delete(ENDPOINTS.columns.oneColumn(columnId));
+      await axios.delete();
       return columnId;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -32,8 +38,8 @@ export const editColumn = createAsyncThunk(
   'columns/editColumn',
   async ({ editedColumn, id }, thunkAPI) => {
     try {
-      const response = await axiosInstance.patch(
-        ENDPOINTS.columns.oneColumn(id),
+      const response = await axios.patch(
+
         editedColumn
       );
       return response.data;

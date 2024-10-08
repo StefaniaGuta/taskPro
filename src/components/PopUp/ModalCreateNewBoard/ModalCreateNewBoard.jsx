@@ -8,7 +8,8 @@ import  Loader  from '../../Loader/Loader';
 import { useGetMiniImgQuery } from '../../../redux/miniImgApi/miniImgApi';
 import urlIcon from '../../../images/icons/sprite.svg';
 import icons from '../icons.json';
-
+import { createNewBoard } from '../../../redux/board/boardOperations';
+//import Notiflix from 'notiflix';
 
 import CloseButton from '../CloseButton/CloseButton';
 import {
@@ -34,20 +35,27 @@ const ModalCreateNewBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useGetMiniImgQuery();
-  console.log(data);
+ // console.log({data});
 
-  const [createBoard, { isLoading: isCreateBoard }] = useCreateBoardMutation();
-
- const handleSubmit = async (values) => {
-  try{
-    const { data } = await createBoard(values);
-    navigate(`/boards/${data?.name}/${data?._id}`, { replace: true });
-    dispatch(closeModal());
-    console.log(values)
+  const [{ isLoading: isCreateBoard }] = useCreateBoardMutation();
+  
+  const handleSubmit = async (values) => {
+    
+    try{
+    const response = await dispatch(createNewBoard(values));
+    
+    
+        navigate(`/boards/${values?.name}`, { replace: true });
+        dispatch(closeModal());
+      return response;
+   // console.log(values); //response.name
+    //console.log(response); //createNewBoard.payload.name.match(response)
+   // console.log(values.name); //name
+   // console.log(response.payload.name)
   }catch (error) {
     console.log(error)
   }
-};
+  };
 
   return (
     <>
@@ -58,8 +66,8 @@ const ModalCreateNewBoard = () => {
         <Formik
           initialValues={{
             name: '',
-            iconId: icons.length > 0 ? icons[0].id : '',
-            backgroundId: 'default',
+            icon: icons.length > 0 ? icons[0].id : '',
+            backgroundImage: 'default',
           }}
           validationSchema={schema}
           onSubmit={handleSubmit}
@@ -140,8 +148,8 @@ const schema = yup.object({
     .max(30, 'Maximum 30 characters')
     
     .required('title is required!'), 
-  iconId: yup.string().required('Required!'),
-  backgroundId: yup.string().required('Required!'),
+  icon: yup.string(),
+  backgroundImage: yup.string(),
 });
 
 export default ModalCreateNewBoard;

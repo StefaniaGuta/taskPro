@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-
+  getAllBoards,
   createNewBoard,
 } from './boardOperations';
 
@@ -10,7 +10,6 @@ const boardsSlice = createSlice({
   initialState: {
     boards: [],
     oneBoard: {},
-    background: [],
     isLoading: false,
     error: null,
     stats: {},
@@ -18,15 +17,27 @@ const boardsSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      
+    .addCase(getAllBoards.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    })
+    .addCase(getAllBoards.fulfilled, (state, action) => {
+      state.isLoading = true;
+      state.boards = action.payload; 
+    })
+    .addCase(getAllBoards.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload; 
+    })
       .addCase(createNewBoard.fulfilled, (state, action) => {
-        state.name = action.payload
-        state.background = action.payload;
-        state.icon = action.payload;
-        state.isLoading = false;
-        state.error = null;
+        state.name = action.payload.boards
         console.log(action.payload);
+        state.isLoading = true;
+        state.error = null;
+
+
       })
+      
   }
 })
      

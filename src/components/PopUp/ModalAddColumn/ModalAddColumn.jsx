@@ -1,12 +1,15 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useCreateColumnMutation } from '../../../redux/boardApi/boardApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import urlIcon from '../../../images/icons/sprite.svg';
 import CloseButton from '../CloseButton/CloseButton';
 import Loader from '../../Loader/Loader';
 import { useParams } from 'react-router-dom';
+import {addColumn } from '../../../redux/columns/columnsOperations';
+import { useState } from 'react';
+
 import {
   Form,
   FormFieldTitle,
@@ -18,23 +21,29 @@ import {
   ContainerIconButton,
 } from './ModalAddColumn.styled';
 
+
 const ModalAddColumn = () => {
   const dispatch = useDispatch();
-  const board = useParams();
-  console.log(board.boardName);
-  const [createColumn, { isLoading: isCreteLoading }] =
-    useCreateColumnMutation();
-  
-    const handleSubmit = async (values) => {
-      try {
-        const { title } = values;
-        await createColumn({ name: title, boardName: board.boardName }).unwrap();
-        dispatch(closeModal());
-        console.log(values, board);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const boardId = useParams(); 
+  const [{ isLoading: isCreateLoading }] = useCreateColumnMutation();
+  const [isColumnCreated, setIsColumnCreated] = useState(false);
+
+  const handleSubmit = async (values) => {
+    try {
+      const { name} = values;
+      const response = await dispatch(addColumn({ name: name, boardName: boardId.boardId }));
+
+      dispatch(closeModal());
+      setIsColumnCreated(true);
+      console.log(response)
+      
+      return response;
+
+      //console.log(values.name);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -43,7 +52,7 @@ const ModalAddColumn = () => {
         <Title>Add column</Title>
         <Formik
           initialValues={{
-            title: '',
+            name: '',
           }}
           validationSchema={schema}
           onSubmit={handleSubmit}
@@ -52,32 +61,46 @@ const ModalAddColumn = () => {
             <FormFieldTitle>
               <FieldTitle
                 type="text"
-                name="title"
+                name="name"
                 // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                 title="You need to enter the name of the column"
                 required
                 placeholder="Title"
               />
-              <ErrorMessage name="title" component="p" />
+              <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
-            <Button type="submit" disabled={isCreteLoading}>
+            <Button type="submit" disabled={isCreateLoading}>
               <ContainerIconButton>
                 <svg width="14" height="14">
                   <use xlinkHref={`${urlIcon}#icon-plus`} />
                 </svg>
               </ContainerIconButton>
-              {isCreteLoading ? <Loader /> : 'Add'}
+              {isCreateLoading ? <Loader /> : 'Add'}
             </Button>
           </Form>
         </Formik>
+
+        {isColumnCreated && (
+          <>
+          <h2> name: {isColumnCreated.name}</h2>
+          <Button>
+            <ContainerIconButton>
+              <svg width="14" height="14">
+                <use xlinkHref={`${urlIcon}#icon-plus`} />
+              </svg>
+            </ContainerIconButton>
+            Add Cards
+          </Button>
+          </>
+        )}
       </ModalContainer>
     </>
   );
 };
 
 const schema = yup.object().shape({
-  title: yup
+  name: yup
     .string()
     .min(2, 'Too Short!')
     .max(30, 'Maximum 30 characters')
@@ -85,7 +108,7 @@ const schema = yup.object().shape({
       /^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9.%+\-_]*( [a-zA-Zа-яА-ЯёЁ0-9.%+\-_]+)*$/,
       'Invalid name format'
     )
-    .required('Required!'),
+    .required('Required!')
 });
 
 export default ModalAddColumn;

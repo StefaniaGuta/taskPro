@@ -71,7 +71,7 @@ const App = () => {
               }
             />
             <Route
-              path="/boards/:boardName/:boardId"
+              path="/boards/:boardId"
               element={
                 <PrivateRoute component={<NewBoardPage />} />
               }

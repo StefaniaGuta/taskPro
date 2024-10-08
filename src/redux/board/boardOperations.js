@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 axios.defaults.baseURL =  'https://taskpro-app-bcac9d37037a.herokuapp.com'
 
@@ -19,11 +20,17 @@ export const getAllBoards = createAsyncThunk(
   'boards/getAllBoards',
   async (_, thunkAPI) => {
     try {
-      const { res } = await axios.get(`/api/boards`);
-      console.log( 'all boards', res)
-      return res.data;
+      const { data } = await axios.get(`https://taskpro-app-bcac9d37037a.herokuapp.com/api/boards`)
+      if(!data) {
+        console.log("you don't have any board yet");
+      }
+      console.log(data);
+      return data;
     } catch (error) {
-      console.log(error)
+      if (error.response && error.response.status === 401) {
+        Notiflix.Notify.failure('Utilizatorul nu are carduri create încă');
+      }
+      console.log(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -31,33 +38,22 @@ export const getAllBoards = createAsyncThunk(
 
 export const createNewBoard = createAsyncThunk(
   'boards/createBoard',
-  async (newBoard, thunkAPI) => {
+  async (credentials, thunkAPI) => {
     try {
-      const formData = new FormData();
-      const { title, iconId, background } = newBoard;
 
-      formData.append('title', title);
-      formData.append('iconId', iconId);
-
-      if (background && typeof background === 'object' && background.type?.startsWith('image')) {
-        formData.append('background', background);
-      } else {
-        formData.append('backgroundId', background);
-      }
-
-      const { data } = await axios.post(
-        '/api/boards',
-        formData,
-        { headers: { 'Content-Type': 'multipart/form-data' } }
-      );
-      console.log(data, 'created')
-      return data.board;
+      const { data } = await axios.post('/api/boards', credentials);
+      console.log(data, 'created');
+      console.log('board was created succesfully')
+      console.log(credentials);
+      return data;
     } catch (error) {
-      console.log(error)
-      return thunkAPI.rejectWithValue(error.message);
+      console.log(error);
+      console.log(credentials);
+      return thunkAPI.rejectWithValue(error.message || 'Eroare necunoscută');
     }
   }
 );
+
 
 
 export const updateBoard = createAsyncThunk(
