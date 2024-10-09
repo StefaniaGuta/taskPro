@@ -1,18 +1,12 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { toast } from 'react-toastify';
-
+//import { toast } from 'react-toastify';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { useState } from 'react';
-import {
-  useUpdateUserMutation,
-  useChangeProfileAvatarMutation,
-  useGetCurrentUserQuery,
-} from '../../../redux/profileApi/profileApi';
+//import Loader from '../../Loader/Loader';
+import {editUser, refreshUser} from '../../../redux/auth/authOperations';
+import { useDispatch} from 'react-redux';
 
-import { GiSave } from 'react-icons/gi';
-import { LoaderForAvatar } from '../../Loader/LoaderForAvatar/LoaderForAvatar';
-import { LoaderForButton } from '../../Loader/LoaderForButton/LoaderForButton';
 import {
   FormUpdateUser,
   FeedbackFormGroup,
@@ -21,7 +15,7 @@ import {
   ToggleShowPassword,
   BtnWrapper,
   BtnUpdate,
-  ErrorServer,
+
   StyleErrorMessage,
   Error,
   SuccessUpdateAvatar,
@@ -32,7 +26,7 @@ import {
   //===for avatar===/
   ProfilePhotoBlock,
   PhotoUser,
-  SpanErrorImg,
+
   LabelEditPhoto,
   InputEditPhoto,
   BtnSavePhotoUser,
@@ -40,9 +34,9 @@ import {
   UserIconSvg,
 } from './EditProfile.styled';
 
-import url from '../../../images/icons/sprite/icons.svg';
-import { closeModal } from '../../../redux/modal/modalSlice';
-import { useDispatch } from 'react-redux';
+import url from '../../../images/icons/sprite.svg';
+
+
 
 const schema = yup.object().shape({
   name: yup
@@ -71,29 +65,20 @@ const schema = yup.object().shape({
     .matches(/^[^\s]+$/, 'Password should not contain spaces'),
 });
 
-const EditProfile = () => {
-  const { data: currentUser } = useGetCurrentUserQuery();
+const EditProfile = ({toggleModal}) => {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [showSaveButton, setShowSaveButton] = useState(false);
-  const [showAvatarSuccessMessage, setShowAvatarSuccessMessage] =
-    useState(false);
+  const [showAvatarSuccessMessage, setShowAvatarSuccessMessage] =useState(false);
   const [showNameSuccessMessage, setShowNameSuccessMessage] = useState(false);
   const [showEmailSuccessMessage, setShowEmailSuccessMessage] = useState(false);
-  const [showPasswordSuccessMessage, setShowPasswordSuccessMessage] =
-    useState(false);
+  const [showPasswordSuccessMessage, setShowPasswordSuccessMessage] =useState(false);
   const [isAvatarOnly, setIsAvatarOnly] = useState(false);
 
-  const [updateUser, { isLoading: isInfoLoading, error: erorUpdate }] =
-    useUpdateUserMutation();
-
-  const [updateAvatar, { isLoading: isAvatarLoading, error: errorFormat }] =
-    useChangeProfileAvatarMutation();
-  const dispatch = useDispatch();
-
   const initialValues = {
-    name: currentUser?.name || '',
-    email: currentUser?.email || '',
+    name: refreshUser?.name || '',
+    email: refreshUser?.email || '',
     password: '',
   };
 
@@ -108,7 +93,7 @@ const EditProfile = () => {
     try {
       const formData = new FormData();
       formData.append('avatarImage', selectedAvatar);
-      await updateAvatar(formData);
+
       setShowAvatarSuccessMessage(true);
       setShowSaveButton(false);
 
@@ -126,73 +111,59 @@ const EditProfile = () => {
   };
 
   const handleUpdateUser = async (values, { resetForm }) => {
-    const updatedUser = {};
-
-    if (values.name) {
-      updatedUser.name = values.name;
-      await updateUser(updatedUser);
-      setShowNameSuccessMessage(true);
-
-      setTimeout(() => {
-        setShowNameSuccessMessage(false);
-      }, 4000);
-    }
-
-    if (values.email) {
-      updatedUser.email = values.email;
-      try {
-        await updateUser(updatedUser);
-        setShowEmailSuccessMessage(true);
-
-        setTimeout(() => {
-          setShowEmailSuccessMessage(false);
-        }, 4000);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
+    const updatedUser = {
+      name: values.name || refreshUser?.name,
+      email: values.email || refreshUser?.email,
+    };
+  
     if (values.password) {
       updatedUser.password = values.password;
+    }
+  
+    if (isAvatarOnly && selectedAvatar) {
+      const formData = new FormData();
+      formData.append('name', updatedUser.name);
+      formData.append('email', updatedUser.email);
+      formData.append('password', updatedUser.password || "");
+      formData.append('avatar', selectedAvatar);
+  
       try {
-        await updateUser(updatedUser);
-        setShowPasswordSuccessMessage(true);
-
-        setTimeout(() => {
-          setShowPasswordSuccessMessage(false);
-        }, 4000);
+        await dispatch(editUser(formData)).unwrap();
+        setShowAvatarSuccessMessage(true);
+        setTimeout(() => setShowAvatarSuccessMessage(false), 4000);
+        setShowSaveButton(false);
+        resetForm();
       } catch (error) {
-        console.log(error);
+        console.log("Failed to update avatar:", error);
       }
-    }
-
-    if (isAvatarOnly) {
-      await handleUpdateAvatar();
-      setShowAvatarSuccessMessage(true);
-
       return;
     }
-
-    if (Object.keys(updatedUser).length === 0) {
-      toast.warning('To save changes, at least one field must be filled');
-      return;
-    }
-
+  
     try {
-      await updateUser(updatedUser);
-
-      if (selectedAvatar) {
-        await handleUpdateAvatar();
+      await dispatch(editUser(updatedUser)).unwrap();
+      if (values.name) {
+        setShowNameSuccessMessage(true);
+        setTimeout(() => setShowNameSuccessMessage(false), 4000);
       }
+      if (values.email) {
+        setShowEmailSuccessMessage(true);
+        setTimeout(() => setShowEmailSuccessMessage(false), 4000);
+      }
+      if (values.password) {
+        setShowPasswordSuccessMessage(true);
+        setTimeout(() => setShowPasswordSuccessMessage(false), 4000);
+      }
+      resetForm();
+      return updatedUser;
     } catch (error) {
-      console.log(error);
+      console.log("Failed to update user:", error);
     }
-    resetForm();
   };
+  
+     
   return (
     <Edit>
       <BtnClose
-        onClick={() => dispatch(closeModal())}
         style={{
           position: 'absolute',
           top: '14px',
@@ -200,25 +171,23 @@ const EditProfile = () => {
           cursor: 'pointer',
         }}
       >
-        <svg width="18" height="18">
-          <use xlinkHref={`${url}#icon-x-close`} />
-        </svg>
+        X
       </BtnClose>
       <EditTitle>Edit profile</EditTitle>
 
       <ProfilePhotoBlock>
-        {showAvatarSuccessMessage && !errorFormat && (
+        {showAvatarSuccessMessage && (
           <SuccessUpdateAvatar style={{ color: 'green' }}>
             Field successfully updated
           </SuccessUpdateAvatar>
         )}
         <PhotoBox>
-          {selectedAvatar || currentUser?.avatarURL ? (
+          {selectedAvatar || refreshUser?.avatarURL ? (
             <PhotoUser
               src={
                 selectedAvatar
                   ? URL.createObjectURL(selectedAvatar)
-                  : currentUser?.avatarURL
+                  : refreshUser?.avatarURL
               }
               alt="user avatar"
             ></PhotoUser>
@@ -236,27 +205,12 @@ const EditProfile = () => {
           )}
           {showSaveButton && (
             <BtnSavePhotoUser onClick={handleUpdateAvatar}>
-              {isAvatarLoading ? (
-                <LoaderForAvatar />
-              ) : (
-                <>
-                  <GiSave size={20} color="rgba(22, 22, 22)" />
-                </>
-              )}
+              +
             </BtnSavePhotoUser>
           )}
         </PhotoBox>
 
-        {errorFormat && (
-          <>
-            {errorFormat.status === 500 && (
-              <SpanErrorImg>{errorFormat.data.message}</SpanErrorImg>
-            )}
-            {errorFormat.status === 413 && (
-              <SpanErrorImg>{errorFormat.data.message}</SpanErrorImg>
-            )}
-          </>
-        )}
+        
 
         <InputEditPhoto
           name="avatarURL"
@@ -296,7 +250,7 @@ const EditProfile = () => {
               placeholder="Edit email"
               autoComplete="off"
             />
-            {erorUpdate && <ErrorServer>{erorUpdate.data.message}</ErrorServer>}
+            
             <StyleErrorMessage name="email">
               {(msg) => <Error>{msg}</Error>}
             </StyleErrorMessage>
@@ -340,8 +294,8 @@ const EditProfile = () => {
             )}
           </FeedbackFormGroup>
           <BtnWrapper>
-            <BtnUpdate type="submit" disabled={isInfoLoading && !isAvatarOnly}>
-              {isInfoLoading && !isAvatarOnly ? <LoaderForButton /> : 'Send'}
+            <BtnUpdate type="submit">
+             Send
             </BtnUpdate>
           </BtnWrapper>
         </FormUpdateUser>

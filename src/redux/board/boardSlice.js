@@ -6,14 +6,14 @@ import {
 
 
 const boardsSlice = createSlice({
-  name: 'board',
+  name: 'boards',
   initialState: {
-    boards: [],
-    oneBoard: {},
-    isLoading: false,
-    error: null,
-    stats: {},
-    allCards: [],
+  boards: [],
+  oneBoard: {},
+  isLoading: false,
+  error: null,
+  stats: {},
+  allCards: [],
   },
   extraReducers: builder => {
     builder
@@ -30,7 +30,7 @@ const boardsSlice = createSlice({
       state.error = action.payload; 
     })
       .addCase(createNewBoard.fulfilled, (state, action) => {
-        state.name = action.payload.boards
+        state.boards = action.payload
         console.log(action.payload);
         state.isLoading = true;
         state.error = null;

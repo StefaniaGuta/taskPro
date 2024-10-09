@@ -13,11 +13,11 @@ export const FeedbackFormGroup = styled.div`
 export const PasswordWrapper = styled.div``;
 
 export const InputForm = styled(Field)`
-  padding: 14px 18px;
-  width: 100%;
+  padding: 0 10px;
+  width: 250px;
   height: 49px;
-  border: 1px solid var(--borderInputBoardColor);
-  border-radius: var(--borderRadius8);
+  border: 1px solid #BEDBB0;
+  border-radius: 8px;
   background-color: var(--modalBgColor);
   color: var(--textInputBoardColor);
   font-family: var(--poppinsFont), var(--roboto);
@@ -39,7 +39,7 @@ export const InputForm = styled(Field)`
   }
 
   @media screen and (min-width: 768px) {
-    width: 352px;
+    width: 380px;
   }
 
   &::placeholder {
@@ -73,7 +73,7 @@ const pulseAnimation = keyframes`
 export const BtnUpdate = styled.button`
   width: 100%;
   height: 49px;
-  background-color: var(--btnBoardColor);
+  background-color: #BEDBB0;
   border-radius: var(--borderRadius8);
   cursor: pointer;
   color: var(--btnTextBoardColor);
@@ -81,6 +81,7 @@ export const BtnUpdate = styled.button`
   font-weight: var(--fontWeight500);
   font-size: var(--fontSize14);
   border: none;
+  border-radius: 8px;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -92,7 +93,7 @@ export const BtnUpdate = styled.button`
   }
 
   @media screen and (min-width: 768px) {
-    width: 352px;
+    width: 380px;
   }
 
   &:before {
@@ -132,8 +133,6 @@ export const BtnUpdate = styled.button`
   }
 `;
 
-
-
 export const StyleErrorMessage = styled(ErrorMessage)``;
 
 export const Error = styled.p`
@@ -161,18 +160,22 @@ export const Success = styled.p`
 
 export const Edit = styled.div`
   position: relative;
+  top: 25vw;
+  right: 30vw;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 90vw;
-  height: 440px;
-  padding: 24px;
-  background-color: var(--modalBgColor);
+  padding: 20px;
+  background-color: #FFF;
   border-radius: 8px;
   box-shadow: 0px 4px 16px 0px var(--modalBoxShadow);
   z-index: 1200;
 
   @media screen and (min-width: 375px) {
     width: 335px;
+    top: 50vw;
   }
 
   @media screen and (min-width: 768px) {
@@ -191,7 +194,7 @@ export const EditTitle = styled.h3`
   font-size: var(--fontSize18);
   font-weight: var(--fontWeight500);
   letter-spacing: -0.36px;
-  margin-bottom: 24px;
+  margin: 0;
 `;
 
 export const BtnClose = styled.button`
@@ -249,11 +252,11 @@ export const LabelEditPhoto = styled.label`
   transform: translate(-50%, -50%);
   width: 24px;
   height: 24px;
-  background-color: var(--labelUserBg);
+  background-color: #BEDBB0;
   stroke: var(--iconPlusEditColor);
   justify-content: center;
   align-items: center;
-  border-radius: var(--borderRadius8);
+  border-radius: 8px;
   cursor: pointer;
 
   &:hover,
@@ -277,10 +280,10 @@ export const BtnSavePhotoUser = styled.button`
   transform: translate(-50%, -50%);
   width: 24px;
   height: 24px;
-  background-color: var(--labelUserBg);
+  background-color: #BEDBB0;
   justify-content: center;
   align-items: center;
-  border-radius: var(--borderRadius8);
+  border-radius: 8px;
   border: none;
   padding: 0px;
   cursor: pointer;

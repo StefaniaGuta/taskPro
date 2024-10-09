@@ -1,24 +1,19 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-
-//===for calendar===/
+import { useParams } from 'react-router-dom';
+import {addCard} from '../../../redux/cards/cardsOpeartions';
 import { formattedDateForBtn } from '../../../services/formatingDate';
 import Calendar from '../Calendar/Calendar.jsx';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../Calendar/calendar.css';
 
-//===for fetch===/
-import { useCreateTaskMutation } from '../../../redux/boardApi/boardApi.js';
 
-//===components===/
 import CloseButton from '../CloseButton/CloseButton.jsx';
 import ButtonModal from '../ButtonModal/ButtonModal.jsx';
 import { closeModal } from '../../../redux/modal/modalSlice';
 
-//===styles===/
 import {
   AddCardModal,
   Title,
@@ -36,20 +31,18 @@ import {
   BtnName,
 } from './AddCard.styled.js';
 
-const ModalAddCard = ({ componentName={} }) => {
-  const { boardId='', columnId='' } = componentName;
+const ModalAddCard = ({ boardName, columnId }) => {
+ 
   const [date, setDate] = useState(new Date());
   const [select, setSelect] = useState('without');
   const [formattedDate, setFormattedDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  const [createTask] = useCreateTaskMutation();
+  const boardId = useParams(); 
 
   const dispatch = useDispatch();
 
   const priorityValue = ['low', 'medium', 'high', 'without'];
 
-  //===for change date on the modal===/
   useEffect(() => {
     setFormattedDate(formattedDateForBtn(date));
   }, [date]);
@@ -59,7 +52,6 @@ const ModalAddCard = ({ componentName={} }) => {
     description: '44444',
     priority: 'without',
     deadline: date.toISOString(),
-    column: columnId,
   };
 
   const schema = yup.object({
@@ -78,26 +70,43 @@ const ModalAddCard = ({ componentName={} }) => {
       .required('Priority is required')
       .oneOf(['low', 'medium', 'high', 'without']),
     deadline: yup.date().required('Deadline is required'),
-    column: yup.string().required(),
   });
 
-  //===for props (need for the custom radio btn)===/
-  const handleSelectChange = (event) => {
-    const value = event.target.value;
+  const handleSelectChange = (e) => {
+    e.preventDefault();
+    const value = e.target.value;
     setSelect(value);
   };
 
-  const handleSubmit = async (values) => {
-    setIsLoading(true);
-    try {
-      await createTask({ values, boardId, columnId });
-      dispatch(closeModal());
-    } catch (error) {
-      console.log(error);
-    }
-    setIsLoading(false);
-  };
 
+  const handleSubmit = async (values) => {
+
+    setIsLoading(true);
+
+    const { title, description, priority, deadline } = values;
+
+    try {
+
+      const response = await dispatch(
+        addCard({
+          title,
+          description,
+          priority,
+          deadline,
+          boardName: boardId.boardId,  
+          columnId    
+        })
+      );
+
+      console.log('Card successfully created:', response);
+
+    } catch (error) {
+      console.log('Error creating card:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
   const hendleSubmitCalendar = (selectedDate) => {
     setDate(selectedDate);
   };
@@ -181,9 +190,3 @@ const ModalAddCard = ({ componentName={} }) => {
 
 export default ModalAddCard;
 
-ModalAddCard.propTypes = {
-  componentName: PropTypes.shape({
-    boardId: PropTypes.string.isRequired,
-    columnId: PropTypes.string.isRequired,
-  }).isRequired,
-};

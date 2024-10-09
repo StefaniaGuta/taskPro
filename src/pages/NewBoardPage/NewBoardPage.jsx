@@ -18,6 +18,7 @@ const NewBoardPage = () => {
   const showAllBoards = () => {
     const allBoards = dispatch(getAllBoards());
     console.log(allBoards);
+    
   }
   
     return (

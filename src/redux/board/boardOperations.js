@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Notiflix from 'notiflix';
+import { useParams } from 'react-router-dom';
 
 axios.defaults.baseURL =  'https://taskpro-app-bcac9d37037a.herokuapp.com'
 
@@ -40,8 +41,7 @@ export const createNewBoard = createAsyncThunk(
   'boards/createBoard',
   async (credentials, thunkAPI) => {
     try {
-
-      const { data } = await axios.post('/api/boards', credentials);
+      const {data} = await axios.post('/api/boards', credentials);
       console.log(data, 'created');
       console.log('board was created succesfully')
       console.log(credentials);
@@ -55,10 +55,9 @@ export const createNewBoard = createAsyncThunk(
 );
 
 
-
 export const updateBoard = createAsyncThunk(
   'boards/updateBoard',
-  async ({_, dataUpdate }, thunkAPI) => {
+  async ({boardName, dataUpdate }, thunkAPI) => {
     try {
       const formData = new FormData();
       const { title, iconId, background } = dataUpdate;
@@ -72,7 +71,7 @@ export const updateBoard = createAsyncThunk(
       }
 
       const { data } = await axios.patch(
-        'boards/{boardName}',
+        `api/boards/${boardName}`,
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
@@ -86,27 +85,27 @@ export const updateBoard = createAsyncThunk(
 
 export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',
-  async (_, thunkAPI) => {
+  async (boardName, thunkAPI) => {
     try {
-      const { data } = await axios.delete(
-        'boards/{boardName}'
+      const response = await axios.delete(
+        `api/boards/${boardName}`
       );
-      return data;
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const getOneBoard = createAsyncThunk(
+export const getBoardById = createAsyncThunk(
   'boards/getOneBoard',
-  async (_, thunkAPI) => {
+  async (credentials, thunkAPI) => {
+    const boardName = useParams()
     try {
-      const { data } = await axios.get(
-        'boards/{boardName}'
+      const response = await axios.get(
+        `api/boards/${boardName}`, credentials
       );
-
-      return data.board[0];
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

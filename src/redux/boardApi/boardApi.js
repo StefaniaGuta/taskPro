@@ -15,7 +15,7 @@ export const boardsApi = createApi({
   tagTypes: ['Boards', 'Columns', 'BoardsId', 'Profile', 'BoardBg'],
   endpoints: (builder) => ({
     getFetchBoards: builder.query({
-      query: () => '/ ',
+      query: () => '/boards',
       providesTags: ['Boards'],
     }),
     getFetchBoardById: builder.query({
@@ -46,10 +46,10 @@ export const boardsApi = createApi({
       invalidatesTags: ['BoardsName', 'Columns'],
     }),
     createTask: builder.mutation({
-      query: ({ values, boardName, id}) => ({
+      query: ({ title, description,priority, deadline, boardName, id}) => ({
         url: `/boards/${boardName}/column/${id}/card`,
         method: 'POST',
-        body: { values, boardName, id}
+        body: { title, description,priority, deadline}
       }),
       invalidatesTags: ['Profile', 'BoardsId'],
     }),

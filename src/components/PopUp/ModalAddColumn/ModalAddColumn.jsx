@@ -9,6 +9,7 @@ import Loader from '../../Loader/Loader';
 import { useParams } from 'react-router-dom';
 //import {addColumn } from '../../../redux/columns/columnsOperations';
 import { useState } from 'react';
+import ModalAddCard from '../AddCard/AddCard';
 
 import {
   Form,
@@ -27,6 +28,7 @@ const ModalAddColumn = () => {
   const boardId = useParams(); 
   const [createColumn, { isLoading: isCreateLoading }] = useCreateColumnMutation();
   const [isColumnCreated, setIsColumnCreated] = useState(false);
+  const [isModalCardOpen, setIsModalCardOpen] = useState(false);
 
   const handleSubmit = async (values) => {
     try {
@@ -38,8 +40,8 @@ const ModalAddColumn = () => {
 
       dispatch(closeModal());
       setIsColumnCreated(values.name);
-
-      return response.data;
+      console.log('created:', response.data._id)
+      return response;
 
     } catch (error) {
       console.log('erroare in timpul crearii coloanei', error);
@@ -84,18 +86,14 @@ const ModalAddColumn = () => {
 
         {isColumnCreated && (
           <>
-          <h2> name: {isColumnCreated}</h2>
-          <Button>
-            <ContainerIconButton>
-              <svg width="14" height="14">
-                <use xlinkHref={`${urlIcon}#icon-plus`} />
-              </svg>
-            </ContainerIconButton>
-            Add Cards
-          </Button>
+          <h2> Name: {isColumnCreated}</h2>
+          <button onClick={() => setIsModalCardOpen(true)}>
+            Add Card
+          </button>
           </>
         )}
       </ModalContainer>
+        {isModalCardOpen && <ModalAddCard onClose={() => setIsModalCardOpen(false)} />}
     </>
   );
 };

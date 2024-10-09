@@ -18,6 +18,8 @@ import { filterReducer } from './filter/filterSlice';
 import { miniImgApi } from '../redux/miniImgApi/miniImgApi';
 import { helpApi } from '../redux/helpApi/helpApi';
 import {boardsApi} from '../redux/boardApi/boardApi'
+import {cardsReducer} from '../redux/cards/cardsSlice';
+import {columnsReducer} from '../redux/columns/columnSlice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -32,6 +34,8 @@ export const store = configureStore({
     theme: themeReducer,
     search: boardSearchReducer,
     filter: filterReducer,
+    cards: cardsReducer,
+    columns: columnsReducer,
     [miniImgApi.reducerPath]: miniImgApi.reducer,
     [helpApi.reducerPath]: helpApi.reducer,
     [boardsApi.reducerPath]: boardsApi.reducer
