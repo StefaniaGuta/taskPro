@@ -8,24 +8,6 @@
   height: 700px;
 }
 
-.dark {
-  background-color: #1F1F1F;
-  color: black;
-}
-
-.violet {
-  background-color: #D6D8FF;
-  color: black
-}
-
-.task-card.dark{
-  background-color: #161616;
-}
-
-.add-card.violet{
-  background-color: #D6D8FF;
-}
-
 .ProjectOfficeSection {
   scrollbar-width: thin;
   scrollbar-color: #bedbb0 transparent;
