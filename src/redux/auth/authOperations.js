@@ -80,13 +80,8 @@ export const refreshUser = createAsyncThunk(
     "users/profile",
     async (formData, thunkAPI) => {
       try {
-        const config = {
-          headers: {
-            'Content-Type': formData instanceof FormData ? 'multipart/form-data' : 'application/json',
-          },
-        };
   
-        const { data } = await axios.patch(`${API_URL}api/auth/update`, formData, config);
+        const { data } = await axios.patch(`${API_URL}api/auth/update`, formData);
         return data;
       } catch (err) {
         console.log(err);

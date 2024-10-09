@@ -1,9 +1,7 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-//import { toast } from 'react-toastify';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { useState } from 'react';
-//import Loader from '../../Loader/Loader';
 import {editUser, refreshUser} from '../../../redux/auth/authOperations';
 import { useDispatch} from 'react-redux';
 
@@ -23,7 +21,7 @@ import {
   Edit,
   EditTitle,
   BtnClose,
-  //===for avatar===/
+
   ProfilePhotoBlock,
   PhotoUser,
 
@@ -112,25 +110,27 @@ const EditProfile = ({toggleModal}) => {
 
   const handleUpdateUser = async (values, { resetForm }) => {
     const updatedUser = {
-      name: values.name || refreshUser?.name,
+      name: values.name || refreshUser?.name, // Numele din formular sau numele actual
       email: values.email || refreshUser?.email,
     };
-  
+
+    // Verificăm dacă s-a setat și o parolă nouă
     if (values.password) {
       updatedUser.password = values.password;
     }
-  
+
+    // Actualizarea avatarului dacă doar avatarul a fost schimbat
     if (isAvatarOnly && selectedAvatar) {
       const formData = new FormData();
       formData.append('name', updatedUser.name);
       formData.append('email', updatedUser.email);
       formData.append('password', updatedUser.password || "");
       formData.append('avatar', selectedAvatar);
-  
+
       try {
         await dispatch(editUser(formData)).unwrap();
         setShowAvatarSuccessMessage(true);
-        setTimeout(() => setShowAvatarSuccessMessage(false), 4000);
+        setTimeout(() => setShowAvatarSuccessMessage(false), 1000);
         setShowSaveButton(false);
         resetForm();
       } catch (error) {
@@ -138,27 +138,42 @@ const EditProfile = ({toggleModal}) => {
       }
       return;
     }
-  
+
+    // Actualizăm numele, emailul și/sau parola
     try {
-      await dispatch(editUser(updatedUser)).unwrap();
+      // Trimitem actualizările utilizatorului către backend
+      const response = await dispatch(editUser(updatedUser)).unwrap();
+      
+      // Log pentru a verifica ce date sunt trimise și ce răspuns primim
+      console.log('Response after update:', response);
+
+      // Actualizăm starea dacă numele a fost modificat
       if (values.name) {
         setShowNameSuccessMessage(true);
-        setTimeout(() => setShowNameSuccessMessage(false), 4000);
+        setTimeout(() => setShowNameSuccessMessage(false), 1000);
       }
       if (values.email) {
         setShowEmailSuccessMessage(true);
-        setTimeout(() => setShowEmailSuccessMessage(false), 4000);
+        setTimeout(() => setShowEmailSuccessMessage(false), 1000);
       }
       if (values.password) {
         setShowPasswordSuccessMessage(true);
-        setTimeout(() => setShowPasswordSuccessMessage(false), 4000);
+        setTimeout(() => setShowPasswordSuccessMessage(false), 1000);
       }
+
+      // Resetăm formularul după succes
       resetForm();
+
+      // După succesul actualizării, asigură-te că starea utilizatorului este actualizată în Redux
+      await dispatch(refreshUser());
+
       return updatedUser;
     } catch (error) {
       console.log("Failed to update user:", error);
     }
-  };
+};
+
+
   
      
   return (
