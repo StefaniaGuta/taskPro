@@ -13,7 +13,7 @@ const themeSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(updateTheme.pending, (state) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.error = null;
       })
       .addCase(updateTheme.fulfilled, (state, action) => {

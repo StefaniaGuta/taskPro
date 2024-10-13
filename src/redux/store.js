@@ -16,10 +16,9 @@ import { themeReducer } from './theme/ThemeSlice';
 import { boardSearchReducer } from './search/searchSlice';
 import { filterReducer } from './filter/filterSlice';
 import { miniImgApi } from '../redux/miniImgApi/miniImgApi';
-import { helpApi } from '../redux/helpApi/helpApi';
-import {boardsApi} from '../redux/boardApi/boardApi'
 import {cardsReducer} from '../redux/cards/cardsSlice';
 import {columnsReducer} from '../redux/columns/columnSlice';
+import {needHelpReducer} from '../redux/NeedHelp/slice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -36,9 +35,9 @@ export const store = configureStore({
     filter: filterReducer,
     cards: cardsReducer,
     columns: columnsReducer,
+    needHelp: needHelpReducer,
     [miniImgApi.reducerPath]: miniImgApi.reducer,
-    [helpApi.reducerPath]: helpApi.reducer,
-    [boardsApi.reducerPath]: boardsApi.reducer
+
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -46,8 +45,7 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(miniImgApi.middleware, 
-      helpApi.middleware,
-      boardsApi.middleware,
+
     ),
 });
 

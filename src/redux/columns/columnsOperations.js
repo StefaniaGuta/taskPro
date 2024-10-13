@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-//import { axios, ENDPOINTS } from '../../api';
 import axios from 'axios';
 
 axios.defaults.baseURL =  'https://taskpro-app-bcac9d37037a.herokuapp.com'
@@ -12,10 +11,9 @@ export const addColumn = createAsyncThunk(
         name, 
       });
       console.log('column created');
-      console.log(response);
-      return response;
+      return response.data;
     } catch (error) {
-      console.log(error, 'error colum');
+      console.log(error, 'error column');
       return thunkAPI.rejectWithValue(error.message);
     }
   }

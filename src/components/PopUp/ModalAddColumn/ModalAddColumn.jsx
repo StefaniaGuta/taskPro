@@ -1,13 +1,11 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { useCreateColumnMutation } from '../../../redux/boardApi/boardApi';
 import { useDispatch} from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import urlIcon from '../../../images/icons/sprite.svg';
 import CloseButton from '../CloseButton/CloseButton';
-import Loader from '../../Loader/Loader';
 import { useParams } from 'react-router-dom';
-//import {addColumn } from '../../../redux/columns/columnsOperations';
+import {addColumn } from '../../../redux/columns/columnsOperations';
 import { useState } from 'react';
 import ModalAddCard from '../AddCard/AddCard';
 
@@ -26,7 +24,6 @@ import {
 const ModalAddColumn = () => {
   const dispatch = useDispatch();
   const boardId = useParams(); 
-  const [createColumn, { isLoading: isCreateLoading }] = useCreateColumnMutation();
   const [isColumnCreated, setIsColumnCreated] = useState(false);
   const [isModalCardOpen, setIsModalCardOpen] = useState(false);
 
@@ -36,11 +33,9 @@ const ModalAddColumn = () => {
       if (!name) {
         throw new Error('"name" is required');
       }
-      const response = await createColumn({boardName: boardId.boardId, name});
-
+      const response = await dispatch(addColumn({boardName: boardId.boardId, name}));
       dispatch(closeModal());
       setIsColumnCreated(values.name);
-      console.log('created:', response.data._id)
       return response;
 
     } catch (error) {
@@ -73,13 +68,13 @@ const ModalAddColumn = () => {
               <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
-            <Button type="submit" disabled={isCreateLoading}>
+            <Button type="submit">
               <ContainerIconButton>
                 <svg width="14" height="14">
                   <use xlinkHref={`${urlIcon}#icon-plus`} />
                 </svg>
               </ContainerIconButton>
-              {isCreateLoading ? <Loader /> : 'Add'}
+              Add
             </Button>
           </Form>
         </Formik>

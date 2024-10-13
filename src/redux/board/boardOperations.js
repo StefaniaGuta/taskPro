@@ -21,12 +21,12 @@ export const getAllBoards = createAsyncThunk(
   'boards/getAllBoards',
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get(`https://taskpro-app-bcac9d37037a.herokuapp.com/api/boards`)
-      if(!data) {
+      const response = await axios.get(`/api/boards`)
+      if(!response.data) {
         console.log("you don't have any board yet");
       }
-      console.log(data);
-      return data;
+
+      return response.data;
     } catch (error) {
       if (error.response && error.response.status === 401) {
         Notiflix.Notify.failure('Utilizatorul nu are carduri create încă');

@@ -8,21 +8,20 @@ import {
 const boardsSlice = createSlice({
   name: 'boards',
   initialState: {
-  boards: [],
-  oneBoard: {},
-  isLoading: false,
-  error: null,
-  stats: {},
-  allCards: [],
+    boards: {
+      items: [],
+      isLoading: false,
+      error: null,
+    },
   },
   extraReducers: builder => {
     builder
     .addCase(getAllBoards.pending, (state) => {
-      state.isLoading = true;
+      state.isLoading = false;
       state.error = null;
     })
     .addCase(getAllBoards.fulfilled, (state, action) => {
-      state.isLoading = true;
+      state.isLoading = false;
       state.boards = action.payload; 
     })
     .addCase(getAllBoards.rejected, (state, action) => {
@@ -30,12 +29,9 @@ const boardsSlice = createSlice({
       state.error = action.payload; 
     })
       .addCase(createNewBoard.fulfilled, (state, action) => {
-        state.boards = action.payload
-        console.log(action.payload);
-        state.isLoading = true;
+        state.boards.items = action.payload; 
+        state.isLoading = false;
         state.error = null;
-
-
       })
       
   }

@@ -1,15 +1,12 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { useCreateBoardMutation } from '../../../redux/boardApi/boardApi';
 import { useDispatch } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
-import  Loader  from '../../Loader/Loader';
 import { useGetMiniImgQuery } from '../../../redux/miniImgApi/miniImgApi';
 import urlIcon from '../../../images/icons/sprite.svg';
 import icons from '../icons.json';
 import { createNewBoard } from '../../../redux/board/boardOperations';
-//import Notiflix from 'notiflix';
 
 import CloseButton from '../CloseButton/CloseButton';
 import {
@@ -35,23 +32,15 @@ const ModalCreateNewBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useGetMiniImgQuery();
- // console.log({data});
 
-  const [{ isLoading: isCreateBoard }] = useCreateBoardMutation();
-  
   const handleSubmit = async (values) => {
     
     try{
     const response = await dispatch(createNewBoard(values));
-    
-    
-        navigate(`/boards/${values?.name}`, { replace: true });
-        dispatch(closeModal());
-      return response;
-   // console.log(values); //response.name
-    //console.log(response); //createNewBoard.payload.name.match(response)
-   // console.log(values.name); //name
-   // console.log(response.payload.name)
+    navigate(`/boards/${values?.name}`, { replace: true });
+    dispatch(closeModal());
+
+    return response;
   }catch (error) {
     console.log(error)
   }
@@ -125,13 +114,13 @@ const ModalCreateNewBoard = () => {
               <ErrorMessage name="backgroundImage" component="p" />
             </ImageContainer>
 
-            <Button type="submit" disabled={isCreateBoard}>
+            <Button type="submit">
               <ContainerIconButton>
                 <svg width="14" height="14">
                   <use xlinkHref={`${urlIcon}#icon-plus`} />
                 </svg>
               </ContainerIconButton>
-              {isCreateBoard ? <Loader /> : 'Create'}
+              Create
             </Button>
           </FormikForm>
         </Formik>

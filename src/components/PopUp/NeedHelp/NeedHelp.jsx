@@ -1,8 +1,7 @@
-import { usePostCommentMutation } from '../../../redux/helpApi/helpApi';
-
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import {sendHelp} from '../../../redux/NeedHelp/operations';
 
 import {
   NeedHelpContainer,
@@ -17,7 +16,7 @@ import {
 import CloseButton from '../CloseButton/CloseButton';
 import { closeModal } from '../../../redux/modal/modalSlice.js';
 import { useDispatch } from 'react-redux';
-import  Loader  from '../../Loader/Loader';
+
 
 const schema = yup.object().shape({
   email: yup
@@ -31,14 +30,14 @@ const schema = yup.object().shape({
 });
 
 const NeedHelpModal = () => {
-  const [postComment, { isLoading, error }] = usePostCommentMutation();
+
   const dispatch = useDispatch();
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      await postComment(values).unwrap();
+      const { comment } = values;
+      await dispatch(sendHelp(comment));
       Notify.success('Comment sent');
-
       resetForm();
       dispatch(closeModal());
     } catch (error) {
@@ -46,9 +45,7 @@ const NeedHelpModal = () => {
     }
   };
 
-  if (error) {
-    return Notify.failure(`Error: ${error.message}`);
-  }
+ 
   return (
     <>
       <NeedHelpContainer>
@@ -81,7 +78,7 @@ const NeedHelpModal = () => {
             </Wrapper>
 
             <Button type="submit">
-              {isLoading ? <Loader /> : 'Send'}
+              Send
             </Button>
           </Form>
         </Formik>

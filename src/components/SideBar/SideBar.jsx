@@ -19,7 +19,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 
-//import NewBoardPage from 'pages/NewBoardPage/NewBoardPage';
+
 import style from './SideBar.module.css';
 
 
@@ -72,7 +72,7 @@ const SideBar = () => {
   }
 
   const NavigateToNewBoard = () => {
-    navigate('/boards/:boardName/:boardId')
+    navigate('/boards')
   }
   
   const DrawerList = (

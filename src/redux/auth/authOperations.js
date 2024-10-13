@@ -16,23 +16,38 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post(`${API_URL}api/auth/register`, credentials)
 
-      console.log(res.data);
+      const res = await axios.post(`${API_URL}api/auth/register`, credentials);
+
       if (res.status === 201) {
-        console.log('Registartion successfully!')
+        console.log('Registration successfully!');
+
+        const loginResponse = await axios.post(`${API_URL}api/auth/login`, {
+          email: credentials.email,
+          password: credentials.password
+        });
+
+        if (loginResponse.status === 200 && loginResponse.data.token) {
+          localStorage.setItem('authToken', loginResponse.data.token);
+
+          setAuthHeader(loginResponse.data.token) 
+          return loginResponse.data;
+        }
       }
+
       return res.data;
     } catch (error) {
-     if (error.response && error.response.status === 409) {
+
+      if (error.response && error.response.status === 409) {
         Notiflix.Notify.failure('Email already registered!');
-      } 
-      console.log(error);
-     return thunkAPI.rejectWithValue(error.response.data);
-  };
+      } else {
+        Notiflix.Notify.failure('Registration failed.');
+      }
+
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   }
 );
-
 export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
@@ -64,11 +79,13 @@ export const logOut = createAsyncThunk(
 });
 
 
-export const refreshUser = createAsyncThunk(
+export const currentUser = createAsyncThunk(
   'auth/currentUser',
   async (_, thunkAPI) => {
     try {
       const res = await axios.get(`${API_URL}api/auth/current`)
+      console.log(res)
+      console.log(res.config.headers.Authorization)
         return res.data;
       } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
@@ -89,6 +106,4 @@ export const refreshUser = createAsyncThunk(
       }
     }
   );
-  
-
 

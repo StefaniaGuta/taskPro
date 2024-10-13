@@ -3,7 +3,7 @@ import {
   register,
   logIn,
   logOut,
-  refreshUser,
+  currentUser,
 } from './authOperations';
 
 import { updateTheme } from '../../redux/theme/themeOperation';
@@ -33,9 +33,8 @@ const authSlice = createSlice({
         state.isLoggedIn = true;
         state.theme = action.payload.user.theme || 'light';
       })
-      .addCase(refreshUser.fulfilled, (state, action) => {
+      .addCase(currentUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.token = action.payload.token;
         state.isLoggedIn = true;
       })
       .addCase(logOut.fulfilled, state => {
