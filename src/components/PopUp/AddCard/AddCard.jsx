@@ -9,7 +9,6 @@ import Calendar from '../Calendar/Calendar.jsx';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../Calendar/calendar.css';
 
-
 import CloseButton from '../CloseButton/CloseButton.jsx';
 import ButtonModal from '../ButtonModal/ButtonModal.jsx';
 import { closeModal } from '../../../redux/modal/modalSlice';
@@ -31,13 +30,15 @@ import {
   BtnName,
 } from './AddCard.styled.js';
 
-const ModalAddCard = ({ boardName, columnId }) => {
+
+const ModalAddCard = ({ id }) => {
  
   const [date, setDate] = useState(new Date());
   const [select, setSelect] = useState('without');
   const [formattedDate, setFormattedDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const boardId = useParams(); 
+  
 
   const dispatch = useDispatch();
 
@@ -83,22 +84,16 @@ const ModalAddCard = ({ boardName, columnId }) => {
 
     setIsLoading(true);
 
-    const { title, description, priority, deadline } = values;
-
+    const { title } = values;
     try {
-
-      const response = await dispatch(
-        addCard({
-          title,
-          description,
-          priority,
-          deadline,
-          boardName: boardId.boardId,  
-          columnId    
-        })
-      );
+      const response = await dispatch(addCard({ boardName: boardId.boardId, id, title}));
 
       console.log('Card successfully created:', response);
+      console.log(id)
+      console.log( 'response', response)
+      console.log(values)
+      console.log(title)
+      return response.data;
 
     } catch (error) {
       console.log('Error creating card:', error);

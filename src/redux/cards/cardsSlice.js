@@ -1,17 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addCard,
-    deleteCard,
-    editCard,
-} from '../cards/cardsOpeartions';
+import { addCard} from '../cards/cardsOpeartions';
 
 const cardsSlice = createSlice({
   name: 'cards',
   initialState: {
     cards: {
-      items: {}
+      items: [],
+      isLoading: false,
+      error: null,
     },
-    isLoading: false,
-    error: null,
   },
 extraReducers: (builder) => {
   builder
@@ -27,37 +24,6 @@ extraReducers: (builder) => {
       state.cards.isLoading = false;
       state.cards.error = action.payload;
     })
-    .addCase(editCard.pending, (state) => {
-      state.cards.isLoading = true;
-    })
-    .addCase(editCard.fulfilled, (state, action) => {
-      state.cards.isLoading = false;
-      state.cards.error = null;
-      const editedCards = state.cards.items.map((card) =>
-        card._id === action.payload._id ? action.payload : card
-      );
-
-      state.cards.items = editedCards;
-    })
-    .addCase(editCard.rejected, (state, action) => {
-      state.cards.isLoading = false;
-      state.cards.error = action.payload;
-    })
-    .addCase(deleteCard.pending, (state) => {
-      state.cards.isLoading = true;
-    })
-    .addCase(deleteCard.fulfilled, (state, action) => {
-      state.cards.isLoading = false;
-      state.cards.error = null;
-      const index = state.cards.items.findIndex(
-        (card) => card._id === action.payload._id
-      );
-      state.cards.items.splice(index, 1);
-    })
-    .addCase(deleteCard.rejected, (state, action) => {
-      state.cards.isLoading = false;
-      state.cards.error = action.payload;
-    });
 },
 });
 

@@ -26,6 +26,7 @@ const ModalAddColumn = () => {
   const boardId = useParams(); 
   const [isColumnCreated, setIsColumnCreated] = useState(false);
   const [isModalCardOpen, setIsModalCardOpen] = useState(false);
+  const [columnId, setColumnId] = useState(null);
 
   const handleSubmit = async (values) => {
     try {
@@ -36,6 +37,8 @@ const ModalAddColumn = () => {
       const response = await dispatch(addColumn({boardName: boardId.boardId, name}));
       dispatch(closeModal());
       setIsColumnCreated(values.name);
+      console.log(response)
+      setColumnId(response.payload._id)
       return response;
 
     } catch (error) {
@@ -88,7 +91,7 @@ const ModalAddColumn = () => {
           </>
         )}
       </ModalContainer>
-        {isModalCardOpen && <ModalAddCard onClose={() => setIsModalCardOpen(false)} />}
+        {isModalCardOpen && <ModalAddCard id={columnId} onClose={() => setIsModalCardOpen(false)} />}
     </>
   );
 };

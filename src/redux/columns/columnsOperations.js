@@ -7,9 +7,7 @@ export const addColumn = createAsyncThunk(
   'columns/addColumn',
   async ({ boardName, name}, thunkAPI) => { 
     try {
-      const response = await axios.post(`/api/boards/${boardName}/column`, {
-        name, 
-      });
+      const response = await axios.post(`/api/boards/${boardName}/column`, {name});
       console.log('column created');
       return response.data;
     } catch (error) {
