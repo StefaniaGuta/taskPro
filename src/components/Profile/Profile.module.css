@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: space-between;
     width: 90px;
+    gap: 10px;
 }
 
 .MenuContainer h1 {
@@ -19,6 +20,9 @@
 .Avatar {
     width: 32px;
     height: 32px;
-    border-radius: 8px;;
-
+    border-radius: 8px;
 }
+
+.MenuContainer.dark h1 {
+    color: #FFFFFF;
+} 

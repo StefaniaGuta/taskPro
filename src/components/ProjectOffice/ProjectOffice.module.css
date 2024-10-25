@@ -1,5 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
+/*dark*/
+.ProjectOfficeSection.dark .card1,
+.ProjectOfficeSection.dark .task-card,
+.ProjectOfficeSection.dark .deadline-section .deadline-date,
+.ProjectOfficeSection.dark .priority-section .priority-value{
+  background-color:  #121212;
+  color: #FFFFFF;
+}
+
+.ProjectOfficeSection.dark .project-office-title{
+  color: #FFFFFF;
+}
+
+.ProjectOfficeSection.dark .card-description,
+.ProjectOfficeSection.dark .bottom-left {
+  color: #FFFFFF80;
+}
+
+.ProjectOfficeSection.dark img{
+  filter: invert(1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .ProjectOfficeSection{
   display: flex;
   flex-direction: column; 
@@ -8,6 +41,13 @@
   height: 700px;
 }
 
+.dark {
+  background-color: #1F1F1F;
+}
+
+.violet {
+  background-color: #D6D8FF;
+}
 .ProjectOfficeSection {
   scrollbar-width: thin;
   scrollbar-color: #bedbb0 transparent;
@@ -45,7 +85,10 @@
   line-height: 27px;
   letter-spacing: -0.02em;
   text-align: left;
+  color: #161616;
 }
+
+
 
 .AddColumBtn{
   width: 300px;

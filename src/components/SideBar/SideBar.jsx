@@ -14,6 +14,9 @@ import logoutImg from '../../images/logoutImg.jpg';
 import helpCircle from '../../images/help-circle.png';
 import SideBin from '../../images/SideBin.png';
 import SidePencil from '../../images/SidePencil.png';
+import closeDark from '../../images/closeDark.png';
+import openDark from '../../images/openDark.png';
+import openViolet from '../../images/openViolet.png';
 import { useSelector } from 'react-redux';
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -45,6 +48,7 @@ const SideBar = () => {
       console.error("Logout failed: ", error);
     }
   };
+ 
 
   useEffect(() => {
     const handleResize = () => {
@@ -74,6 +78,16 @@ const SideBar = () => {
   const NavigateToNewBoard = () => {
     navigate('/boards')
   }
+
+  const getLogo = () => {
+    if (theme === 'dark') {
+      return isOpen ? openDark : closeDark;
+    }
+    if (theme === 'violet') {
+      return isOpen ? openViolet : menu;
+    }
+    return isOpen ? SidebarLogo : menu;
+  };
   
   const DrawerList = (
     <Box 
@@ -84,7 +98,7 @@ const SideBar = () => {
         transform: 'none',
       }}>
       <img className={style.SideLogo}
-        src={isOpen ? SidebarLogo : menu} 
+        src={getLogo()} 
         alt='menu' 
         onClick={toggleSidebar} 
       />
@@ -143,9 +157,9 @@ const SideBar = () => {
 
   return (
     <div>
-      <button className={style.OpenCloseBtn}>
+      <button className={`${style.OpenCloseBtn} ${style[theme]}`}>
         <img
-          src={isOpen ? SidebarLogo : menu}
+          src={getLogo()}
           alt="menu"
           onClick={toggleSidebar}
           className={style.SideLogo}

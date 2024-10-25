@@ -10,6 +10,7 @@ const Profile = () => {
   const userName = useSelector(selectUsername);
   const avatar = useSelector(selectUserAvatar)
   const [isEditUserModalOpen, setIsEditUserModalOpen] = useState(false);
+  const theme = useSelector(state => state.auth.user.theme);
  
   
   function toggleModal() {
@@ -17,7 +18,7 @@ const Profile = () => {
   }
   return (
     <>
-    <section className={style.MenuContainer} onClick={toggleModal}>
+    <section className={`${style.MenuContainer} ${style[theme]}`} onClick={toggleModal}>
       <h1 className={style.UserName}>{userName}</h1>
       <img className={style.Avatar} src={avatar} alt='avatar'/>
     </section>

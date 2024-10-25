@@ -11,6 +11,10 @@
   padding: 0;
 }
 
+.OpenCloseBtn.dark{
+  background-color:  #161616;
+}
+
 .SideLogo {
   display: flex;
   align-self: flex-end;

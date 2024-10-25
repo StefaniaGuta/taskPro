@@ -1,73 +1,98 @@
-.custom-select__control {
-    background-color: transparent !important;
-    border: none !important;
-    height: 21px;
-    gap: 4px;
-  }
-  
-  .custom-select__control--is-focused {
-    border-color: transparent !important;
-    box-shadow: none !important;
-  }
-  
-  .custom-select__menu {
-    background-color: var(--header-color) !important;
-    width: 100px !important;
-    color: var(--grey-text-color);
-  }
-  
-  .custom-select__indicator-separator {
-    display: none !important;
-  }
-  
-  .custom-select__input-container {
-    margin: 0 !important;
-  }
-  
-  .custom-select__placeholder {
-    font-family: 'Poppins', sans-serif !important;
-    font-weight: 500 !important;
-    font-size: 14px !important;
-    letter-spacing: -0.02em;
-    color: var(--grey-text-color) !important;
-    padding: 0 !important;
-  }
-  
-  .custom-select__value-container {
-    padding: 0 !important;
-  }
-  
-  .custom-select__single-value {
-    color: var(--grey-text-color) !important;
-  }
-  
-  .custom-select__indicators {
-    cursor: pointer !important;
-  }
-  
-  .custom-select__indicator {
-    padding: 0 !important;
-  }
-  
-  .custom-select__option {
-    cursor: pointer !important;
-    transition: 350ms ease-in-out;
-  }
-  
-  .custom-select__option--is-focused {
-    background-color: transparent !important;
-    color: var(--accent-color) !important;
-  }
-  
-  .custom-select__option--is-hover {
-    background-color: transparent !important;
-    color: var(--accent-color) !important;
-  }
-  
-  .custom-select__option--is-selected {
-    background-color: lighten(var(--lightgrey-text-color), 8%) !important;
-    color: var(--grey-text-color) !important;
-  }
-  
-  .custom-select__option--is-selected:hover {
-    color: var(--accent-color) !important;}
+.custom-select__indicator.custom-select__dropdown-indicator.css-1xc3v61-indicatorContainer{
+  background-color: transparent  ;
+  cursor: pointer;
+  border: none;
+  height: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.custom-select__menu {
+  width: 100px;
+  height: 120px;
+  background-color: #FCFCFC ;
+  width: 100px  ;
+  color: var(--grey-text-color);
+  border: 1px solid #BEDBB0 ;
+  border-radius: 8px;
+  box-shadow: 0px 4px 16px 0px #1111111A;
+}
+
+.custom-select__indicator-separator {
+  display: none  ;
+}
+
+.custom-select__input-container {
+  margin: 0  ;
+}
+
+.div#react-select-3-placeholder {
+  font-family: 'Poppins', sans-serif  ;
+  font-weight: 500  ;
+  font-size: 14px  ;
+  letter-spacing: -0.02em;
+  line-height: 21px;
+  padding: 0  ;
+  color: #161616CC;
+}
+
+
+
+.custom-select__value-container {
+  padding: 0  ;
+}
+
+
+
+
+.custom-select__indicator.custom-select__dropdown-indicator.css-1xc3v61-indicatorContainer {
+
+  cursor: pointer;
+  padding: 0;
+}
+
+
+.custom-select__option {
+  cursor: pointer  ;
+  transition: 350ms ease-in-out;
+}
+
+
+
+.custom-select__option:focus {
+  background-color: transparent ;
+  color: #BEDBB0  ;
+}
+
+.custom-select__option:hover {
+  color: #BEDBB0  ;
+  transition: 350ms ease-in-out;
+  background-color: transparent ;
+}
+
+.custom-select__option--is-selected {
+  background-color: transparent ;
+  color: #BEDBB0  ;
+}
+ /*Theme*/
+.custom-select__control.light-placeholder .custom-select__input input::placeholder {
+  color: black;
+}
+
+.custom-select__control.violet-placeholder .custom-select__input input::placeholder {
+  color: black;
+}
+
+.custom-select__control.dark-placeholder .custom-select__input input::placeholder {
+  color: white;
+}
+
+.custom-select__single-value.dark {
+  color: red ;
+}
+
+.custom-select__option.dark{
+  color: #FFFF;
+}

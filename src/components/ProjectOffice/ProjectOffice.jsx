@@ -41,9 +41,8 @@ const ProjectOffice = () => {
           <h1 className={styles['project-office-title']}>Project office</h1>
             <FilterComponent/>
         </div>
-        <div className={styles['project-office-container']} style={{ flex: 1 }}>
 
-          
+        <div className={styles['project-office-container']} style={{ flex: 1 }}>
           <div className={styles['column']}>
             <div className={styles.card1}>
               To Do
@@ -62,7 +61,7 @@ const ProjectOffice = () => {
               </div>
             </div>
             
-            <div className={styles['card-column']}>
+            <div className={`${styles['card-column']} ${styles[theme]}`}>
               <div className={styles['task-card']}>
                 <img
                   src={leftBarImage}
@@ -88,7 +87,7 @@ const ProjectOffice = () => {
                   </div>
                   <div className={styles['deadline-section']}>
                     <span>Deadline</span>
-                    <span>12/05/2023</span>
+                    <span className={styles['deadline-date']}>12/05/2023</span>
                   </div>
                 </div>
                 <div className={styles['right-icons']}>
@@ -123,7 +122,7 @@ const ProjectOffice = () => {
                   </div>
                   <div className={styles['deadline-section']}>
                     <span>Deadline</span>
-                    <span>12/05/2023</span>
+                    <span className={styles['deadline-date']}>12/05/2023</span>
                   </div>
                 </div>
                 <div className={styles['right-icons']}>
@@ -158,7 +157,7 @@ const ProjectOffice = () => {
                   </div>
                   <div className={styles['deadline-section']}>
                     <span>Deadline</span>
-                    <span>12/05/2023</span>
+                    <span className={styles['deadline-date']}>12/05/2023</span>
                   </div>
                 </div>
                 <div className={styles['right-icons']}>
@@ -218,7 +217,7 @@ const ProjectOffice = () => {
                   </div>
                   <div className={styles['deadline-section']}>
                     <span>Deadline</span>
-                    <span>12/05/2023</span>
+                    <span className={styles['deadline-date']}>12/05/2023</span>
                   </div>
                 </div>
                 <div className={styles['right-icons']}>
@@ -254,7 +253,7 @@ const ProjectOffice = () => {
                   </div>
                   <div className={styles['deadline-section']}>
                     <span>Deadline</span>
-                    <span>12/05/2023</span>
+                    <span className={styles['deadline-date']}>12/05/2023</span>
                   </div>
                 </div>
                 <div className={styles['right-icons']}>
@@ -290,7 +289,7 @@ const ProjectOffice = () => {
                   </div>
                   <div className={styles['deadline-section']}>
                     <span>Deadline</span>
-                    <span>12/05/2023</span>
+                    <span className={styles['deadline-date']}>12/05/2023</span>
                   </div>
                 </div>
                 <div className={styles['right-icons']}>
@@ -349,7 +348,7 @@ const ProjectOffice = () => {
                 </div>
                 <div className={styles['deadline-section']}>
                   <span>Deadline</span>
-                  <span>12/05/2023</span>
+                  <span className={styles['deadline-date']}>12/05/2023</span>
                 </div>
               </div>
               <div className={styles['right-icons']}>
@@ -386,7 +385,7 @@ const ProjectOffice = () => {
                 </div>
                 <div className={styles['deadline-section']}>
                   <span>Deadline</span>
-                  <span>12/05/2023</span>
+                  <span className={styles['deadline-date']}>12/05/2023</span>
                 </div>
               </div>
               <div className={styles['right-icons']}>
@@ -420,7 +419,7 @@ const ProjectOffice = () => {
                 </div>
                 <div className={styles['deadline-section']}>
                   <span>Deadline</span>
-                  <span>12/05/2023</span>
+                  <span className={styles['deadline-date']}>12/05/2023</span>
                 </div>
               </div>
               <div className={styles['right-icons']}>
