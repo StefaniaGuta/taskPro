@@ -4,6 +4,7 @@ import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
 import { updateTheme } from '../../redux/theme/themeOperation';
 import './ThemeSelect.css';
+import {customStyles} from './ThemeSelect.styled'
 
 function ThemeSelect() {
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ function ThemeSelect() {
     <section>
       <Select
         classNamePrefix="custom-select"
+        styles={customStyles}
         onChange={onChangeTheme}
         options={THEME_OPTIONS}
         defaultValue={THEME_OPTIONS.find(option => option.value === theme)}
