@@ -4,7 +4,8 @@
 .ProjectOfficeSection.dark .card1,
 .ProjectOfficeSection.dark .task-card,
 .ProjectOfficeSection.dark .deadline-section .deadline-date,
-.ProjectOfficeSection.dark .priority-section .priority-value{
+.ProjectOfficeSection.dark .priority-section .priority-value,
+.ProjectOfficeSection.dark .AddColumBtn{
   background-color:  #121212;
   color: #FFFFFF;
 }
@@ -21,17 +22,6 @@
 .ProjectOfficeSection.dark img{
   filter: invert(1);
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .ProjectOfficeSection{
   display: flex;
@@ -88,8 +78,6 @@
   color: #161616;
 }
 
-
-
 .AddColumBtn{
   width: 300px;
   display: flex;
@@ -106,6 +94,7 @@
   line-height: 21px;
   letter-spacing: -0.02em;
   text-align: left;
+  border-radius: 8px;
 }
 
 .AddColumBtn span{
@@ -120,8 +109,23 @@
   font-size: 14px;
   cursor: pointer;
   color: #ffffff;
-
 }
+
+.ProjectOfficeSection.dark .AddColumBtn span,
+.ProjectOfficeSection.violet .add-card .add-button{
+  background-color: #ffffff;
+  color: #161616;
+}
+
+.ProjectOfficeSection.violet .AddColumBtn span{
+  background-color: #5255BC;
+}
+
+.ProjectOfficeSection.violet .add-card{
+  background-color: #5255BC;
+  color: #FFFFFF;
+}
+
 
 .card1 {
   width: 300px;

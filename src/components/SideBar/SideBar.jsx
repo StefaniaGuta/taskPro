@@ -10,7 +10,7 @@ import SidebarLogo from '../../images/Sidebar-logo.png';
 import NeedHelpImg from '../../images/NeedHelpImg.png';
 import Project from '../../images/Project.png';
 import puzzle from '../../images/puzzle-piece-02.png';
-import logoutImg from '../../images/logoutImg.jpg';
+import logout from '../../images/logout.png';
 import helpCircle from '../../images/help-circle.png';
 import SideBin from '../../images/SideBin.png';
 import SidePencil from '../../images/SidePencil.png';
@@ -108,14 +108,14 @@ const SideBar = () => {
           <div className={style.CreateBoardSection}>
             <h2 className={style.CreateBoard}>Create a new board</h2>
             <button type='button' 
-              className={`${style.CreateBoardBtn} ${theme}`} 
+              className={style.CreateBoardBtn}
               onClick={CreateBoard}
             >
               +
             </button>
           </div>
 
-          <div className={`${style.ProjectSection} ${theme}`} tabIndex="0" onClick={() => navigate('/office')}>
+          <div className={style.ProjectSection} tabIndex="0" onClick={() => navigate('/office')}>
             <div className={style.NameDiv}>
             <img src={Project} alt='project'/>
             <h2 className={style.PojectName}>Project office</h2>
@@ -130,7 +130,7 @@ const SideBar = () => {
             New Board
           </button>
 
-          <div className={`${style.NeonProject} ${theme}`}>
+          <div className={style.NeonProject}>
             <img src={puzzle} alt='puzzle'/>
             <h2>Neon Light Project</h2>
           </div>
@@ -140,14 +140,14 @@ const SideBar = () => {
             <p>If you need help with <span>TaskPro</span>, check out our support resources or reach out to our customer support team.</p>
             <button className={style.HelpBtn} onClick={() => setIsNeedModalOpen(prevState => !prevState)} 
             >
-              <img src={helpCircle} alt='help'/>
+              <img className={style.HelpCircle} src={helpCircle} alt='help'/>
               Need help?
             </button>
           </div>
           <button className={style.LogOut} 
               type='button'
               onClick={handleLogout}>
-            <img src={logoutImg} alt='logout'/>
+            <img src={logout} alt='logout'/>
             Log out
           </button>
         </>

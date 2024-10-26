@@ -25,7 +25,6 @@
 
 .Sidebar {
   width: 225px;
-  height: 100vh;
 }
 
 .Boards {
@@ -196,7 +195,7 @@
   letter-spacing: -0.02em;
   text-align: left;
   border: none;
-  background-color: #F6F6F7;
+  background: transparent;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -225,6 +224,82 @@
   cursor: pointer;
 }
 
+/*Theme*/
+
+.Sidebar.violet,
+.Sidebar.violet .LogOut {
+  background-color: #5255BC;
+  color: #FFFFFF;
+}
+
+.Sidebar.violet .Boards,
+.Sidebar.violet .NeonProject h2,
+.Sidebar.dark .Boards,
+.Sidebar.dark .NeonProject h2{
+  color: #FFFFFF80;
+}
+
+.Sidebar.violet .NeonProject img,
+.Sidebar.violet .ProjectSection .NameDiv img,
+.Sidebar.violet .HelpSection .HelpCircle,
+.Sidebar.violet .ProjectSection:hover .icons,
+.Sidebar.violet .ProjectSection:focus-within .icons,
+.Sidebar.dark .NeonProject img,
+.Sidebar.dark .ProjectSection .NameDiv img,
+.Sidebar.dark .HelpSection .HelpCircle,
+.Sidebar.dark .ProjectSection:hover .icons,
+.Sidebar.dark .ProjectSection:focus-within .icons{ 
+  filter: invert(1);
+}
+
+.Sidebar.violet .HelpSection{
+  background-color: #ECEDFD66;
+}
+
+.Sidebar.dark .HelpSection{
+  background-color: #1F1F1F;
+}
+
+.Sidebar.violet .HelpSection span{
+  color:#5255BC;
+}
+
+.Sidebar.violet .HelpSection .HelpBtn,
+.Sidebar.dark .HelpSection .HelpBtn{
+  color: #FFFF;
+}
+
+
+.Sidebar.violet .CreateBoardSection .CreateBoardBtn{
+  background-color: #B8BCFD;
+  color: #FFFFFF;
+} 
+
+.Sidebar.violet .ProjectSection:hover,
+.Sidebar.violet .ProjectSection:focus {
+  background-color: #B8BCFD;
+}
+
+
+.Sidebar.violet .ProjectSection:hover::after,
+.Sidebar.violet .ProjectSection:focus::after {
+  background-color: #FFFFFF;
+}
+
+.Sidebar.dark,
+.Sidebar.dark .LogOut{
+  background-color: #121212;
+  color: #FFFFFF;
+}
+
+.Sidebar.violet .LogOut img{
+  filter:contrast(90);
+}
+
+.Sidebar.dark .ProjectSection:hover,
+.Sidebar.dark.ProjectSection:focus {
+  background-color: #1F1F1F;
+}
 
 @media screen and (min-width: 768px) {
   .Sidebar{
@@ -260,7 +335,6 @@
     margin-top: 60px;
   }
 
-  
   .ProjectSection:focus::after {
     content: '';
     width: 4px;
