@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import { useGetMiniImgQuery } from '../../../redux/miniImgApi/miniImgApi';
 import urlIcon from '../../../images/icons/sprite.svg';
@@ -26,12 +26,14 @@ import {
   Icon,
   ImgStyled,
   ImgBox,
+  NewBoardSection,
 } from './ModalCreateNewBoard.styled';
 
 const ModalCreateNewBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useGetMiniImgQuery();
+  const theme = useSelector(state => state.auth.user.theme);
 
   const handleSubmit = async (values) => {
     
@@ -47,10 +49,10 @@ const ModalCreateNewBoard = () => {
   };
 
   return (
-    <>
-      <ModalCard>
+    <NewBoardSection>
+      <ModalCard theme={theme}>
         <CloseButton />
-        <Title>New board</Title>
+        <Title theme={theme}>New board</Title>
 
         <Formik
           initialValues={{
@@ -63,6 +65,7 @@ const ModalCreateNewBoard = () => {
           <FormikForm>
             <FormFieldTitle>
               <FieldTitle
+                theme={theme}
                 type="text"
                 name="name"
                 title="You need to enter the name of the column"
@@ -72,7 +75,7 @@ const ModalCreateNewBoard = () => {
               <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
-            <Text id="my-radio-groupIcon">Icons</Text>
+            <Text id="my-radio-groupIcon" theme={theme}>Icons</Text>
             <IconContainer role="group" aria-labelledby="my-radio-groupIcon">
               {icons.map(({ id, path }) => (
                 <label key={id}>
@@ -85,7 +88,7 @@ const ModalCreateNewBoard = () => {
               <ErrorMessage name="icon" component="p" />
             </IconContainer>
 
-            <Text id="my-radio-groupImage">Background</Text>
+            <Text id="my-radio-groupImage" theme={theme}>Background</Text>
             <ImageContainer role="group" aria-labelledby="my-radio-groupImage">
               <label>
                 <FormikFieldImage
@@ -114,7 +117,7 @@ const ModalCreateNewBoard = () => {
               <ErrorMessage name="backgroundImage" component="p" />
             </ImageContainer>
 
-            <Button type="submit">
+            <Button type="submit" theme={theme}>
               <ContainerIconButton>
                 <svg width="14" height="14">
                   <use xlinkHref={`${urlIcon}#icon-plus`} />
@@ -125,7 +128,7 @@ const ModalCreateNewBoard = () => {
           </FormikForm>
         </Formik>
       </ModalCard>
-    </>
+    </NewBoardSection>
   );
 };
 

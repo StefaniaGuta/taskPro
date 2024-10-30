@@ -25,6 +25,8 @@
 
 .Sidebar {
   width: 225px;
+  overflow: visible;
+  position: relative;
 }
 
 .Boards {
@@ -126,7 +128,7 @@
   transition: background-color var(--transition);
 }
 
-.PojectName {
+.ProjectName {
   width: 88px;
   height: 21px;
   font-family: var(--font-family);
@@ -250,6 +252,12 @@
 .Sidebar.dark .ProjectSection:hover .icons,
 .Sidebar.dark .ProjectSection:focus-within .icons{ 
   filter: invert(1);
+}
+
+.Sidebar.dark .CreateBoardSection,
+.Sidebar.violet .CreateBoardSection{
+  border-top: 1px solid #FFFFFF1A;
+  border-bottom: 1px solid #FFFFFF1A;
 }
 
 .Sidebar.violet .HelpSection{

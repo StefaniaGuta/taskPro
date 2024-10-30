@@ -1,15 +1,42 @@
 import styled, { keyframes } from 'styled-components';
 import { Form, ErrorMessage as FormikError, Field } from 'formik';
 
+export const NewBoardSection = styled.section`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0, .3);
+  `
+
 export const ModalCard = styled.div`
-  height: 433px;
-  margin-top: 500px;
-  background-color: #FFFF;
-  border-radius: var(--borderRadius8);
-  border: 1px solid var(--borderBoardColor);
   position: relative;
+  width: 70vw;
+  height: 395px;
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#161616';
+      default:
+        return '#FCFCFC';
+    }
+  }};
+  border-radius: 8px;
+  border: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '1px solid #BEDBB080';
+      default:
+        return 'none';
+    }
+  }};
   padding: 24px;
+  font-family: var(--poppinsFont);
+  box-shadow: 0px 4px 16px 0px #1616160D;
   z-index: 20000;
+  margin-inline: auto;
+  margin-top: 20vh;
+
+
   @media screen and (min-width: 320px) {
     width: 90vw;
   }
@@ -23,7 +50,14 @@ export const ModalCard = styled.div`
 `;
 
 export const Title = styled.h2`
-  color: var(--titleBoardColor);
+   color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize18);
   font-family: var(--poppinsFont);
   font-weight: (--fontWeight500);
@@ -54,15 +88,21 @@ export const ErrorMessage = styled(FormikError)`
 `;
 
 export const FieldTitle = styled(Field)`
-  width: 100%;
-
+  width: 83%;
   height: 49px;
-  padding: 14px 18px 14px 18px;
+  padding: 0 18px;
   margin-bottom: 24px;
   align-items: center;
-  border-radius: var(--borderRadius8);
+  border-radius: 8px;
   background: var(--bgInputBoardColor);
-  border: 1px solid var(--borderInputBoardColor);
+  border:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '1px solid #5255BC';
+      default:
+        return '1px solid #BEDBB0;';
+    }
+  }};
   opacity: 0.4000000059604645;
 
   box-shadow: 0px 4px 16px 0px rgba(var(--boxShadowInputBoardColor));
@@ -72,6 +112,10 @@ export const FieldTitle = styled(Field)`
   font-family: var(--poppinsFont), var(--roboto);
   letter-spacing: -0.28px;
 
+  @media screen and (min-width: 375px) {
+    width: 89%;
+  }
+
   &:hover,
   &:focus,
   &:active {
@@ -80,12 +124,19 @@ export const FieldTitle = styled(Field)`
   }
 
   @media screen and (min-width: 768px) {
-    width: 302px;
+    width: 89.7%;
   }
 `;
 
 export const Text = styled.h3`
-  color: var(--titleBoardColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize14);
   font-family: var(--poppinsFont);
   font-weight: var(--fontWeight500);
@@ -199,22 +250,33 @@ const pulseAnimation = keyframes`
 export const Button = styled.button`
   display: flex;
   justify-content: center;
+  width: 100%;
   height: 49px;
   padding: 10px 0px 11px 0px;
   align-items: center;
-  border-radius: var(--borderRadius8);
+  border-radius: 8px;
   border: none;
-  background-color: var(--btnBoardColor);
-  color: var(--btnTextBoardColor);
+  background-color:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#5255BC';
+      default:
+        return '#BEDBB0';
+    }
+  }};
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize14);
   font-family: var(--poppinsFont);
   font-weight: var(--fontWeight500);
   letter-spacing: -0.28px;
   cursor: pointer;
-
-  @media screen and (min-width: 768px) {
-    width: 302px;
-  }
 
   position: relative;
   overflow: hidden;

@@ -1,25 +1,49 @@
 import styled, { keyframes } from 'styled-components';
 import { ErrorMessage, Field } from 'formik';
 
-export const NeedHelpContainer = styled.div`
-  @media screen and (min-width: 320px) {
-    position: relative;
+export const NeedHelpSection = styled.section`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0, .3);
+`
 
-    width: 90vw;
+export const NeedHelpContainer = styled.div`
+  
+   position: relative;
+    width: 70vw;
     height: 355px;
-    background-color: var(--needHelpBgColor);
-    border-radius: var(--borderRadius8);
+    background-color: ${({ theme }) => {
+      switch (theme) {
+        case 'dark':
+          return '#161616';
+        default:
+          return '#FCFCFC';
+      }
+    }};
+    border-radius: 8px;
+    border: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '1px solid #BEDBB080';
+      default:
+        return 'none';
+    }
+  }};
     padding: 24px;
     font-family: var(--poppinsFont);
-    margin: 0 auto;
-    margin-top: 50px;
-  }
+    box-shadow: 0px 4px 16px 0px #1616160D;
+    margin-inline: auto;
+    margin-top: 20vh;
+
+  
   @media screen and (min-width: 375px) {
     width: 335px;
   }
 
   @media screen and (min-width: 768px) {
     width: 400px;
+    margin-top: 14vh;
   }
 `;
 
@@ -28,17 +52,31 @@ export const Title = styled.h2`
   font-weight: var(--fontWeight500);
   letter-spacing: -0.36px;
   margin-bottom: 24px;
-  color: var(--titleNeedHelpColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   text-align: left;
 `;
 
 export const InputEmail = styled(Field)`
-  width: 287px;
+  width: 83%;
   height: 49px;
-  padding: 14px 18px;
+  padding: 0 18px;
   background-color: inherit;
-  border-radius: var(--borderRadius8);
-  border: 1px solid var(--borderNeedHelpColor);
+  border-radius: 8px;
+  border:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '1px solid #5255BC';
+      default:
+        return '1px solid #BEDBB0;';
+    }
+  }};
   opacity: 0.4000000059604645;
   color: var(--textInputColor);
   line-height: 18px;
@@ -46,8 +84,10 @@ export const InputEmail = styled(Field)`
   font-size: var(--fontSize14);
   letter-spacing: -0.28px;
   outline: none;
-  @media screen and (min-width: 320px) {
-    width: 100%;
+  
+
+   @media screen and (min-width: 375px) {
+    width: 89%;
   }
 
   &:hover,
@@ -58,17 +98,24 @@ export const InputEmail = styled(Field)`
   }
 
   @media screen and (min-width: 768px) {
-    width: 352px;
+    width: 362px;
   }
 `;
 
 export const InputComment = styled(Field)`
-  width: 287px;
+  width: 83%;
   height: 120px;
   padding: 14px 18px;
   background-color: inherit;
-  border-radius: var(--borderRadius8);
-  border: 1px solid var(--borderNeedHelpColor);
+  border-radius: 8px;
+  border:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '1px solid #5255BC';
+      default:
+        return '1px solid #BEDBB0;';
+    }
+  }};
   opacity: 0.4000000059604645;
 
   color: var(--textInputColor);
@@ -82,8 +129,8 @@ export const InputComment = styled(Field)`
 
   margin-top: 14px;
 
-  @media screen and (min-width: 320px) {
-    width: 100%;
+  @media screen and (min-width: 375px) {
+    width: 89%;
   }
 
   &:hover,
@@ -94,7 +141,7 @@ export const InputComment = styled(Field)`
   }
 
   @media screen and (min-width: 768px) {
-    width: 352px;
+    width: 362px;
   }
 `;
 
@@ -112,12 +159,26 @@ const pulseAnimation = keyframes`
 `;
 
 export const Button = styled.button`
-  width: 287px;
+  width: 100%;
   height: 49px;
-  border-radius: var(--borderRadius8);
-  background-color: var(--btnNeedHelpColor);
+  border-radius: 8px;
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#5255BC';
+      default:
+        return '#BEDBB0';
+    }
+  }};
 
-  color: var(--btnTextNeedHelpColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   border: 0px;
   font-size: var(--fontSize14);
   font-weight: var(--fontWeight500);
@@ -130,7 +191,7 @@ export const Button = styled.button`
   }
 
   @media screen and (min-width: 768px) {
-    width: 352px;
+    width: 400px;
   }
 
 
@@ -177,10 +238,6 @@ export const Button = styled.button`
   }
 `;
 
-export const Wrapper = styled.div`
-  width: 100%;
-  position: relative;
-`;
 
 export const StyleErrorMessage = styled(ErrorMessage)``;
 

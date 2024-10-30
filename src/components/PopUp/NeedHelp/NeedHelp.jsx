@@ -7,15 +7,16 @@ import {
   NeedHelpContainer,
   Title,
   Button,
-  Wrapper,
+ 
   StyleErrorMessage,
   Error,
   InputComment,
   InputEmail,
+  NeedHelpSection
 } from './NeedHelp.styled';
 import CloseButton from '../CloseButton/CloseButton';
 import { closeModal } from '../../../redux/modal/modalSlice.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const schema = yup.object().shape({
@@ -30,7 +31,7 @@ const schema = yup.object().shape({
 });
 
 const NeedHelpModal = () => {
-
+  const theme = useSelector(state => state.auth.user.theme);
   const dispatch = useDispatch();
 
   const handleSubmit = async (values, { resetForm }) => {
@@ -47,26 +48,24 @@ const NeedHelpModal = () => {
 
  
   return (
-    <>
-      <NeedHelpContainer>
-        <CloseButton />
-
-        <Title>Need help</Title>
+    <NeedHelpSection>
+      <NeedHelpContainer theme={theme}>
+        <CloseButton/>
+        <Title theme={theme}>Need help</Title>
         <Formik
           initialValues={{ email: '', comment: '' }}
           validationSchema={schema}
           onSubmit={handleSubmit}
         >
           <Form>
-            <Wrapper>
-              <InputEmail type="email" name="email" placeholder="Email" />
+           
+              <InputEmail type="email" name="email" placeholder="Email" theme={theme}/>
               <StyleErrorMessage name="email">
                 {(msg) => <Error>{msg}</Error>}
               </StyleErrorMessage>
-            </Wrapper>
-
-            <Wrapper>
+            
               <InputComment
+              theme={theme}
                 name="comment"
                 placeholder="Comment"
                 component="textarea"
@@ -75,15 +74,15 @@ const NeedHelpModal = () => {
               <StyleErrorMessage name="comment">
                 {(msg) => <Error>{msg}</Error>}
               </StyleErrorMessage>
-            </Wrapper>
+            
 
-            <Button type="submit">
+            <Button type="submit" theme={theme}>
               Send
             </Button>
           </Form>
         </Formik>
       </NeedHelpContainer>
-    </>
+    </NeedHelpSection>
   );
 };
 

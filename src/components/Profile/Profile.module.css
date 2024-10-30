@@ -4,6 +4,7 @@
     justify-content: space-between;
     width: 90px;
     gap: 10px;
+    cursor: pointer;
 }
 
 .MenuContainer h1 {

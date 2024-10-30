@@ -3,7 +3,9 @@ import * as yup from 'yup';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { useState } from 'react';
 import {editUser, currentUser} from '../../../redux/auth/authOperations';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
+import CloseButton from '../CloseButton/CloseButton';
+import { closeModal } from '../../../redux/modal/modalSlice';
 
 import {
   FormUpdateUser,
@@ -20,7 +22,7 @@ import {
   Success,
   Edit,
   EditTitle,
-  BtnClose,
+
 
   ProfilePhotoBlock,
   PhotoUser,
@@ -30,6 +32,7 @@ import {
   BtnSavePhotoUser,
   PhotoBox,
   UserIconSvg,
+  EditProfileSection,
 } from './EditProfile.styled';
 
 import url from '../../../images/icons/sprite.svg';
@@ -73,7 +76,7 @@ const EditProfile = ({toggleModal}) => {
   const [showEmailSuccessMessage, setShowEmailSuccessMessage] = useState(false);
   const [showPasswordSuccessMessage, setShowPasswordSuccessMessage] =useState(false);
   const [isAvatarOnly, setIsAvatarOnly] = useState(false);
-
+  const theme = useSelector(state => state.auth.user.theme);
 
   const initialValues = {
     name: currentUser?.name || '',
@@ -159,8 +162,7 @@ const EditProfile = ({toggleModal}) => {
       resetForm();
 
       await dispatch(currentUser());
-      const crtUsr = await dispatch(currentUser())
-      console.log(crtUsr)
+      dispatch(closeModal());
       return updatedUser;
     } catch (error) {
       console.log(updatedUser)
@@ -172,18 +174,12 @@ const EditProfile = ({toggleModal}) => {
   
      
   return (
-    <Edit>
-      <BtnClose
-        style={{
-          position: 'absolute',
-          top: '14px',
-          right: '14px',
-          cursor: 'pointer',
-        }}
-      >
-        X
-      </BtnClose>
-      <EditTitle>Edit profile</EditTitle>
+    <EditProfileSection>
+    <Edit theme={theme}>
+      
+        <CloseButton />
+      
+      <EditTitle theme={theme}>Edit profile</EditTitle>
 
       <ProfilePhotoBlock>
         {showAvatarSuccessMessage && (
@@ -207,14 +203,15 @@ const EditProfile = ({toggleModal}) => {
             </UserIconSvg>
           )}
           {!showSaveButton && (
-            <LabelEditPhoto htmlFor="inputFile">
+            <LabelEditPhoto htmlFor="inputFile" theme={theme}>
+              +
               <svg width="10" height="10">
                 <use xlinkHref={`${url}#icon-plus+`} />
               </svg>
             </LabelEditPhoto>
           )}
           {showSaveButton && (
-            <BtnSavePhotoUser onClick={handleUpdateAvatar}>
+            <BtnSavePhotoUser onClick={handleUpdateAvatar} theme={theme}>
               +
             </BtnSavePhotoUser>
           )}
@@ -238,7 +235,8 @@ const EditProfile = ({toggleModal}) => {
       >
         <FormUpdateUser>
           <FeedbackFormGroup>
-            <InputForm
+            <InputForm 
+              theme={theme}
               type="text"
               name="name"
               placeholder="Edit name"
@@ -255,6 +253,7 @@ const EditProfile = ({toggleModal}) => {
           </FeedbackFormGroup>
           <FeedbackFormGroup>
             <InputForm
+              theme={theme}
               type="email"
               name="email"
               placeholder="Edit email"
@@ -273,6 +272,7 @@ const EditProfile = ({toggleModal}) => {
           <FeedbackFormGroup>
             <PasswordWrapper>
               <InputForm
+                theme={theme}
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="Edit password"
@@ -304,13 +304,14 @@ const EditProfile = ({toggleModal}) => {
             )}
           </FeedbackFormGroup>
           <BtnWrapper>
-            <BtnUpdate type="submit">
+            <BtnUpdate type="submit" theme={theme}>
              Send
             </BtnUpdate>
           </BtnWrapper>
         </FormUpdateUser>
       </Formik>
     </Edit>
+    </EditProfileSection>
   );
 };
 

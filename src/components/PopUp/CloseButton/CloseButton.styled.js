@@ -5,6 +5,16 @@ export const IconButton = styled.button`
   border: none;
   stroke: var(--iconCloseColor);
   background-color: inherit;
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      case 'violet':
+        return '#161616';
+      default:
+        return '#161616';
+    }
+  }};
   cursor: pointer;
   top: 14px;
   right: 14px;

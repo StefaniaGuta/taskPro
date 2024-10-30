@@ -19,6 +19,7 @@ import { miniImgApi } from '../redux/miniImgApi/miniImgApi';
 import {cardsReducer} from '../redux/cards/cardsSlice';
 import {columnsReducer} from '../redux/columns/columnSlice';
 import {needHelpReducer} from '../redux/NeedHelp/slice';
+import {modalReducer} from '../redux/modal/modalSlice'
 
 const authPersistConfig = {
   key: 'auth',
@@ -36,6 +37,7 @@ export const store = configureStore({
     cards: cardsReducer,
     columns: columnsReducer,
     needHelp: needHelpReducer,
+    modal: modalReducer,
     [miniImgApi.reducerPath]: miniImgApi.reducer,
 
   },

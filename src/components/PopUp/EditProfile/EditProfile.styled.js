@@ -1,6 +1,18 @@
 import styled, { keyframes } from 'styled-components';
 import { Form, Field, ErrorMessage } from 'formik';
 
+export const EditProfileSection= styled.section`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 
 export const FormUpdateUser = styled(Form)``;
 
@@ -16,7 +28,14 @@ export const InputForm = styled(Field)`
   padding: 0 10px;
   width: 250px;
   height: 49px;
-  border: 1px solid #BEDBB0;
+  border:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '1px solid #5255BC';
+      default:
+        return '1px solid #BEDBB0;';
+    }
+  }};
   border-radius: 8px;
   background-color: var(--modalBgColor);
   color: var(--textInputBoardColor);
@@ -73,10 +92,24 @@ const pulseAnimation = keyframes`
 export const BtnUpdate = styled.button`
   width: 100%;
   height: 49px;
-  background-color: #BEDBB0;
+  background-color:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#5255BC';
+      default:
+        return '#BEDBB0';
+    }
+  }};
   border-radius: var(--borderRadius8);
   cursor: pointer;
-  color: var(--btnTextBoardColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-family: var(--poppinsFont);
   font-weight: var(--fontWeight500);
   font-size: var(--fontSize14);
@@ -160,33 +193,55 @@ export const Success = styled.p`
 
 export const Edit = styled.div`
   position: relative;
-  top: 25vw;
-  right: 30vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 90vw;
   padding: 20px;
-  background-color: #FFF;
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#161616';
+      default:
+        return '#FCFCFC';
+    }
+  }};
   border-radius: 8px;
-  box-shadow: 0px 4px 16px 0px var(--modalBoxShadow);
+  border: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '1px solid #BEDBB080';
+      default:
+        return 'none';
+    }
+  }};
+  box-shadow: 0px 4px 16px 0px #1616160D;
   z-index: 1200;
 
   @media screen and (min-width: 375px) {
     width: 335px;
-    top: 50vw;
   }
 
   @media screen and (min-width: 768px) {
     width: 400px;
     height: 440px;
     padding: 24px;
+    
   }
 `;
 
 export const EditTitle = styled.h3`
-  color: var(--titleBoardColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      case 'violet':
+        return '#161616';
+      default:
+        return '#161616';
+    }
+  }};
   text-align: start;
   width: 100%;
   height: 26px;
@@ -252,7 +307,14 @@ export const LabelEditPhoto = styled.label`
   transform: translate(-50%, -50%);
   width: 24px;
   height: 24px;
-  background-color: #BEDBB0;
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#ECEDFD';
+      default:
+        return '#BEDBB0';
+    }
+  }};
   stroke: var(--iconPlusEditColor);
   justify-content: center;
   align-items: center;
@@ -280,7 +342,14 @@ export const BtnSavePhotoUser = styled.button`
   transform: translate(-50%, -50%);
   width: 24px;
   height: 24px;
-  background-color: #BEDBB0;
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#ECEDFD';
+      default:
+        return '#BEDBB0';
+    }
+  }};
   justify-content: center;
   align-items: center;
   border-radius: 8px;
