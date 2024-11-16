@@ -1,13 +1,12 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import urlIcon from '../../../images/icons/sprite.svg';
 import CloseButton from '../CloseButton/CloseButton';
 import { useParams } from 'react-router-dom';
 import {addColumn } from '../../../redux/columns/columnsOperations';
-import { useState } from 'react';
-import ModalAddCard from '../AddCard/AddCard';
+
 
 import {
   Form,
@@ -18,15 +17,14 @@ import {
   Title,
   Button,
   ContainerIconButton,
+  ColumnSection,
 } from './ModalAddColumn.styled';
 
 
 const ModalAddColumn = () => {
   const dispatch = useDispatch();
   const boardId = useParams(); 
-  const [isColumnCreated, setIsColumnCreated] = useState(false);
-  const [isModalCardOpen, setIsModalCardOpen] = useState(false);
-  const [columnId, setColumnId] = useState(null);
+  const theme = useSelector(state => state.auth.user.theme);
 
   const handleSubmit = async (values) => {
     try {
@@ -36,9 +34,9 @@ const ModalAddColumn = () => {
       }
       const response = await dispatch(addColumn({boardName: boardId.boardId, name}));
       dispatch(closeModal());
-      setIsColumnCreated(values.name);
+      
       console.log(response)
-      setColumnId(response.payload._id)
+      
       return response;
 
     } catch (error) {
@@ -47,10 +45,10 @@ const ModalAddColumn = () => {
   };
 
   return (
-    <>
-      <ModalContainer>
+    <ColumnSection>
+      <ModalContainer theme={theme}>
         <CloseButton />
-        <Title>Add column</Title>
+        <Title theme={theme}>Add column</Title>
         <Formik
           initialValues={{
             name: '',
@@ -61,6 +59,7 @@ const ModalAddColumn = () => {
           <Form>
             <FormFieldTitle>
               <FieldTitle
+              theme={theme}
                 type="text"
                 name="name"
                 // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -71,7 +70,7 @@ const ModalAddColumn = () => {
               <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
-            <Button type="submit">
+            <Button type="submit" theme={theme}>
               <ContainerIconButton>
                 <svg width="14" height="14">
                   <use xlinkHref={`${urlIcon}#icon-plus`} />
@@ -81,18 +80,8 @@ const ModalAddColumn = () => {
             </Button>
           </Form>
         </Formik>
-
-        {isColumnCreated && (
-          <>
-          <h2> Name: {isColumnCreated}</h2>
-          <button onClick={() => setIsModalCardOpen(true)}>
-            Add Card
-          </button>
-          </>
-        )}
       </ModalContainer>
-        {isModalCardOpen && <ModalAddCard id={columnId} onClose={() => setIsModalCardOpen(false)} />}
-    </>
+    </ColumnSection>
   );
 };
 

@@ -6,7 +6,7 @@ export const NewBoardSection = styled.section`
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0, .3);
-  `
+`;
 
 export const ModalCard = styled.div`
   position: relative;

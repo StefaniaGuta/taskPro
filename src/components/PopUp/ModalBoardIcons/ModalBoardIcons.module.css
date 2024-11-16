@@ -1,0 +1,21 @@
+.IconContainer {
+    display: flex;
+  gap: 8px;
+}
+
+.IconContainer input {
+    display: none;
+}
+
+.Icon {
+    stroke: #16161680;
+    fill: #FFF;
+    cursor: pointer;
+    transition-duration: 250ms;
+}
+
+.Icon:hover,
+.Icon:focus {
+    stroke: #161616;
+    transition-duration: 250ms;
+} 

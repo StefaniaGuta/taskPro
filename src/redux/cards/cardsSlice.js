@@ -5,7 +5,6 @@ const cardsSlice = createSlice({
   name: 'cards',
   initialState: {
     cards: {
-      items: [],
       isLoading: false,
       error: null,
     },
@@ -18,7 +17,8 @@ extraReducers: (builder) => {
     .addCase(addCard.fulfilled, (state, action) => {
       state.cards.isLoading = false;
       state.cards.error = null;
-      state.cards.items.push(action.payload);
+      [state.cards].push(action.payload);
+      console.log('payload', action.payload)
     })
     .addCase(addCard.rejected, (state, action) => {
       state.cards.isLoading = false;

@@ -9,6 +9,7 @@ const CloseButton = () => {
 
   const handleClose = () => {
     dispatch(closeModal());
+    console.log('closed')
   };
 
   return (

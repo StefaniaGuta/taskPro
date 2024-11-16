@@ -10,7 +10,7 @@ export const updateTheme = createAsyncThunk(
         'https://taskpro-app-bcac9d37037a.herokuapp.com/api/auth/change-theme', 
         { theme: newTheme },
       );
-      console.log(data);
+
       return data.theme;
 
     } catch (error) {

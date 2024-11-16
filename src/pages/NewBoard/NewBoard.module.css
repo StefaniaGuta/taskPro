@@ -1,0 +1,129 @@
+.BoardsSection {
+  display: flex;
+  flex-direction: column; 
+  background-color: #F6F6F7;
+  width: 100vw;
+  height: 700px;
+}
+
+.Icon {
+  stroke: #16161680;
+  fill: #f6f6f7;
+}
+
+.Icon.dark {
+  stroke: #FFF;
+  fill: #1F1F1F;
+}
+
+.Icon.violet {
+  fill: #D6D8FF;
+}
+
+.dark {
+  background-color: #1F1F1F;
+}
+  
+.violet {
+  background-color: #D6D8FF;
+}
+
+.BoardsSection.dark .NameFilter h2 {
+  color :#ffffff;
+}
+
+.NameFilter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.NameFilter h2{
+  width: 100px;
+  height: 21px;
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #161616;
+  text-transform: capitalize;
+}
+
+.AddColumBtn{
+  width: 300px;
+  margin-left: 8vw;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  gap: 10px;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+}
+
+.AddColumBtn span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #161616;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.BoardsSection.violet .AddColumBtn span{
+  background-color: #5255BC;
+}
+
+.BoardsSection.dark .AddColumBtn {
+  background-color: #121212;
+  color: #FFFFFF;
+}
+
+.BoardsSection.dark .AddColumBtn span {
+  background-color: #ffffff;
+  color: #161616;
+}
+
+@media screen and (min-width: 768px) {
+  .NameFilter {
+    padding: 20px;
+    width: 98vw;
+  }
+  .AddColumBtn {
+    margin-left: 20px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .BoardsSection {
+    padding-left: 270px;
+  }
+
+  .NameFilter {
+    padding: 20px;
+    
+  }
+
+  .AddColumBtn {
+    margin-left: 20px;
+  }
+}

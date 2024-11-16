@@ -23,6 +23,7 @@ const LoginPage = lazy(() => import('../../pages/LogInPage/LoginPage'));
 const MainPage = lazy(() => import('../../pages/MainPage/MainPage'));
 const ProjectOffice = lazy(() => import('../ProjectOffice/ProjectOffice')); 
 const NewBoardPage = lazy(() => import('../../pages/NewBoardPage/NewBoardPage'));
+const NewBoard = lazy(() => import('../../pages/NewBoard/NewBoard'));
 
 const App = () => {
   const theme = useSelector(state => state.auth.user.theme);
@@ -71,9 +72,16 @@ const App = () => {
               }
             />
             <Route
-              path="/boards/:boardId"
+              path="/boards/"
               element={
                 <PrivateRoute component={<NewBoardPage />} />
+              }
+            />
+
+            <Route
+              path="/boards/:boardId"
+              element={
+                <PrivateRoute component={<NewBoard />} />
               }
             />
 

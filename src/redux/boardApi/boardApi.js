@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const boardsApi = createApi({
   reducerPath: 'boardsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://taskpro-app-bcac9d37037a.herokuapp.com/api',
+    baseUrl: '',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
       if (token) {

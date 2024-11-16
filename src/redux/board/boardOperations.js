@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Notiflix from 'notiflix';
-import { useParams } from 'react-router-dom';
 
 axios.defaults.baseURL =  'https://taskpro-app-bcac9d37037a.herokuapp.com'
 
@@ -42,13 +41,8 @@ export const createNewBoard = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const {data} = await axios.post('/api/boards', credentials);
-      console.log(data, 'created');
-      console.log('board was created succesfully')
-      console.log(credentials);
       return data;
     } catch (error) {
-      console.log(error);
-      console.log(credentials);
       return thunkAPI.rejectWithValue(error.message || 'Eroare necunoscută');
     }
   }
@@ -90,8 +84,10 @@ export const deleteBoard = createAsyncThunk(
       const response = await axios.delete(
         `api/boards/${boardName}`
       );
+      console.log('deleted')
       return response.data;
     } catch (error) {
+      console.log('error delete', error)
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -99,15 +95,32 @@ export const deleteBoard = createAsyncThunk(
 
 export const getBoardById = createAsyncThunk(
   'boards/getOneBoard',
-  async (credentials, thunkAPI) => {
-    const boardName = useParams()
+  async (boardName, thunkAPI) => {
     try {
       const response = await axios.get(
-        `api/boards/${boardName}`, credentials
+        `api/boards/${boardName}`
       );
+      console.log('boardId', response, response.data)
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+
+export const boardBackground = createAsyncThunk(
+'boards/background',
+async({userId, backgroundImage}, thunkAPI) => {
+  try {
+    const response = await axios.patch(
+     `/api/auth/users/${userId}/set-background`, 
+     { backgroundImage }
+    );
+    console.log('background', response, backgroundImage)
+    return response.data;
+
+  }catch (error) {
+    console.log(error)
+  return thunkAPI.rejectWithValue(error.message);
+}
+});

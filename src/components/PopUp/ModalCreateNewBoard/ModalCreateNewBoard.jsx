@@ -3,10 +3,10 @@ import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
-import { useGetMiniImgQuery } from '../../../redux/miniImgApi/miniImgApi';
 import urlIcon from '../../../images/icons/sprite.svg';
-import icons from '../icons.json';
-import { createNewBoard } from '../../../redux/board/boardOperations';
+import { createNewBoard, boardBackground } from '../../../redux/board/boardOperations';
+import bg_desktop10 from '../../../images/moon@2x.png';
+import ModalBoardIcons from '../ModalBoardIcons/ModalBoardIcons'
 
 import CloseButton from '../CloseButton/CloseButton';
 import {
@@ -22,9 +22,9 @@ import {
   FormikField,
   FormikFieldImage,
   Button,
-  ContainerIconButton,
-  Icon,
   ImgStyled,
+  ContainerIconButton,
+
   ImgBox,
   NewBoardSection,
 } from './ModalCreateNewBoard.styled';
@@ -32,20 +32,23 @@ import {
 const ModalCreateNewBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data } = useGetMiniImgQuery();
   const theme = useSelector(state => state.auth.user.theme);
-
+  //const backgroundImage = useSelector((state) => state.boards.boards.backgroundImage);
+  //const userName = useSelector(state => state.auth.token);
+  
   const handleSubmit = async (values) => {
-    
-    try{
-    const response = await dispatch(createNewBoard(values));
-    navigate(`/boards/${values?.name}`, { replace: true });
-    dispatch(closeModal());
-
-    return response;
-  }catch (error) {
-    console.log(error)
-  }
+    try {
+      const response = await dispatch(createNewBoard(values));
+      const userId = response.payload?.owner;
+      
+      if (userId && values.backgroundImage) {
+        await dispatch(boardBackground({ userId, backgroundImage: values.backgroundImage }));
+      }
+      navigate(`/boards/${values.name}`, { replace: true, state: { name: values.name, icon: values.icon } });
+      dispatch(closeModal());
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -56,8 +59,7 @@ const ModalCreateNewBoard = () => {
 
         <Formik
           initialValues={{
-            name: '',
-           
+            name: '', 
           }}
           validationSchema={schema}
           onSubmit={handleSubmit}
@@ -77,14 +79,7 @@ const ModalCreateNewBoard = () => {
 
             <Text id="my-radio-groupIcon" theme={theme}>Icons</Text>
             <IconContainer role="group" aria-labelledby="my-radio-groupIcon">
-              {icons.map(({ id, path }) => (
-                <label key={id}>
-                  <FormikField type="radio" value={id} name="icon" />
-                  <Icon width="18" height="18">
-                    <use xlinkHref={`${urlIcon}${path}`} />
-                  </Icon>
-                </label>
-              ))}
+              <FormikField name="icon" component={ModalBoardIcons} />
               <ErrorMessage name="icon" component="p" />
             </IconContainer>
 
@@ -97,23 +92,22 @@ const ModalCreateNewBoard = () => {
                   value="default"
                 />
                 <ImgBox>
-                  <svg width="16" height="16" stroke="var(--iconImageColor)">
+                <svg width="16" height="16" stroke="var(--iconImageColor)">
                     <use xlinkHref={`${urlIcon}#icon-image-default`} />
                   </svg>
                 </ImgBox>
               </label>
-              {Array.isArray(data) && data.map(({ _id, name, image }) => (
-                <label key={_id}>
+              <label>
                   <FormikFieldImage
                     type="radio"
-                    name="backgroundId"
-                    value={name}
+                    name="backgroundImage"
+                    value={bg_desktop10}
                   />
                   <ImgBox>
-                    <ImgStyled width={28} src={image.retina} alt={name} />
+                    <ImgStyled width={28} src={bg_desktop10} alt='moon' />
                   </ImgBox>
                 </label>
-              ))}
+              
               <ErrorMessage name="backgroundImage" component="p" />
             </ImageContainer>
 

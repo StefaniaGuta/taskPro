@@ -1,40 +1,36 @@
 import url from '../../../images/icons/sprite.svg';
-import { Text, Form, IconContainer } from './ModalBoardIcons.styled';
 
-const ModalBoardIcons = () => {
+import s from './ModalBoardIcons.module.css'
+
+const ModalBoardIcons = ({ field, form }) => {
+  const { name, value } = field;
+
+  const onOptionChange = e => {
+    const iconId = e.target.value;
+    const iconUrl = `${url}#icon-board-${iconId}`;
+    form.setFieldValue(name, iconUrl);
+  };
+
   return (
-    <>
-      <Form>
-        <Text id="my-radio-groupIcon">Icons</Text>
-      </Form>
-      <Text>Icons</Text>
-      <IconContainer>
-        <svg width="18" height="18">
-          <use xlinkHref={`${url}#icon-board-1`} />
-        </svg>
-        <svg width="18" height="18">
-          <use xlinkHref={`${url}#icon-board-2`} />
-        </svg>
-        <svg width="18" height="18">
-          <use xlinkHref={`${url}#icon-board-3`} />
-        </svg>
-        <svg width="18" height="18">
-          <use xlinkHref={`${url}#icon-board-4`} />
-        </svg>
-        <svg width="18" height="18">
-          <use xlinkHref={`${url}#icon-board-5`} />
-        </svg>
-        <svg width="18" height="18">
-          <use xlinkHref={`${url}#icon-board-6`} />
-        </svg>
-        <svg width="18" height="18">
-          <use xlinkHref={`${url}#icon-board-7`} />
-        </svg>
-        <svg width="18" height="18">
-          <use xlinkHref={`${url}#icon-board-8`} />
-        </svg>
-      </IconContainer>
-    </>
+    <div className={s.IconContainer}>
+      {Array.from({ length: 8 }, (_, i) => {
+        const iconValue = (i + 1).toString();
+        return (
+          <label key={iconValue}>
+            <input
+              type="radio"
+              name={name}
+              value={iconValue}
+              checked={value === iconValue}
+              onChange={onOptionChange}
+            />
+            <svg className={s.Icon} width="18" height="18">
+              <use xlinkHref={`${url}#icon-board-${iconValue}`} />
+            </svg>
+          </label>
+        );
+      })}
+    </div>
   );
 };
 

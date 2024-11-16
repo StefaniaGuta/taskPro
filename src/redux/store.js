@@ -30,14 +30,14 @@ const authPersistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
+    modal: modalReducer,
     boards: boardsReducer,
+    cards: cardsReducer,
+    columns: columnsReducer,
     theme: themeReducer,
     search: boardSearchReducer,
     filter: filterReducer,
-    cards: cardsReducer,
-    columns: columnsReducer,
     needHelp: needHelpReducer,
-    modal: modalReducer,
     [miniImgApi.reducerPath]: miniImgApi.reducer,
 
   },

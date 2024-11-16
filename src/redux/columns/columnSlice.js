@@ -16,9 +16,10 @@ const columnsSlice = createSlice({
         state.columns.isLoading = true;
       })
       .addCase(addColumn.fulfilled, (state, action) => {
+        [state.columns].push(action.payload); 
         state.columns.isLoading = false;
         state.columns.error = null;
-        state.columns.items.push(action.payload); 
+        console.log('payload', action.payload)
       })
       .addCase(addColumn.rejected, (state, action) => {
         state.columns.isLoading = false;

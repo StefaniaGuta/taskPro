@@ -81,20 +81,11 @@ const ModalAddCard = ({ id }) => {
 
 
   const handleSubmit = async (values) => {
-
     setIsLoading(true);
-
     const { title } = values;
     try {
       const response = await dispatch(addCard({ boardName: boardId.boardId, id, title}));
-
-      console.log('Card successfully created:', response);
-      console.log(id)
-      console.log( 'response', response)
-      console.log(values)
-      console.log(title)
       return response.data;
-
     } catch (error) {
       console.log('Error creating card:', error);
     } finally {
