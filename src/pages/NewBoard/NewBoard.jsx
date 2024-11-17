@@ -5,12 +5,26 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from './NewBoard.module.css';
 import { openModal, closeModal } from "../../redux/modal/modalSlice";
 import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 
 const NewBoard = () => {
   const dispatch = useDispatch();
   const theme = useSelector(state => state.auth.user.theme);
-  const backgroundImage = useSelector((state) => state.boards.boards.backgroundImage);
+  const backgroundImage = useSelector((state) => {
+    const imagePath = state.boards.boards.backgroundImage;
+    return imagePath; 
+  });
+
+  console.log(backgroundImage)
+
+  const [validBackgroundImage, setValidBackgroundImage] = useState(backgroundImage);
+
+  useEffect(() => {
+    if (backgroundImage) {
+      setValidBackgroundImage(backgroundImage);
+    }
+  }, [backgroundImage]);
 
   const modalState = useSelector(state => state.modal);
   const { componentName } = modalState;
@@ -25,7 +39,7 @@ const NewBoard = () => {
       <section
         className={`${styles.BoardsSection} ${styles[theme]}`}
         style={{
-          backgroundImage: backgroundImage ? `url(${backgroundImage})` : 'none',
+          backgroundImage: `url(${validBackgroundImage})`,
         }}
       >
         <div className={styles.NameFilter}>

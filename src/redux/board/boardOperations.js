@@ -116,7 +116,8 @@ async({userId, backgroundImage}, thunkAPI) => {
      `/api/auth/users/${userId}/set-background`, 
      { backgroundImage }
     );
-    console.log('background', response, backgroundImage)
+    const cleanedBackgroundImage = response.data.replace(/\/\//g, '/');
+    console.log(cleanedBackgroundImage);
     return response.data;
 
   }catch (error) {

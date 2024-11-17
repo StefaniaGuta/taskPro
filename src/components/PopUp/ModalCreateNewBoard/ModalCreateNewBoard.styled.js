@@ -336,4 +336,5 @@ export const ContainerIconButton = styled.span`
 export const ImgStyled = styled.img`
   object-fit: cover;
   border-radius: 8px;
+  height: 28px;
 `;

@@ -5,8 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import urlIcon from '../../../images/icons/sprite.svg';
 import { createNewBoard, boardBackground } from '../../../redux/board/boardOperations';
-import bg_desktop10 from '../../../images/moon@2x.png';
 import ModalBoardIcons from '../ModalBoardIcons/ModalBoardIcons'
+
+import data from '../../../images/BgImages/images'
+
 
 import CloseButton from '../CloseButton/CloseButton';
 import {
@@ -20,21 +22,19 @@ import {
   IconContainer,
   ImageContainer,
   FormikField,
-  FormikFieldImage,
-  Button,
-  ImgStyled,
-  ContainerIconButton,
-
   ImgBox,
+  Button,
+
+  ContainerIconButton,
+  FormikFieldImage,
   NewBoardSection,
+  ImgStyled,
 } from './ModalCreateNewBoard.styled';
 
 const ModalCreateNewBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useSelector(state => state.auth.user.theme);
-  //const backgroundImage = useSelector((state) => state.boards.boards.backgroundImage);
-  //const userName = useSelector(state => state.auth.token);
   
   const handleSubmit = async (values) => {
     try {
@@ -46,6 +46,8 @@ const ModalCreateNewBoard = () => {
       }
       navigate(`/boards/${values.name}`, { replace: true, state: { name: values.name, icon: values.icon } });
       dispatch(closeModal());
+      console.log(values)
+      console.log(values.backgroundImage)
     } catch (error) {
       console.log(error);
     }
@@ -85,28 +87,20 @@ const ModalCreateNewBoard = () => {
 
             <Text id="my-radio-groupImage" theme={theme}>Background</Text>
             <ImageContainer role="group" aria-labelledby="my-radio-groupImage">
-              <label>
-                <FormikFieldImage
-                  type="radio"
-                  name="backgroundImage"
-                  value="default"
-                />
-                <ImgBox>
-                <svg width="16" height="16" stroke="var(--iconImageColor)">
-                    <use xlinkHref={`${urlIcon}#icon-image-default`} />
-                  </svg>
-                </ImgBox>
-              </label>
-              <label>
+              {data.map(item => (
+                <label key={item.id}>
                   <FormikFieldImage
+                    style={{display: 'none'}}
                     type="radio"
                     name="backgroundImage"
-                    value={bg_desktop10}
+                    value={item.image}
+                  
                   />
                   <ImgBox>
-                    <ImgStyled width={28} src={bg_desktop10} alt='moon' />
+                    <ImgStyled width={28} height={28} src={item.image} alt={item.id} />
                   </ImgBox>
                 </label>
+              ))}
               
               <ErrorMessage name="backgroundImage" component="p" />
             </ImageContainer>
