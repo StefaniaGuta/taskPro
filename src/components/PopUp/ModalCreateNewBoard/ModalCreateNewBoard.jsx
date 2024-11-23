@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import urlIcon from '../../../images/icons/sprite.svg';
 import { createNewBoard, boardBackground } from '../../../redux/board/boardOperations';
-import ModalBoardIcons from '../ModalBoardIcons/ModalBoardIcons'
+import ModalBoardIcons from '../ModalBoardIcons/ModalBoardIcons';
+import { useState, useEffect } from 'react';
+
 
 import data from '../../../images/BgImages/images'
 
@@ -35,6 +37,7 @@ const ModalCreateNewBoard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useSelector(state => state.auth.user.theme);
+  const [width, setWidth] = useState(window.innerWidth);
   
   const handleSubmit = async (values) => {
     try {
@@ -46,12 +49,29 @@ const ModalCreateNewBoard = () => {
       }
       navigate(`/boards/${values.name}`, { replace: true, state: { name: values.name, icon: values.icon } });
       dispatch(closeModal());
-      console.log(values)
-      console.log(values.backgroundImage)
     } catch (error) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const getImageSource = (width, item) => {
+    if (width < 768) {
+      return item.mobile;
+    } else if (width < 1000) {
+      return item.tablet;
+    } else {
+      return item.image;
+    }
+  };
+
 
   return (
     <NewBoardSection>
@@ -93,11 +113,16 @@ const ModalCreateNewBoard = () => {
                     style={{display: 'none'}}
                     type="radio"
                     name="backgroundImage"
-                    value={item.image}
+                    value={getImageSource(width, item)}
                   
                   />
                   <ImgBox>
-                    <ImgStyled width={28} height={28} src={item.image} alt={item.id} />
+                    <ImgStyled 
+                      width={28} 
+                      height={28} 
+                      src={getImageSource(width, item)}  
+                      alt={item.id} 
+                    />
                   </ImgBox>
                 </label>
               ))}
