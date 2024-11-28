@@ -22,19 +22,18 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import { closeModal, openModal} from '../../redux/modal/modalSlice';
+import AllBoards from '../AllBoards/AllBoards';
 
 import style from './SideBar.module.css';
 
 
 const SideBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1200);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useSelector(state => state.auth.user.theme);
-
   const modalState = useSelector(state => state.modal);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1200);
   const { componentName } = modalState;
 
   const toggleSidebar = () => {
@@ -73,10 +72,6 @@ const SideBar = () => {
   const CreateBoard = () => {
     dispatch(openModal("createBoard"));
     
-  };
-
-  const NavigateToNewBoard = () => {
-    navigate('/boards');
   };
 
   const getLogo = () => {
@@ -132,14 +127,13 @@ const SideBar = () => {
               <img className={style.ProjectIcon} src={SideBin} alt='icon' />
             </div>
           </div>
-          <button onClick={NavigateToNewBoard}>
-            New Board
-          </button>
 
-          <div className={style.NeonProject}>
+          <div className={style.NewBoard}>
             <img src={puzzle} alt='puzzle' />
             <h2>Neon Light Project</h2>
           </div>
+
+          <AllBoards/>
 
           <div className={style.HelpSection}>
             <img src={NeedHelpImg} alt='needhelp' />

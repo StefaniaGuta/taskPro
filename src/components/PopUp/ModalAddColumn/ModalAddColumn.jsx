@@ -24,6 +24,7 @@ import {
 const ModalAddColumn = () => {
   const dispatch = useDispatch();
   const boardId = useParams(); 
+  const currentBoard = useSelector((state) => state.boards.boards.current?.slug);
   const theme = useSelector(state => state.auth.user.theme);
 
   const handleSubmit = async (values) => {
@@ -32,13 +33,8 @@ const ModalAddColumn = () => {
       if (!name) {
         throw new Error('"name" is required');
       }
-      const response = await dispatch(addColumn({boardName: boardId.boardId, name}));
+     await dispatch(addColumn({boardName: boardId.boardId || currentBoard, name}));
       dispatch(closeModal());
-      
-      console.log(response)
-      
-      return response;
-
     } catch (error) {
       console.log('erroare in timpul crearii coloanei', error);
     }

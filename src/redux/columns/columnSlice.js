@@ -5,7 +5,6 @@ const columnsSlice = createSlice({
   name: "columns",
   initialState: {
     columns: {
-      items: [],
       isLoading: false,
       error: null,
     },
@@ -16,10 +15,10 @@ const columnsSlice = createSlice({
         state.columns.isLoading = true;
       })
       .addCase(addColumn.fulfilled, (state, action) => {
-        [state.columns].push(action.payload); 
         state.columns.isLoading = false;
         state.columns.error = null;
-        console.log('payload', action.payload)
+        [state.columns].push(action.payload);
+
       })
       .addCase(addColumn.rejected, (state, action) => {
         state.columns.isLoading = false;

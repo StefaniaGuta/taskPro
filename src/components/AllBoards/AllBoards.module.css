@@ -1,0 +1,99 @@
+.NewBoard {
+  width: 225px;
+  height: 61px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.BoardsList {
+  width: 225px;
+  height: 61px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  padding: 0;
+}
+
+.Board {
+  width: 225px;
+  height: 61px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  padding: 0;
+}
+
+.Board:hover,
+.Board:focus {
+  background-color: #F6F6F7;
+  transition: background-color var(--transition);
+}
+
+.Board:hover .icons,
+.Board:focus-within .icons {
+  opacity: 1;
+  transition: opacity var(--transition);
+}
+
+.Board:hover::after,
+.Board:focus::after {
+  content: '';
+  width: 4px;
+  height: 61px;
+  border-radius: 4px 0px 0px 4px;
+  background: #BEDBB0;
+  position: absolute;
+  right: 0;
+  transition: background-color var(--transition);
+} 
+
+.Icon {
+  stroke: #16161680;
+  fill: transparent;
+}
+  
+.Icon.dark {
+  stroke: #FFF;
+}
+
+.icons{
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  right: 15px;
+  opacity: 0;
+}
+
+.ProjectName {
+  width: 88px;
+  height: 21px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin: 0 0 0 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .Board{
+    width: 280px;
+    padding-left: 15px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  
+}

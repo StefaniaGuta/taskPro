@@ -6,7 +6,7 @@ import FilterComponent from "components/FilterComponent/FilterComponent";
 import ModalAddColumn from "components/PopUp/ModalAddColumn/ModalAddColumn";
 import { useLocation } from "react-router-dom";
 import styles from "./NewBoard.module.css";
-import images from '../../images/BgImages/images'
+import images from '../../images/BgImages/images';
 
 
 const NewBoard = () => {
@@ -18,10 +18,10 @@ const NewBoard = () => {
   const location = useLocation();
   const { state } = location;
   const boardName = state?.name;
-  const boardIcon = state?.icon;
   const [currentImage, setCurrentImage] = useState(backgroundImage);
-
+  const columns = useSelector((state) => state.boards.boards);
   
+
   useEffect(() => {
     const foundImage = images.find(
       (image) =>
@@ -61,12 +61,7 @@ const NewBoard = () => {
         }}
       >
         <div className={styles.NameFilter}>
-          <h2>
-            {boardName}
-            <svg className={`${styles.Icon} ${styles[theme]}`} width="18" height="18">
-              <use xlinkHref={boardIcon} />
-            </svg>
-          </h2>
+          <h2>{boardName}</h2>
           <FilterComponent />
         </div>
 
@@ -80,6 +75,17 @@ const NewBoard = () => {
 
         {componentName === "newBoard" && (
           <ModalAddColumn onClose={() => dispatch(closeModal())} />
+        )}
+        {columns && columns.length > 0 ? (
+          <ul>
+            {columns.map((column) => (
+              <li key={column}>
+                {column}
+              </li>
+            ))}
+          </ul>
+          ) : (
+          <p>NO</p>
         )}
       </section>
     </>
