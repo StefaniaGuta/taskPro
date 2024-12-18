@@ -24,11 +24,26 @@ export const Button = styled.button`
   margin-top: 24px;
 
   align-items: center;
-  border-radius: var(--borderRadius8);
+  border-radius: 8px;
   border: none;
 
-  background-color: var(--btnBoardColor);
-  color: var(--btnTextBoardColor);
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#5255BC';
+      default:
+        return '#BEDBB0';
+    }
+  }};
+
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
 
   font-size: var(--fontSize14);
   font-family: var(--poppinsFont);

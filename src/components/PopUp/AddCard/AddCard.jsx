@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
 import { useParams } from 'react-router-dom';
@@ -8,12 +8,12 @@ import { formattedDateForBtn } from '../../../services/formatingDate';
 import Calendar from '../Calendar/Calendar.jsx';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../Calendar/calendar.css';
-
+import { closeModal } from '../../../redux/modal/modalSlice';
 import CloseButton from '../CloseButton/CloseButton.jsx';
 import ButtonModal from '../ButtonModal/ButtonModal.jsx';
-import { closeModal } from '../../../redux/modal/modalSlice';
 
 import {
+  CardSection,
   AddCardModal,
   Title,
   InputTitle,
@@ -31,15 +31,14 @@ import {
 } from './AddCard.styled.js';
 
 
-const ModalAddCard = ({ id }) => {
+const ModalAddCard = ({id, columnId}) => {
  
   const [date, setDate] = useState(new Date());
   const [select, setSelect] = useState('without');
   const [formattedDate, setFormattedDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const boardId = useParams(); 
-  
-
+  const currentBoardName = useSelector((state) => state.boards.boards.current?.slug);
   const dispatch = useDispatch();
 
   const priorityValue = ['low', 'medium', 'high', 'without'];
@@ -82,9 +81,12 @@ const ModalAddCard = ({ id }) => {
 
   const handleSubmit = async (values) => {
     setIsLoading(true);
-    const { title } = values;
+    const { title, description, deadline } = values;
     try {
-      const response = await dispatch(addCard({ boardName: boardId.boardId, id, title}));
+      const response = await dispatch(addCard({ boardName: boardId.boardId || currentBoardName, id: id || columnId, title, description, deadline}));
+      dispatch(closeModal());
+      console.log(columnId, id)
+      console.log(response)
       return response.data;
     } catch (error) {
       console.log('Error creating card:', error);
@@ -98,8 +100,9 @@ const ModalAddCard = ({ id }) => {
   };
 
   return (
+    <CardSection>
     <AddCardModal>
-      <CloseButton onClick={() => dispatch(closeModal())} />
+      <CloseButton/>
       <Title>Add card</Title>
       <Formik
         initialValues={initialValues}
@@ -171,6 +174,7 @@ const ModalAddCard = ({ id }) => {
         )}
       </Formik>
     </AddCardModal>
+    </CardSection>
   );
 };
 

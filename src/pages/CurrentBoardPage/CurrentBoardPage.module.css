@@ -16,15 +16,13 @@
 
 .ColumnsSection  ul {
   display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100vw;
   gap: 10px;
   margin: 0;
   padding: 0;
 }
 
-.ColumnsSection li {
+.ColumnsSection .columnName {
   list-style: none;
   width: 300px;
   height: 56px;
@@ -36,9 +34,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
-  
+  margin: 0 0 15px 0;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;  
 }
+
+
 
 .ColumnsSection.dark li{
   background-color:  #121212;

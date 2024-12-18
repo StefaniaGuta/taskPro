@@ -5,10 +5,10 @@ const URL = 'https://taskpro-app-bcac9d37037a.herokuapp.com/'
 
 export const addCard = createAsyncThunk(
   "cards/addCard",
-  async ({ boardName, id, title}, thunkAPI) => {
+  async ({ boardName, id, title, description, deadline}, thunkAPI) => {
     try {
 
-      const response = await axios.post(`${URL}api/boards/${boardName}/column/${id}`, {title});
+      const response = await axios.post(`${URL}api/boards/${boardName}/column/${id}`, {title, description, deadline});
       if (response.status !== 200) {
         throw new Error('Failed to add card');
       }

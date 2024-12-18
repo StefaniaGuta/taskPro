@@ -19,7 +19,8 @@ const NewBoard = () => {
   const { state } = location;
   const boardName = state?.name;
   const [currentImage, setCurrentImage] = useState(backgroundImage);
-  const columns = useSelector((state) => state.boards.boards);
+  const columns = useSelector((state) => state.boards.boards.columns);
+  console.log(columns)
   
 
   useEffect(() => {

@@ -35,17 +35,20 @@ const boardsSlice = createSlice({
     })
     .addCase(createNewBoard.pending, (state) => {
       state.boards.isLoading = true;
+      console.log( 'new board state', state.boards);
     })
     .addCase(createNewBoard.fulfilled, (state, action) => {
       state.boards.isLoading = false;
       state.boards.error = null;
-      [state.boards].push(action.payload);
+      state.boards = action.payload;
       console.log( 'new board state', state.boards);
       console.log('new board payload', action.payload);
     })
     .addCase(createNewBoard.rejected, (state, action) => {
       state.boards.isLoading = false;
       state.boards.error = action.payload;
+      console.log( 'new board state', state.boards.error);
+      console.log('new board payload', action.payload);
     })
     .addCase(deleteBoard.pending, (state) => {
       state.isLoading = false;

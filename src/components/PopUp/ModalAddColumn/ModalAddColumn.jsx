@@ -33,8 +33,9 @@ const ModalAddColumn = () => {
       if (!name) {
         throw new Error('"name" is required');
       }
-     await dispatch(addColumn({boardName: boardId.boardId || currentBoard, name}));
-      dispatch(closeModal());
+     const response = await dispatch(addColumn({boardName: boardId.boardId || currentBoard, name}));
+     dispatch(closeModal());
+     return response.data;
     } catch (error) {
       console.log('erroare in timpul crearii coloanei', error);
     }

@@ -2,40 +2,89 @@ import styled from 'styled-components';
 import { ErrorMessage, Field } from 'formik';
 import { FaChevronDown } from 'react-icons/fa';
 
+export const CardSection = styled.section`
+ position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`
+
 export const AddCardModal = styled.div`
-  @media screen and (max-width: 374px) {
-    width: 90vw;
+  @media screen and (min-width: 320px) {
+    width: 70vw;
+    margin-left: 25px;
+    margin-top: 10px;
   }
-  width: 335px;
-  background-color: var(--modalBgColor);
-  border-radius: var(--borderRadius8);
-  border: 1px solid var(--borderBoardColor);
-  padding: 24px;
-  font-family: var(--poppinsFont);
-  color: var(--titleBoardColor);
-  margin-top: 20px;
-  position: relative;
+  @media screen and (min-width: 375px) {
+    width: 300px;
+  }
 
   @media screen and (min-width: 768px) {
     width: 350px;
+    margin-left: 25vw;
   }
+
+  height: 522px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid var(--borderBoardColor);
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#161616';
+      default:
+        return '#FCFCFC';
+    }
+  }};
+  border-radius: 8px;
+  border: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '1px solid #BEDBB080';
+      default:
+        return 'none';
+    }
+  }};
+  position: relative;
+  justify-content: center;
 `;
 
 export const Title = styled.h2`
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize18);
+  font-family: var(--poppinsFont);
   font-weight: var(--fontWeight500);
-  letter-spacing: -0.36px;
+  letter-spacing: var(--letterSpacing36);
   margin-bottom: 24px;
-  text-align: left;
+  text-align: start;
 `;
 
 export const InputTitle = styled(Field)`
-  width: 100%;
+  width: 85%;
   height: 49px;
   padding: 14px 18px;
   background-color: var(--bgInputBoardColor);
-  border-radius: var(--borderRadius8);
-  border: 1px solid var(--borderInputBoardColor);
+  border-radius: 8px;
+   border:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '1px solid #5255BC';
+      default:
+        return '1px solid #BEDBB0;';
+    }
+  }};
   color: var(--textInputBoardColor);
   line-height: 18px;
   font-family: var(--poppinsFont), var(--roboto);
@@ -52,12 +101,19 @@ export const InputTitle = styled(Field)`
 `;
 
 export const InputDescription = styled(Field)`
-  width: 100%;
-  height: 154px;
+  width: 85%;
+  height: 120px;
   padding: 14px 18px;
   background-color: var(--bgInputBoardColor);
-  border-radius: var(--borderRadius8);
-  border: 1px solid var(--borderInputBoardColor);
+  border-radius: 8px;
+   border:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '1px solid #5255BC';
+      default:
+        return '1px solid #BEDBB0;';
+    }
+  }};
   color: var(--textInputBoardColor);
   line-height: 18px;
   font-family: var(--poppinsFont), var(--roboto);
@@ -79,7 +135,7 @@ export const StyledPriority = styled.p`
   font-size: var(--fontSize12);
   font-weight: var(--fontWeight500);
   letter-spacing: -0.24px;
-  color: var(--labelColor);
+  color: #16161680;
   margin-top: 24px;
   margin-bottom: 4px;
   text-align: left;
@@ -89,7 +145,7 @@ export const StyledLabelDeadline = styled.p`
   font-size: var(--fontSize12);
   font-weight: var(--fontWeight500);
   letter-spacing: -0.24px;
-  color: var(--labelColor);
+  color: #16161680;
   margin-top: 14px;
   margin-bottom: 4px;
   text-align: left;
@@ -123,13 +179,13 @@ export const Span = styled.span`
 
   background-color: ${(props) => {
     if (props.value === 'low') {
-      return 'var(--labelLowColor)';
+      return '#8FA1D0';
     } else if (props.value === 'medium') {
-      return 'var(--labelMediumColor)';
+      return '#E09CB5';
     } else if (props.value === 'high') {
-      return 'var(--labelHighColor)';
+      return '#BEDBB0';
     } else {
-      return 'var(--labelWithoutColor)';
+      return '#1616164D';
     }
   }};
 
@@ -183,6 +239,12 @@ export const LabelContainer = styled.div`
 
 export const CalendarContainer = styled.div`
   text-align: left;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #BEDBB0;
+  }
 `;
 export const LabelDiv = styled.div`
   text-align: left;
@@ -198,7 +260,7 @@ export const ButtonDate = styled.button`
   border: none;
   padding: 0px;
   float: left;
-  position: absolute;
+  position: absolute;  
 `;
 
 export const ChevronDown = styled(FaChevronDown)`
