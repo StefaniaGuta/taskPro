@@ -16,41 +16,42 @@ const AllBoards = () => {
     const navigate = useNavigate()
 
     
-    useEffect(() => {
-      const showAllBoards = async () => {
-          try {
-            const response = await dispatch(getAllBoards()).unwrap(); 
-            setBoards(response.dashboards); 
-            console.log('render')
-          } catch (error) {
-            console.error('Eroare la preluarea boardurilor:', error);
-          }
-        };
-      showAllBoards();
-      }, [dispatch]);
-
-      const getSpecificBoard = async (board) => {
+  useEffect(() => {
+    const showAllBoards = async () => {
         try {
-          const boardName = board.slug
-          
-          const response = await dispatch(getBoardById(boardName))
-          setSelectedBoard(response.payload)
-          navigate('/current')
-          return response.payload
-        } catch (e) {
-          console.log(e)
+          const response = await dispatch(getAllBoards()).unwrap(); 
+          setBoards(response.dashboards); 
+          console.log('render')
+        } catch (error) {
+          console.error('Eroare la preluarea boardurilor:', error);
         }
-      }
+    };
+    showAllBoards();
+    }, [dispatch]);
 
-      const deleteSpecificBoard = async () => {
-        try {
-          const boardName = selectedBoard.slug;
-          await dispatch(deleteBoard(boardName));
-          Notiflix.Notify.success('Board deleted successfully!');
-        } catch (e) {
-          console.log(e)
-        }
+    const getSpecificBoard = async (board) => {
+      try {
+        const boardName = board.slug
+        
+        const response = await dispatch(getBoardById(boardName))
+        setSelectedBoard(response.payload)
+        navigate('/current')
+        return response.payload
+      } catch (e) {
+        console.log(e)
       }
+    }
+
+    const deleteSpecificBoard = async () => {
+      try {
+        const boardName = selectedBoard.slug;
+        await dispatch(deleteBoard(boardName)).unwrap();
+        setBoards((prevBoards) => prevBoards.filter((board) => board.name !== boardName));
+        Notiflix.Notify.success('Board deleted successfully!');
+      } catch (e) {
+        console.log(e)
+      }
+    }
 
       return (
         <div className={styles.NewBoard}>

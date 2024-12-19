@@ -1,5 +1,5 @@
 {
-  "name": "taskPro",
+  "name": "taskpro",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://StefaniaGuta.github.io/taskPro/",
@@ -12,6 +12,7 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^13.5.0",
+    "@typescript-eslint/typescript-estree": "^8.18.1",
     "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
@@ -61,5 +62,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/estree": "^1.0.6"
   }
 }

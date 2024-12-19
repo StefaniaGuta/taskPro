@@ -10,7 +10,7 @@ import './components/i18n';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename="/taskPro">
+    <BrowserRouter basename="/taskPro" futureFlags={{ v7_startTransition: true }}>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <App />

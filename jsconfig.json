@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "target": "es5", // sau "es6" în funcție de nevoile proiectului
+    "module": "commonjs", // sau "esnext" în funcție de modul de utilizare
+    "jsx": "react", // specifică modul în care va fi compilat JSX
+    "strict": true // activează toate verificările stricte
   },
   "include": ["src"]
 }

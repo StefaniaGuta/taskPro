@@ -26,8 +26,8 @@ const boardsSlice = createSlice({
     .addCase(getAllBoards.fulfilled, (state, action) => {
       state.isLoading = false;
       state.boards = action.payload;
-      console.log('all boards state', state.action) //de lucrat aici
-      console.log(' all boards payload', action.payload)
+     // console.log('all boards state', state.action) //de lucrat aici
+     // console.log(' all boards payload', action.payload)
     })
     .addCase(getAllBoards.rejected, (state, action) => {
       state.isLoading = false;
@@ -41,23 +41,18 @@ const boardsSlice = createSlice({
       state.boards.isLoading = false;
       state.boards.error = null;
       state.boards = action.payload;
-      console.log( 'new board state', state.boards);
-      console.log('new board payload', action.payload);
+     // console.log( 'new board state', state.boards);
+     // console.log('new board payload', action.payload);
     })
     .addCase(createNewBoard.rejected, (state, action) => {
       state.boards.isLoading = false;
       state.boards.error = action.payload;
-      console.log( 'new board state', state.boards.error);
-      console.log('new board payload', action.payload);
+      //console.log( 'new board state', state.boards.error);
+      //console.log('new board payload', action.payload);
     })
     .addCase(deleteBoard.pending, (state) => {
       state.isLoading = false;
       state.error = null;
-    })
-    .addCase(deleteBoard.fulfilled, (state, action) => {
-      const deletedBoardId = action.payload.deletedBoardId;
-      state.boards = action.payload.dashboards.filter(board => board._id !== deletedBoardId);
-      state.isLoading = false;
     })
     .addCase(deleteBoard.rejected, (state, action) => {
       state.isLoading = false;
@@ -70,8 +65,8 @@ const boardsSlice = createSlice({
       state.boards.isLoading = false;
       state.boards.error = null;
       state.boards.current = action.payload;
-      console.log('one board state', state.boards);
-      console.log('one board payload', action.payload);
+      //console.log('one board state', state.boards);
+      //console.log('one board payload', action.payload);
     })
     .addCase(getBoardById.rejected, (state, action) => {
       state.boards.isLoading = false;

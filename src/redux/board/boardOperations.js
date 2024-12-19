@@ -81,11 +81,10 @@ export const deleteBoard = createAsyncThunk(
   'boards/deleteBoard',
   async (boardName, thunkAPI) => {
     try {
-      const response = await axios.delete(
+      await axios.delete(
         `api/boards/${boardName}`
       );
-      console.log('deleted')
-      return response.data;
+      return {name: boardName}
     } catch (error) {
       console.log('error delete', error)
       return thunkAPI.rejectWithValue(error.message);
@@ -100,7 +99,6 @@ export const getBoardById = createAsyncThunk(
       const response = await axios.get(
         `api/boards/${boardName}`
       );
-      console.log('boardId', response, response.data)
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
