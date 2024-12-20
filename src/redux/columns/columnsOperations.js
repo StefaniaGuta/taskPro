@@ -1,15 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-axios.defaults.baseURL =  'https://taskpro-app-bcac9d37037a.herokuapp.com'
+const URL = 'https://taskpro-app-bcac9d37037a.herokuapp.com/'
 
 export const addColumn = createAsyncThunk(
   'columns/addColumn',
   async ({ boardName, name}, thunkAPI) => { 
     try {
-      const response = await axios.post(`/api/boards/${boardName}/column`, {name});
-      console.log('column created', name, response.data);
-      return response.data;
+     const response = await axios.post(`${URL}api/boards/${boardName}/column`, {name});
+      return  { ...response.data, boardName };
     } catch (error) {
       console.log(error, 'error column');
       return thunkAPI.rejectWithValue(error.message);
@@ -21,8 +20,9 @@ export const deleteColumn = createAsyncThunk(
   'columns/deleteColumn',
   async ({boardName, id}, thunkAPI) => {
     try {
-      const response = await axios.delete(`/api/boards/${boardName}/column/${id}`);
-      return response;
+     const response = await axios.delete(`${URL}api/boards/${boardName}/column/${id}`);
+      console.log('columns deleted')
+      return response.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

@@ -1,7 +1,6 @@
 import { getAllBoards, deleteBoard, getBoardById } from '../../redux/board/boardOperations';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import Notiflix from "notiflix";
 import SideBin from '../../images/SideBin.png';
 import SidePencil from '../../images/SidePencil.png';
@@ -32,7 +31,6 @@ const AllBoards = () => {
     const getSpecificBoard = async (board) => {
       try {
         const boardName = board.slug
-        
         const response = await dispatch(getBoardById(boardName))
         setSelectedBoard(response.payload)
         navigate('/current')

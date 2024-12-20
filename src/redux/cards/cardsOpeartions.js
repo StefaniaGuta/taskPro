@@ -12,7 +12,7 @@ export const addCard = createAsyncThunk(
       if (response.status !== 200) {
         throw new Error('Failed to add card');
       }
-      return response.data;
+      return { ...response.data, columnId: id };
     } catch (e) {
       console.log(`${URL}api/boards/${boardName}/column/${id}`)
       console.error("Error adding card: response", e.response );
@@ -26,11 +26,13 @@ export const addCard = createAsyncThunk(
 
 export const deleteCard = createAsyncThunk(
   'cards/deleteCard',
-  async ({ cardId, columnId }, thunkAPI) => {
+  async ({ boardName, id}, thunkAPI) => {
     try {
-      await axios.delete();
-      return { cardId, columnId };
+      await axios.delete(`${URL}api/boards/${boardName}/${id}`);
+      console.log('card deleted-cardsOperation')
+      return {id};
     } catch (error) {
+      console.log( 'error steregere card', error)
       return thunkAPI.rejectWithValue(error.message);
     }
   }

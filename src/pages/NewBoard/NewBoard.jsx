@@ -4,10 +4,12 @@ import { openModal, closeModal } from "../../redux/modal/modalSlice";
 import Header from "../../components/Header/Header";
 import FilterComponent from "components/FilterComponent/FilterComponent";
 import ModalAddColumn from "components/PopUp/ModalAddColumn/ModalAddColumn";
+import ModalAddCard from '../../components/PopUp/AddCard/AddCard';
 import { useLocation } from "react-router-dom";
 import styles from "./NewBoard.module.css";
 import images from '../../images/BgImages/images';
-
+import { deleteColumn } from "../../redux/columns/columnsOperations";
+import { deleteCard } from "../../redux/cards/cardsOpeartions";
 
 const NewBoard = () => {
   const dispatch = useDispatch();
@@ -19,8 +21,20 @@ const NewBoard = () => {
   const { state } = location;
   const boardName = state?.name;
   const [currentImage, setCurrentImage] = useState(backgroundImage);
-  const columns = useSelector((state) => state.boards.boards.columns);
+  const [selectedColumnId, setSelectedColumnId] = useState(null);
+
+  const allColumns = useSelector((state) => state.columns.columns)
+  const columns = allColumns.filter((column) => column.boardName === boardName);
   console.log(columns)
+
+  const cardsAdded = useSelector((state) => state.cards.cards || []);
+  const filteredCards = cardsAdded.filter((card) => columns.some((col) => col._id === card.columnId));
+  console.log(cardsAdded)
+
+  const handleOpenCardModal = (columnId) => {
+    setSelectedColumnId(columnId);
+    dispatch(openModal("cardModal"));
+  };
   
 
   useEffect(() => {
@@ -77,16 +91,51 @@ const NewBoard = () => {
         {componentName === "newBoard" && (
           <ModalAddColumn onClose={() => dispatch(closeModal())} />
         )}
-        {columns && columns.length > 0 ? (
-          <ul>
-            {columns.map((column) => (
-              <li key={column}>
-                {column}
-              </li>
-            ))}
-          </ul>
+        <div className={styles.ColumnsSection}>
+          {columns.length > 0 ? (
+            <ul>
+              {columns.map((column) => (
+                <div className={styles.Column} key={column._id}>
+                  <h2 className={styles.columnName}> 
+                    {column.name}
+                    <button onClick={(e) => {
+                          e.stopPropagation();
+                          dispatch(deleteColumn({boardName: boardName, id: column._id}))
+                        }}>D</button>
+                  </h2>
+                  {filteredCards.length > 0 ? (
+                    <ul style={{ display: "block", width: "200px"}}>
+                      {filteredCards.filter((card) => card.columnId === column._id).map((card) => (
+                        <div key={card._id} className={styles['task-card']}>
+                          <h3 className={styles['card-title']}>{card.title}</h3>
+                          <span className={styles['card-description']}>{card.description}</span>
+                          <span>{card.priority}</span>
+                          <span>{card.deadline}</span>
+                          <button onClick={(e) => {
+                          e.stopPropagation();
+                          dispatch(deleteCard({boardName: boardName, id: card._id}))
+                        }}>D</button>
+                        </div>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No cards</p>
+                  )}
+                  <button onClick={() => handleOpenCardModal(column._id)}>
+                    Add Card
+                  </button>
+                </div>
+              ))}
+            </ul>
           ) : (
-          <p>NO</p>
+            <p>NO</p>
+          )}
+        </div>
+        {componentName === "cardModal" && (
+          <ModalAddCard
+            onClose={() => dispatch(closeModal())}
+            columnId={selectedColumnId}
+          />
         )}
       </section>
     </>
