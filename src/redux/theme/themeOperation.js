@@ -7,7 +7,7 @@ export const updateTheme = createAsyncThunk(
   async (newTheme, thunkAPI) => {
     try {
       const { data } = await axios.patch(
-        'https://taskpro-app-bcac9d37037a.herokuapp.com/api/auth/change-theme', 
+        'http://localhost:5000/api/auth/change-theme', 
         { theme: newTheme },
       );
 

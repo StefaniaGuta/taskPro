@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Notiflix from "notiflix";
 
-const API_URL = 'https://taskpro-app-bcac9d37037a.herokuapp.com/';
+const API_URL = 'http://localhost:5000/';
 
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';

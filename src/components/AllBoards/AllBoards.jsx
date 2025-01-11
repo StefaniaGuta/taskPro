@@ -5,14 +5,18 @@ import Notiflix from "notiflix";
 import SideBin from '../../images/SideBin.png';
 import SidePencil from '../../images/SidePencil.png';
 import styles from './AllBoards.module.css'
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
+import ModalEditBoard from 'components/PopUp/ModalEditBoard/ModalEditBoard';
+import { openModal, closeModal } from "../../redux/modal/modalSlice";
 
 const AllBoards = () => {
   const theme = useSelector((state) => state.auth.user.theme);
     const [boards, setBoards] = useState([]);
     const [selectedBoard, setSelectedBoard] = useState(null);  
     const dispatch = useDispatch()
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
+    const modalState = useSelector((state) => state.modal);
+    const { componentName } = modalState;
 
     
   useEffect(() => {
@@ -33,7 +37,7 @@ const AllBoards = () => {
         const boardName = board.slug
         const response = await dispatch(getBoardById(boardName))
         setSelectedBoard(response.payload)
-        navigate('/current')
+        //navigate('/current')
         return response.payload
       } catch (e) {
         console.log(e)
@@ -52,6 +56,7 @@ const AllBoards = () => {
     }
 
       return (
+        <>
         <div className={styles.NewBoard}>
             {boards.length > 0 ? (
           <ul className={styles.BoardsList}>
@@ -73,7 +78,7 @@ const AllBoards = () => {
                   <img
                     src={SidePencil}
                     alt='icon'
-                    
+                    onClick={() => dispatch(openModal("editBoard"))}
                   />
                   <img onClick={(e) => {
                     e.stopPropagation();
@@ -90,6 +95,10 @@ const AllBoards = () => {
           <p></p>
         )}
         </div>
+        {componentName === "editBoard" && (
+          <ModalEditBoard boardName={selectedBoard} onClose={() => dispatch(closeModal())}/>
+        )} 
+        </>
       )
 }
 

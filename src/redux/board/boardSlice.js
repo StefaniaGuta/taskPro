@@ -5,6 +5,7 @@ import {
   boardBackground,
   deleteBoard,
   getBoardById,
+  updateBoard,
 } from './boardOperations';
 
 
@@ -76,6 +77,12 @@ const boardsSlice = createSlice({
       state.boards = action.payload;
       state.isLoading = false;
       state.error = null;
+    })
+    .addCase(updateBoard.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.boards = action.payload;
+      console.log('boards state', state.action) //de lucrat aici
+      console.log(' boards payload', action.payload)
     })
   }
 })

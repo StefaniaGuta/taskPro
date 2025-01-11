@@ -16,6 +16,7 @@
     "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "date-fns": "^4.1.0",
+    "eslint-config-react-app": "^7.0.1",
     "formik": "^2.4.6",
     "hooks": "^0.3.2",
     "i18next": "^23.15.1",
@@ -64,6 +65,7 @@
     ]
   },
   "devDependencies": {
-    "@types/estree": "^1.0.6"
+    "@types/estree": "^1.0.6",
+    "babel": "@babel/plugin-proposal-private-property-in-object"
   }
 }

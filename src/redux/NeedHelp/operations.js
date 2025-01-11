@@ -2,12 +2,13 @@ import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 
-
+const URL = 'http://localhost:5000/';
 export const sendHelp = createAsyncThunk(
     'needHelp/help',
     async (comment, thunkAPI) => {
     try {
-     await axios.post('https://taskpro-app-bcac9d37037a.herokuapp.com/api/need-help', {comment})
+     await axios.post(`${URL}api/need-help`, {comment})
+     console.log('comment sent')
       
     } catch (error) {
       console.log(error)

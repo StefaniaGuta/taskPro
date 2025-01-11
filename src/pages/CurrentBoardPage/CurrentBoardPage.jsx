@@ -15,7 +15,7 @@ const CurrentBoardPage = () => {
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.modal);
   const { componentName } = modalState;
-  const currentBoard = useSelector((state) => state.boards.boards.current || { name: "Default", backgroundImage: "" });
+  const currentBoard = useSelector((state) => state.boards.boards.current || { name: "Default", backgroundImage: "" }) || "";
   const backgroundImage = currentBoard?.backgroundImage || "";
   const currentBoardName = currentBoard.name; 
   const backendColumns = currentBoard.columns;

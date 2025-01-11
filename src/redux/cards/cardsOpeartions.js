@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const URL = 'https://taskpro-app-bcac9d37037a.herokuapp.com/'
+const URL = 'http://localhost:5000/'
 
 export const addCard = createAsyncThunk(
   "cards/addCard",

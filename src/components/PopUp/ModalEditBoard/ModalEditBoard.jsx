@@ -1,17 +1,18 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { useEditBoardMutation } from '../../../redux/boardApi/boardApi';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { closeModal } from '../../../redux/modal/modalSlice';
-import Loader  from '../../Loader/Loader';
-import { useGetMiniImgQuery } from '../../../redux/miniImgApi/miniImgApi';
-
+import {updateBoard} from '../../../redux/board/boardOperations';
+import data from '../../../images/BgImages/images'
 import urlIcon from '../../../images/icons/sprite.svg';
-import icons from '../icons.json';
 import CloseButton from '../CloseButton/CloseButton';
+import ModalBoardIcons from '../ModalBoardIcons/ModalBoardIcons';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 import {
+  EditBoardSection,
   ModalCard,
   Title,
   ErrorMessage,
@@ -26,35 +27,62 @@ import {
   Button,
   ContainerIconButton,
   ImgStyled,
-  Icon,
   ImgBox,
 } from './ModalEditBoard.styled';
 
-const ModalEditBoard = ({ componentName={} }) => {
-  const { id = '', title = '', iconId = '', backgroundId = {} } = componentName;
-  console.log(componentName);
-  const [editBoard, { isLoading: isEditLoading }] = useEditBoardMutation();
+
+const ModalEditBoard = (boardName) => {
+  const [width, setWidth] = useState(window.innerWidth);
+  //const {  title = '', iconId = '', backgroundId = {} } = componentName;
+  console.log(boardName.boardName);
+ 
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data } = useGetMiniImgQuery();
+  
 
-  const handleSubmit = async (values) => {
-    const { data } = await editBoard({ values, id });
-    navigate(`/${data?._id}/${data?.title}`, { replace: true });
-    dispatch(closeModal());
+  const handleSubmit =  (values) => {
+    try{
+      const response = dispatch(updateBoard(boardName.boardName.slug));
+      console.log(boardName.boardName.slug, 'response', response)
+      console.log('upated')
+      console.log(values)
+      navigate(`/boards/${boardName}`, { replace: true, state: { name: values.title, icon: values.icon, backgroundImage: values.backgroundImage } });
+      dispatch(closeModal());
+    } catch (e) {
+      console.log(e)
+    }
   };
 
+  useEffect(() => {
+      const handleResize = () => {
+        setWidth(window.innerWidth);
+      };
+      window.addEventListener("resize", handleResize);
+  
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+  const getImageSource = (width, item) => {
+    if (width < 768) {
+      return item.mobile;
+    } else if (width < 1000) {
+      return item.tablet;
+    } else {
+      return item.image;
+    }
+  };
   return (
-    <>
+    <EditBoardSection>
       <ModalCard>
         <CloseButton />
         <Title>Edit board</Title>
 
         <Formik
           initialValues={{
-            title: title,
-            iconId: iconId,
-            backgroundId: backgroundId.name,
+            name: boardName.boardName.slug,
+            icon: boardName.boardName.icon,
+            backgroundImage: boardName.boardName.backgroundImage
           }}
           validationSchema={schema}
           onSubmit={handleSubmit}
@@ -65,7 +93,6 @@ const ModalEditBoard = ({ componentName={} }) => {
                 type="text"
                 name="title"
                 title="You need to enter the name of the column"
-                required
                 placeholder="Title"
               />
               <ErrorMessage name="title" component="p" />
@@ -73,58 +100,47 @@ const ModalEditBoard = ({ componentName={} }) => {
 
             <Text id="my-radio-groupIcon">Icons</Text>
             <IconContainer role="group" aria-labelledby="my-radio-groupIcon">
-              {icons.map(({ id, path }) => (
-                <label key={id}>
-                  <FormikField type="radio" name="iconId" value={id} />
-                  <Icon width="18" height="18">
-                    <use xlinkHref={`${urlIcon}${path}`} />
-                  </Icon>
-                </label>
-              ))}
-              <ErrorMessage name="iconId" component="p" />
+              <FormikField name="icon" component={ModalBoardIcons} />
+              <ErrorMessage name="icon" component="p" />
             </IconContainer>
 
             <Text id="my-radio-groupImage">Background</Text>
             <ImageContainer role="group" aria-labelledby="my-radio-groupImage">
-              <label>
-                <FormikFieldImage
-                  type="radio"
-                  name="backgroundId"
-                  value="default"
-                />
-                <ImgBox>
-                  <svg width="16" height="16" stroke="var(--iconImageColor)">
-                    <use xlinkHref={`${urlIcon}#icon-image-default`} />
-                  </svg>
-                </ImgBox>
-              </label>
-              {data?.map(({ _id, name, image }) => (
-                <label key={_id}>
+              {data.map(item => (
+                <label key={item.id}>
                   <FormikFieldImage
+                    style={{display: 'none'}}
                     type="radio"
-                    name="backgroundId"
-                    value={name}
+                    name="backgroundImage"
+                    value={getImageSource(width, item)}
+                  
                   />
                   <ImgBox>
-                    <ImgStyled width={28} src={image.retina} alt={name} />
+                    <ImgStyled 
+                      width={28} 
+                      height={28} 
+                      src={getImageSource(width, item)}  
+                      alt={item.id} 
+                    />
                   </ImgBox>
                 </label>
               ))}
-              <ErrorMessage name="backgroundId" component="p" />
+              
+              <ErrorMessage name="backgroundImage" component="p" />
             </ImageContainer>
 
-            <Button type="submit" disabled={isEditLoading}>
+            <Button type="submit" >
               <ContainerIconButton>
                 <svg width="14" height="14">
                   <use xlinkHref={`${urlIcon}#icon-plus`} />
                 </svg>
               </ContainerIconButton>
-              {isEditLoading ? <Loader /> : 'Edit'}
+              Edit
             </Button>
           </FormikForm>
         </Formik>
       </ModalCard>
-    </>
+    </EditBoardSection>
   );
 };
 
@@ -136,8 +152,7 @@ const schema = yup.object({
     .matches(
       /^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9.%+\-_]*( [a-zA-Zа-яА-ЯёЁ0-9.%+\-_]+)*$/,
       'Invalid name format'
-    )
-    .required('title is required!'),
+    ),
   iconId: yup.string(),
   backgroundId: yup.string(),
 });

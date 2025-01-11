@@ -1,17 +1,49 @@
 import styled, { keyframes } from 'styled-components';
 import { Form, ErrorMessage as FormikError, Field } from 'formik';
 
+export const EditBoardSection = styled.section`
+ position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0, .3);
+  top: 0;
+  `
+
 export const ModalCard = styled.div`
-  @media screen and (max-width: 374px) {
+  position: relative;
+  width: 70vw;
+  height: 395px;
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#161616';
+      default:
+        return '#FCFCFC';
+    }
+  }};
+  border-radius: 8px;
+  border: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '1px solid #BEDBB080';
+      default:
+        return 'none';
+    }
+  }};
+  padding: 24px;
+  font-family: var(--poppinsFont);
+  box-shadow: 0px 4px 16px 0px #1616160D;
+  z-index: 20000;
+  margin-inline: auto;
+  margin-top: 20vh;
+
+
+  @media screen and (min-width: 320px) {
     width: 90vw;
   }
-  width: 335px;
-  height: 433px;
-  background-color: var(--modalBgColor);
-  border-radius: var(--borderRadius8);
-  border: 1px solid var(--borderBoardColor);
-  position: relative;
-  padding: 24px;
+  @media screen and (min-width: 375px) {
+    width: 335px;
+  }
 
   @media screen and (min-width: 768px) {
     width: 350px;
@@ -19,7 +51,14 @@ export const ModalCard = styled.div`
 `;
 
 export const Title = styled.h2`
-  color: var(--titleBoardColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize18);
   font-family: var(--poppinsFont);
   font-weight: (--fontWeight500);
@@ -49,32 +88,55 @@ export const ErrorMessage = styled(FormikError)`
 `;
 
 export const FieldTitle = styled(Field)`
-  width: 100%;
+  width: 83%;
   height: 49px;
-  padding: 14px 18px 14px 18px;
+  padding: 0 18px;
   margin-bottom: 24px;
   align-items: center;
-  border-radius: var(--borderRadius8);
-  border: 1px solid var(--borderInputBoardColor);
+  border-radius: 8px;
+  background: var(--bgInputBoardColor);
+  border:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '1px solid #5255BC';
+      default:
+        return '1px solid #BEDBB0;';
+    }
+  }};
   opacity: 0.4000000059604645;
-  background-color: var(--bgInputBoardColor);
-  box-shadow: 0px 4px 16px 0px rgba(var(--boxShadowInputBoardColor));
 
+  box-shadow: 0px 4px 16px 0px rgba(var(--boxShadowInputBoardColor));
   color: var(--textInputBoardColor);
+
   font-size: var(--fontSize14);
   font-family: var(--poppinsFont), var(--roboto);
   letter-spacing: -0.28px;
+
+  @media screen and (min-width: 375px) {
+    width: 89%;
+  }
 
   &:hover,
   &:focus,
   &:active {
     opacity: 1;
-    outline: 1px solid var(--borderNeedHelpColor);
+    outline: 1px solid var(--accentColor);
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 89.7%;
   }
 `;
 
 export const Text = styled.h3`
-  color: var(--titleBoardColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize14);
   font-family: var(--poppinsFont);
   font-weight: var(--fontWeight500);
@@ -190,19 +252,29 @@ export const Button = styled.button`
   height: 49px;
   padding: 10px 0px 11px 0px;
   align-items: center;
-  border-radius: var(--borderRadius8);
+  border-radius: 8px;
   border: none;
-  background-color: var(--btnBoardColor);
-  color: var(--btnTextBoardColor);
+  background-color:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#5255BC';
+      default:
+        return '#BEDBB0';
+    }
+  }};
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize14);
   font-family: var(--poppinsFont);
   font-weight: var(--fontWeight500);
   letter-spacing: -0.28px;
   cursor: pointer;
-
-  @media screen and (min-width: 768px) {
-    width: 302px;
-  }
 
   position: relative;
   overflow: hidden;

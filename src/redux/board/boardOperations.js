@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
-axios.defaults.baseURL =  'https://taskpro-app-bcac9d37037a.herokuapp.com'
+axios.defaults.baseURL =  'http://localhost:5000/'
 
 export const getBackgroundIcons = createAsyncThunk(
   'boards/getBackgroundIcons',
@@ -53,25 +53,11 @@ export const updateBoard = createAsyncThunk(
   'boards/updateBoard',
   async ({boardName, dataUpdate }, thunkAPI) => {
     try {
-      const formData = new FormData();
-      const { title, iconId, background } = dataUpdate;
-      formData.append('title', title);
-      formData.append('iconId', iconId);
-
-      if (background !== 'on') {
-        !background.type?.startsWith('image')
-          ? formData.append('backgroundId', background)
-          : formData.append('background', background);
-      }
-
-      const { data } = await axios.patch(
-        `api/boards/${boardName}`,
-        formData,
-        { headers: { 'Content-Type': 'multipart/form-data' } }
-      );
-
-      return data.board;
+      await axios.patch(`/api/boards/${boardName}`,{dataUpdate}); 
+      console.log('edited')
+      console.log(dataUpdate)
     } catch (error) {
+      console.log(error)
       return thunkAPI.rejectWithValue(error.message);
     }
   }

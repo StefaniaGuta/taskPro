@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../redux/auth/authOperations';
 import ModalCreateNewBoard from 'components/PopUp/ModalCreateNewBoard/ModalCreateNewBoard';
 import NeedHelpModal from '../../components/PopUp/NeedHelp/NeedHelp';
-import ModalEditBoard from 'components/PopUp/ModalEditBoard/ModalEditBoard';
 import menu from '../../images/menu.png';
 import SidebarLogo from '../../images/Sidebar-logo.png';
 import NeedHelpImg from '../../images/NeedHelpImg.png';
@@ -122,7 +121,7 @@ const SideBar = () => {
                 className={style.ProjectIcon}
                 src={SidePencil}
                 alt='icon'
-                onClick={() => dispatch(openModal("editBoard"))}
+                
               />
               <img className={style.ProjectIcon} src={SideBin} alt='icon' />
             </div>
@@ -175,9 +174,7 @@ const SideBar = () => {
         {componentName === "needHelp" && <NeedHelpModal onClose={() => dispatch(closeModal())} />}
         {componentName === "createBoard" && <ModalCreateNewBoard onClose={() => dispatch(closeModal())} />}
       </Drawer>
-      <Box className={style.BoardModal}>
-        {componentName === "editBoard" && <ModalEditBoard onClose={() => dispatch(closeModal())} />}
-      </Box>
+      
     </div>
   );
 };
