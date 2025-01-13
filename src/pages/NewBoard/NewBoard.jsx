@@ -15,21 +15,21 @@ const NewBoard = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.auth.user.theme);
   const backgroundImage = useSelector((state) => state.boards.boards.backgroundImage);
+  const name = useSelector((state) => state.boards.boards.name);
+  const slug = useSelector((state) => state.boards.boards.slug);
   const modalState = useSelector((state) => state.modal);
   const { componentName } = modalState;
   const location = useLocation();
   const { state } = location;
-  const boardName = state?.name;
+  const boardName = state?.name || slug;
   const [currentImage, setCurrentImage] = useState(backgroundImage);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
 
-  const allColumns = useSelector((state) => state.columns.columns)
+  const allColumns = useSelector((state) => state.columns.columns);
   const columns = allColumns.filter((column) => column.boardName === boardName);
-  console.log(columns)
 
   const cardsAdded = useSelector((state) => state.cards.cards || []);
   const filteredCards = cardsAdded.filter((card) => columns.some((col) => col._id === card.columnId));
-  console.log(cardsAdded)
 
   const handleOpenCardModal = (columnId) => {
     setSelectedColumnId(columnId);
@@ -76,7 +76,7 @@ const NewBoard = () => {
         }}
       >
         <div className={styles.NameFilter}>
-          <h2>{boardName}</h2>
+          <h2>{boardName || name}</h2>
           <FilterComponent />
         </div>
 

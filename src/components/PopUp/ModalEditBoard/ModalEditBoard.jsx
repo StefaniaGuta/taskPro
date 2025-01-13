@@ -32,28 +32,40 @@ import {
 
 
 const ModalEditBoard = (boardName) => {
-  const [width, setWidth] = useState(window.innerWidth);
-  //const {  title = '', iconId = '', backgroundId = {} } = componentName;
-  console.log(boardName.boardName);
- 
-  
+  const [width, setWidth] = useState(window.innerWidth);  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
+  
 
-  const handleSubmit =  (values) => {
-    try{
-      const response = dispatch(updateBoard(boardName.boardName.slug));
-      console.log(boardName.boardName.slug, 'response', response)
-      console.log('upated')
-      console.log(values)
-      navigate(`/boards/${boardName}`, { replace: true, state: { name: values.title, icon: values.icon, backgroundImage: values.backgroundImage } });
-      dispatch(closeModal());
-    } catch (e) {
-      console.log(e)
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+        //console.log('Submitting values:', values);
+        const board = boardName.boardName.slug;
+        const updates = {
+            name: values.name,
+            icon: values.icon,
+            backgroundImage: values.backgroundImage,
+        };
+
+        const response = await dispatch(updateBoard({boardName:board, dataUpdate: updates}));
+       // console.log('Update response:', response);
+
+        if (response?.payload) {
+            navigate(`/boards/${board}`, {
+                replace: true,
+                state: board,
+            });
+        }
+
+        dispatch(closeModal());
+        resetForm();
+    } catch (error) {
+        console.error('Error updating board:', error);
     }
-  };
+};
 
+  
   useEffect(() => {
       const handleResize = () => {
         setWidth(window.innerWidth);
@@ -80,7 +92,7 @@ const ModalEditBoard = (boardName) => {
 
         <Formik
           initialValues={{
-            name: boardName.boardName.slug,
+            name: boardName.boardName.name,
             icon: boardName.boardName.icon,
             backgroundImage: boardName.boardName.backgroundImage
           }}
@@ -91,11 +103,11 @@ const ModalEditBoard = (boardName) => {
             <FormFieldTitle>
               <FieldTitle
                 type="text"
-                name="title"
+                name="name"
                 title="You need to enter the name of the column"
                 placeholder="Title"
               />
-              <ErrorMessage name="title" component="p" />
+              <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
             <Text id="my-radio-groupIcon">Icons</Text>
@@ -145,7 +157,7 @@ const ModalEditBoard = (boardName) => {
 };
 
 const schema = yup.object({
-  title: yup
+  name: yup
     .string()
     .min(2, 'Too Short!')
     .max(30, 'Maximum 30 characters')

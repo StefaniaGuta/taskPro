@@ -78,11 +78,16 @@ const boardsSlice = createSlice({
       state.isLoading = false;
       state.error = null;
     })
+    .addCase(updateBoard.pending, (state) => {
+      state.boards.isLoading = true;
+    })
     .addCase(updateBoard.fulfilled, (state, action) => {
       state.isLoading = false;
       state.boards = action.payload;
-      console.log('boards state', state.action) //de lucrat aici
-      console.log(' boards payload', action.payload)
+    })
+    .addCase(updateBoard.rejected, (state, action) => {
+      state.boards.isLoading = false;
+      state.boards.error = action.payload;
     })
   }
 })
