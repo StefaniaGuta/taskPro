@@ -1,16 +1,16 @@
 import React, { useEffect, useState} from "react";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal, closeModal } from "../../redux/modal/modalSlice";
 import Header from "../../components/Header/Header";
 import FilterComponent from "components/FilterComponent/FilterComponent";
 import ModalAddColumn from "components/PopUp/ModalAddColumn/ModalAddColumn";
 import ModalEditColumn from "components/PopUp/ModalEditColumn/ModalEditColumn";
 import ModalAddCard from '../../components/PopUp/AddCard/AddCard';
-import { useLocation } from "react-router-dom";
-import styles from "./NewBoard.module.css";
 import images from '../../images/BgImages/images';
+import { openModal, closeModal } from "../../redux/modal/modalSlice";
 import { deleteColumn } from "../../redux/columns/columnsOperations";
 import { deleteCard } from "../../redux/cards/cardsOpeartions";
+import styles from "./NewBoard.module.css";
 
 const NewBoard = () => {
   const dispatch = useDispatch();
@@ -27,8 +27,6 @@ const NewBoard = () => {
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const allColumns = useSelector((state) => state.columns.columns);
   const columns = allColumns.filter((column) => column.boardName === boardName);
-  console.log('allColumns',allColumns)
-  console.log('columns', columns)
 
   const cardsAdded = useSelector((state) => state.cards.cards || []);
   const filteredCards = cardsAdded.filter((card) => columns.some((col) => col._id === card.columnId));
