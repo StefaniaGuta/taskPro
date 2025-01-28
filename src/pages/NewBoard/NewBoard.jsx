@@ -4,6 +4,7 @@ import { openModal, closeModal } from "../../redux/modal/modalSlice";
 import Header from "../../components/Header/Header";
 import FilterComponent from "components/FilterComponent/FilterComponent";
 import ModalAddColumn from "components/PopUp/ModalAddColumn/ModalAddColumn";
+import ModalEditColumn from "components/PopUp/ModalEditColumn/ModalEditColumn";
 import ModalAddCard from '../../components/PopUp/AddCard/AddCard';
 import { useLocation } from "react-router-dom";
 import styles from "./NewBoard.module.css";
@@ -24,9 +25,10 @@ const NewBoard = () => {
   const boardName = state?.name || slug;
   const [currentImage, setCurrentImage] = useState(backgroundImage);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
-
   const allColumns = useSelector((state) => state.columns.columns);
   const columns = allColumns.filter((column) => column.boardName === boardName);
+  console.log('allColumns',allColumns)
+  console.log('columns', columns)
 
   const cardsAdded = useSelector((state) => state.cards.cards || []);
   const filteredCards = cardsAdded.filter((card) => columns.some((col) => col._id === card.columnId));
@@ -36,6 +38,10 @@ const NewBoard = () => {
     dispatch(openModal("cardModal"));
   };
   
+  const openEditCardModal = (columnId) => {
+    setSelectedColumnId(columnId);
+    dispatch(openModal("editColumn"))
+  }
 
   useEffect(() => {
     const foundImage = images.find(
@@ -102,6 +108,7 @@ const NewBoard = () => {
                           e.stopPropagation();
                           dispatch(deleteColumn({boardName: boardName, id: column._id}))
                         }}>D</button>
+                        <button onClick={() => openEditCardModal(column._id)}>Edit</button>    
                   </h2>
                   {filteredCards.length > 0 ? (
                     <ul style={{ display: "block", width: "200px"}}>
@@ -135,6 +142,14 @@ const NewBoard = () => {
           <ModalAddCard
             onClose={() => dispatch(closeModal())}
             columnId={selectedColumnId}
+          />
+        )}
+
+          {componentName === "editColumn" && (
+          <ModalEditColumn
+            onClose={() => dispatch(closeModal())}
+            columnId={selectedColumnId}
+             
           />
         )}
       </section>
