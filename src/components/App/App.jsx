@@ -64,7 +64,7 @@ const App = () => {
             />
             
             <Route
-              path="current"
+              path="current/:boardId"
               element={
                 <PrivateRoute component={<CurrentBoardPage />}/>
               }

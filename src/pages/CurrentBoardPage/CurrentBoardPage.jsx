@@ -7,35 +7,36 @@ import ModalEditColumn from "components/PopUp/ModalEditColumn/ModalEditColumn";
 import ModalAddCard from '../../components/PopUp/AddCard/AddCard';
 import Header from "../../components/Header/Header"; 
 import { openModal, closeModal } from "../../redux/modal/modalSlice";
-import { deleteCard } from "../../redux/cards/cardsOpeartions";
+//import { deleteCard } from "../../redux/cards/cardsOpeartions";
 import { editColumn, deleteColumn} from "../../redux/columns/columnsOperations";
 import styles from './CurrentBoardPage.module.css';
 import images from '../../images/BgImages/images';
 import { useLocation } from "react-router-dom";
+import { getBoardById } from "../../redux/board/boardOperations";
+import { deleteCard } from "../../redux/cards/cardsOpeartions";
 
 
 
 const CurrentBoardPage = () => {
   const location = useLocation();
-    const {state} = location;
-    //const boardName = state;
-    console.log(state.transferedBoard)
-
+  const {state} = location;
+  const [showColumnsMap, setShowColumnsMap] = useState([]);
 
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.modal);
   const { componentName } = modalState;
-  const currentBoard = useSelector((state) => state.boards.boards.current || { name: "Default", backgroundImage: "" }) || "";
-  const backgroundImage = currentBoard?.backgroundImage || "";
+  const currentBoard = state.transferedBoard;
+  const backgroundImage = currentBoard.backgroundImage;
   const currentBoardName = currentBoard.name; 
-  const backendColumns = currentBoard.columns;
+  //columns 
+  const backendColumns = showColumnsMap;
   const addedColumns = useSelector((state) => state.columns.columns);
   const filteredColumns = addedColumns.filter((column) => column.boardName === currentBoardName);
   const columns =  backendColumns.concat(filteredColumns);
-
   const uniqueColumns = Array.from(new Set(columns.map(column => column._id)))
   .map(id => columns.find(column => column._id === id));
   
+  //cards
   const backendCards = backendColumns.flatMap((column) => column.cards);
   const cardsAdded = useSelector((state) => state.cards.cards || []);
   const uniqueCardsAdded = cardsAdded.filter(
@@ -47,6 +48,10 @@ const CurrentBoardPage = () => {
       columns.some((col) => col._id === card.columnId)
     ),
   ];
+
+  
+
+
   
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const [currentImage, setCurrentImage] = useState(backgroundImage);
@@ -55,11 +60,32 @@ const CurrentBoardPage = () => {
     setSelectedColumnId(columnId);
     dispatch(openModal("cardModal"));
   };
+  useEffect(() => {
+    const showColumns = async () => {
+      try {
+        const response = await dispatch(getBoardById(currentBoard.slug));
+        setShowColumnsMap(response.payload.columns);
+        console.log('all columns and cards',response.payload.columns)
+        return response.payload
+      } catch (error) {
+        console.error("Error fetching columns:", error);
+      }
+    };
+  
+    if (currentBoard.slug) {
+      console.log('toate coloanele randate')
+      showColumns();
+    }
+  }, [dispatch, currentBoard.slug]);
+  
+  
 
   const openEditCardModal = (columnId) => {
     setSelectedColumnId(columnId);
     dispatch(openModal("editColumn"))
   }
+
+  
 
   useEffect(() => {
     const foundImage = images.find(
@@ -165,7 +191,7 @@ const CurrentBoardPage = () => {
           backgroundImage: `url(${currentImage})`,
         }}
       >
-        <h2>{currentBoard?.name || ""}</h2>
+        <h2>{currentBoard.name || ""}</h2>
         <FilterComponent />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-columns" direction="horizontal" type="column">
@@ -233,6 +259,7 @@ const CurrentBoardPage = () => {
                             </ul>
                           )}
                         </Droppable>
+                              
 
                         <button onClick={() => handleOpenCardModal(column._id)}>Add Card</button>
                       </div>

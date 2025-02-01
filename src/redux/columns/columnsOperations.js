@@ -31,15 +31,17 @@ export const deleteColumn = createAsyncThunk(
 
 export const editColumn = createAsyncThunk(
   'columns/editColumn',
-  async (data, thunkAPI) => {
-    const {boardName, id, editedColumn} = data;
+  async (columnData, thunkAPI) => {
     try {
-      const response = await axios.patch(`/api/boards/${boardName}/column/${id}`,
-        editedColumn
-      );
-      return response.data;
+      const {boardName, id, name} = columnData;
+      const { data } = await axios.patch(`/api/boards/${boardName}/column/${id}`, {name});
+      console.log(data)
+      console.log('name', name)
+      return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.code);
     }
   }
 );
+
