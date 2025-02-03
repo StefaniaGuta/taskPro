@@ -40,26 +40,26 @@ const ModalEditBoard = (boardName) => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-        //console.log('Submitting values:', values);
-        const board = boardName.boardName.slug;
-        const updates = {
-            name: values.name,
-            icon: values.icon,
-            backgroundImage: values.backgroundImage,
-        };
+      //console.log('Submitting values:', values);
+      const board = boardName.boardName.slug;
+      const updates = {
+          name: values.name,
+          icon: values.icon,
+          backgroundImage: values.backgroundImage,
+      };
 
-        const response = await dispatch(updateBoard({boardName:board, dataUpdate: updates}));
-       // console.log('Update response:', response);
+      const response = await dispatch(updateBoard({boardName:board, dataUpdate: updates}));
+      // console.log('Update response:', response);
 
-        if (response?.payload) {
-            navigate(`/boards/${board}`, {
-                replace: true,
-                state: board,
-            });
-        }
+      if (response?.payload) {
+          navigate(`/current/${board}`, {
+              replace: true,
+              state: {updates, transferedBoard: boardName.boardName},
+          });
+      }
 
-        dispatch(closeModal());
-        resetForm();
+      dispatch(closeModal());
+      resetForm();
     } catch (error) {
         console.error('Error updating board:', error);
     }
@@ -67,12 +67,12 @@ const ModalEditBoard = (boardName) => {
 
   
   useEffect(() => {
-      const handleResize = () => {
-        setWidth(window.innerWidth);
-      };
-      window.addEventListener("resize", handleResize);
-  
-      return () => window.removeEventListener("resize", handleResize);
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
     }, []);
 
   const getImageSource = (width, item) => {
