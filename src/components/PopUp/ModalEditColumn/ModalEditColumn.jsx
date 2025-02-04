@@ -2,10 +2,10 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import urlIcon from '../../../images/icons/sprite.svg';
 import CloseButton from '../CloseButton/CloseButton';
-import { useEditColumnMutation } from '../../../redux/boardApi/boardApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
-import Loader  from '../../Loader/Loader';
+import { editColumn } from '../../../redux/columns/columnsOperations'; 
+import { useParams } from 'react-router-dom';
 import {
   Form,
   FormFieldTitle,
@@ -15,26 +15,39 @@ import {
   Title,
   Button,
   ContainerIconButton,
+  EditColumnSection
 } from './ModalEditColumn.styled';
 
-const ModalEditColumn = ({ componentName={} }) => {
+const ModalEditColumn = ({columnId, updateColumn}) => {
   const dispatch = useDispatch();
-  const { id='', title='' } = componentName;
-  const [editColumn, { isLoading: isEditLoading }] = useEditColumnMutation();
-
+  const boardId = useParams(); 
+  const currentBoard = useSelector((state) => state.boards.boards.current?.slug);
+  const currentColumnName = useSelector((state) =>
+    state.boards.boards.current?.columns.find((col) => col._id === columnId)?.name
+  );
+  
+  
   const handleSubmit = async (values) => {
-    await editColumn({ values, id });
-    dispatch(closeModal());
+    try {
+      const { name } = values;
+      const response = await dispatch(editColumn({ boardName: boardId.boardId || currentBoard, id: columnId, name: name }));  
+      updateColumn(columnId, name);
+      console.log(response)
+      dispatch(closeModal());
+      return response.payload;
+    } catch (e) {
+      console.log(e)
+    }
   };
 
   return (
-    <>
+    <EditColumnSection>
       <ModalContainer>
         <CloseButton />
         <Title>Edit column</Title>
         <Formik
           initialValues={{
-            title: title,
+            name: currentColumnName,
           }}
           validationSchema={schema}
           onSubmit={handleSubmit}
@@ -43,31 +56,31 @@ const ModalEditColumn = ({ componentName={} }) => {
             <FormFieldTitle>
               <FieldTitle
                 type="text"
-                name="title"
+                name="name"
                 title="You need to enter the name of the column"
                 required
                 placeholder="Title"
               />
-              <ErrorMessage name="title" component="p" />
+              <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
-            <Button type="submit" disabled={isEditLoading}>
+            <Button type="submit" >
               <ContainerIconButton>
                 <svg width="14" height="14">
                   <use xlinkHref={`${urlIcon}#icon-plus`} />
                 </svg>
               </ContainerIconButton>
-              {isEditLoading ? <Loader /> : 'Edit'}
+              Edit
             </Button>
           </Form>
         </Formik>
       </ModalContainer>
-    </>
+    </ EditColumnSection>
   );
 };
 
 const schema = yup.object().shape({
-  title: yup
+  name: yup
     .string()
     .min(2, 'Too Short!')
     .max(30, 'Maximum 30 characters')

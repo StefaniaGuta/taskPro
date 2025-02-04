@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import FilterComponent from "components/FilterComponent/FilterComponent";
 import ModalAddColumn from "components/PopUp/ModalAddColumn/ModalAddColumn";
@@ -7,13 +8,12 @@ import ModalEditColumn from "components/PopUp/ModalEditColumn/ModalEditColumn";
 import ModalAddCard from '../../components/PopUp/AddCard/AddCard';
 import Header from "../../components/Header/Header"; 
 import { openModal, closeModal } from "../../redux/modal/modalSlice";
-//import { deleteCard } from "../../redux/cards/cardsOpeartions";
 import { editColumn, deleteColumn} from "../../redux/columns/columnsOperations";
-import styles from './CurrentBoardPage.module.css';
-import images from '../../images/BgImages/images';
-import { useLocation } from "react-router-dom";
 import { getBoardById } from "../../redux/board/boardOperations";
 import { deleteCard } from "../../redux/cards/cardsOpeartions";
+import { updateLocalColumn } from '../../redux/columns/columnSlice';
+import styles from './CurrentBoardPage.module.css';
+import images from '../../images/BgImages/images';
 
 
 
@@ -21,18 +21,36 @@ const CurrentBoardPage = () => {
   const location = useLocation();
   const {state} = location;
   const [showColumnsMap, setShowColumnsMap] = useState([]);
-
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.modal);
   const { componentName } = modalState;
   const currentBoard = state.transferedBoard;
+  const editedBoard = state.updates;
   const backgroundImage = currentBoard.backgroundImage;
-  const currentBoardName = currentBoard.name; 
+  const currentBoardName = currentBoard.name;
+  const currentBoardSlug= currentBoard.slug;
+
+  const changeName = () => {
+      if (currentBoardName !== editedBoard?.name) {
+        return editedBoard?.name
+      } else {
+        return currentBoardName;
+      }
+  }
+
+  const changeBackgroundImage = () => {
+      if (backgroundImage !== editedBoard?.backgroundImage) {
+        return editedBoard?.backgroundImage
+      } else {
+        return backgroundImage;
+      }
+  }
+  
   //columns 
   const backendColumns = showColumnsMap;
   const addedColumns = useSelector((state) => state.columns.columns);
-  const filteredColumns = addedColumns.filter((column) => column.boardName === currentBoardName);
-  const columns =  backendColumns.concat(filteredColumns);
+  const filteredColumns = addedColumns.filter((column) => column.boardName === currentBoardSlug);
+  const columns = backendColumns.concat(filteredColumns);
   const uniqueColumns = Array.from(new Set(columns.map(column => column._id)))
   .map(id => columns.find(column => column._id === id));
   
@@ -49,43 +67,14 @@ const CurrentBoardPage = () => {
     ),
   ];
 
-  
-
-
-  
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const [currentImage, setCurrentImage] = useState(backgroundImage);
-  
+
   const handleOpenCardModal = (columnId) => {
     setSelectedColumnId(columnId);
     dispatch(openModal("cardModal"));
   };
-  useEffect(() => {
-    const showColumns = async () => {
-      try {
-        const response = await dispatch(getBoardById(currentBoard.slug));
-        setShowColumnsMap(response.payload.columns);
-        console.log('all columns and cards',response.payload.columns)
-        return response.payload
-      } catch (error) {
-        console.error("Error fetching columns:", error);
-      }
-    };
-  
-    if (currentBoard.slug) {
-      console.log('toate coloanele randate')
-      showColumns();
-    }
-  }, [dispatch, currentBoard.slug]);
-  
-  
 
-  const openEditCardModal = (columnId) => {
-    setSelectedColumnId(columnId);
-    dispatch(openModal("editColumn"))
-  }
-
-  
 
   useEffect(() => {
     const foundImage = images.find(
@@ -114,6 +103,31 @@ const CurrentBoardPage = () => {
 
     return () => window.removeEventListener("resize", updateDeviceType);
   }, [backgroundImage]);
+
+  useEffect(() => {
+    const showColumns = async () => {
+      try {
+        const response = await dispatch(getBoardById(currentBoard.slug));
+        setShowColumnsMap(response.payload.columns);
+        return response.payload
+      } catch (error) {
+        console.error("Error fetching columns:", error);
+      }
+    };
+  
+    if (currentBoard.slug) {
+      showColumns();
+    }
+  }, [dispatch, currentBoard.slug,]);
+  
+  
+
+  const openEditCardModal = (columnId) => {
+    setSelectedColumnId(columnId);
+    dispatch(openModal("editColumn"))
+  }
+
+  
 
   const onDragEnd = async (result) => {
     const { destination, source,  type } = result;
@@ -178,8 +192,15 @@ const CurrentBoardPage = () => {
       }
     }
   };
-  
-  
+
+  const updateColumnLocally = (columnId, updatedName) => {
+    setShowColumnsMap(prevColumns =>
+      prevColumns.map(column =>
+        column._id === columnId ? { ...column, name: updatedName } : column
+      )
+    );
+    dispatch(updateLocalColumn({ id: columnId, name: updatedName }));
+  };
   
   
   return (
@@ -188,10 +209,10 @@ const CurrentBoardPage = () => {
       <section
         className={styles.BoardsSection}
         style={{
-          backgroundImage: `url(${currentImage})`,
+          backgroundImage: `url(${changeBackgroundImage() || currentImage})`,
         }}
       >
-        <h2>{currentBoard.name || ""}</h2>
+        <h2>{changeName() || currentBoardName}</h2>
         <FilterComponent />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-columns" direction="horizontal" type="column">
@@ -211,7 +232,7 @@ const CurrentBoardPage = () => {
                         {...provided.dragHandleProps}
                       >
                         <h2 className={styles.columnName}>
-                          {column.name}
+                        {column.name}
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -259,7 +280,6 @@ const CurrentBoardPage = () => {
                             </ul>
                           )}
                         </Droppable>
-                              
 
                         <button onClick={() => handleOpenCardModal(column._id)}>Add Card</button>
                       </div>
@@ -292,7 +312,7 @@ const CurrentBoardPage = () => {
           <ModalEditColumn
             onClose={() => dispatch(closeModal())}
             columnId={selectedColumnId}
-             
+            updateColumn={updateColumnLocally}
           />
         )}
       </section>

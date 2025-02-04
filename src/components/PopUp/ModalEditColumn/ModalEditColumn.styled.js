@@ -5,23 +5,67 @@ import {
   Field as FormikField,
 } from 'formik';
 
+export const EditColumnSection = styled.section`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  top: 0;
+`
+
 export const ModalContainer = styled.div`
-  @media screen and (max-width: 374px) {
-    width: 90vw;
+  @media screen and (min-width: 320px) {
+    width: 70vw;
   }
-  width: 350px;
+  @media screen and (min-width: 375px) {
+    width: 300px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 350px;
+  }
+
   height: 221px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   border-radius: 8px;
   border: 1px solid var(--borderBoardColor);
-  background-color: var(--modalBgColor);
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#161616';
+      default:
+        return '#FCFCFC';
+    }
+  }};
+  border-radius: 8px;
+  border: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '1px solid #BEDBB080';
+      default:
+        return 'none';
+    }
+  }};
   position: relative;
+  justify-content: center;
+  margin-top: 20vh;
 `;
 
 export const Title = styled.div`
-  color: var(--titleBoardColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize18);
   font-family: var(--poppinsFont);
   font-weight: var(--fontWeight500);
@@ -47,13 +91,20 @@ export const ErrorMessage = styled(FormikError)`
 `;
 
 export const FieldTitle = styled(FormikField)`
-  width: 100%;
+ width: 85%;
   height: 49px;
-  padding: 14px 18px 14px 18px;
+  padding: 0 18px;
   margin-bottom: 24px;
   align-items: center;
-  border-radius: var(--borderRadius8);
-  border: 1px solid var(--borderInputBoardColor);
+  border-radius: 8px;
+  border:${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '1px solid #5255BC';
+      default:
+        return '1px solid #BEDBB0;';
+    }
+  }};
   opacity: 0.4000000059604645;
   background-color: var(--bgInputBoardColor);
   box-shadow: 0px 4px 16px 0px rgba(var(--boxShadowInputBoardColor));
@@ -84,24 +135,42 @@ const pulseAnimation = keyframes`
 `;
 
 export const Button = styled.button`
-  display: flex;
+   display: flex;
   justify-content: center;
   width: 100%;
   height: 49px;
   padding: 10px 0px 11px 0px;
   align-items: center;
-  border-radius: var(--borderRadius8);
+  border-radius: 8px;
   border: none;
-  background-color: var(--btnBoardColor);
-  color: var(--btnTextBoardColor);
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#5255BC';
+      default:
+        return '#BEDBB0';
+    }
+  }};
+
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize14);
   font-family: var(--poppinsFont);
   font-weight: var(--fontWeight500);
   letter-spacing: -0.28px;
+  cursor: pointer;
 
-   cursor: pointer;
+  @media screen and (min-width: 768px) {
+    width: 350px;
+  }
 
-   position: relative;
+position: relative;
   overflow: hidden;
   z-index: 1;
   transition: all 0.3s;

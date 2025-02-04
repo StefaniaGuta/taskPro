@@ -34,10 +34,8 @@ export const editColumn = createAsyncThunk(
   async (columnData, thunkAPI) => {
     try {
       const {boardName, id, name} = columnData;
-      const { data } = await axios.patch(`/api/boards/${boardName}/column/${id}`, {name});
-      console.log(data)
-      console.log('name', name)
-      return data;
+      await axios.patch(`/api/boards/${boardName}/column/${id}`, {name});
+      return {name};
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error.code);
