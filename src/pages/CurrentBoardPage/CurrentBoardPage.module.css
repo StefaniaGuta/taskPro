@@ -16,9 +16,24 @@
   box-sizing: border-box;
   width: 300px;
   height: 200px;
-  border-radius: 8px 0px 0px 0px;
+  border-radius: 8px;
   background-color: #ffffff;
   margin-bottom: 10px;
+}
+
+.card-none {
+  border-left: 4px solid #1616164D;
+}
+.card-low {
+  border-left: 4px solid #8FA1D0;
+}
+
+.card-medium {
+  border-left: 4px solid #E09CB5;
+}
+
+.card-high {
+  border-left: 4px solid #BEDBB0;
 }
 
 .card-title {
@@ -110,6 +125,27 @@
   cursor: pointer;
   color: #ffffff;
 }
+
+.BoardsSection .PriorityColor{
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.priority-none {
+  background-color: #1616164D;
+}
+.priority-low {
+  background-color: #8FA1D0;
+}
+.priority-medium {
+  background-color: #E09CB5;
+}
+.priority-high {
+  background-color: #BEDBB0;
+}
+
 
 @media screen and (min-width: 1200px) {
   .ColumnsSection li {

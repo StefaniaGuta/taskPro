@@ -5,10 +5,10 @@ const URL = 'http://localhost:5000/'
 
 export const addCard = createAsyncThunk(
   "cards/addCard",
-  async ({ boardName, id, title, description, deadline}, thunkAPI) => {
+  async ({ boardName, id, title, description, priority, deadline}, thunkAPI) => {
     try {
 
-      const response = await axios.post(`${URL}api/boards/${boardName}/column/${id}`, {title, description, deadline});
+      const response = await axios.post(`${URL}api/boards/${boardName}/column/${id}`, {title, description, priority, deadline});
       if (response.status !== 200) {
         throw new Error('Failed to add card');
       }

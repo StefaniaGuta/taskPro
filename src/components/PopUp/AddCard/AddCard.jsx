@@ -34,14 +34,14 @@ import {
 const ModalAddCard = ({id, columnId}) => {
  
   const [date, setDate] = useState(new Date());
-  const [select, setSelect] = useState('without');
+  const [select, setSelect] = useState('');
   const [formattedDate, setFormattedDate] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const boardId = useParams(); 
   const currentBoardName = useSelector((state) => state.boards.boards.current?.slug);
   const dispatch = useDispatch();
 
-  const priorityValue = ['low', 'medium', 'high', 'without'];
+  const priorityValue = ['low', 'medium', 'high', 'none'];
 
   useEffect(() => {
     setFormattedDate(formattedDateForBtn(date));
@@ -49,8 +49,8 @@ const ModalAddCard = ({id, columnId}) => {
 
   const initialValues = {
     title: '',
-    description: '44444',
-    priority: 'without',
+    description: '',
+    priority: '',
     deadline: date.toISOString(),
   };
 
@@ -68,7 +68,7 @@ const ModalAddCard = ({id, columnId}) => {
     priority: yup
       .string()
       .required('Priority is required')
-      .oneOf(['low', 'medium', 'high', 'without']),
+      .oneOf(['low', 'medium', 'high', 'none']),
     deadline: yup.date().required('Deadline is required'),
   });
 
@@ -76,14 +76,15 @@ const ModalAddCard = ({id, columnId}) => {
     e.preventDefault();
     const value = e.target.value;
     setSelect(value);
+    console.log(value)
   };
 
 
   const handleSubmit = async (values) => {
     setIsLoading(true);
-    const { title, description, deadline } = values;
+    const { title, description, priority, deadline } = values;
     try {
-      const response = await dispatch(addCard({ boardName: boardId.boardId || currentBoardName, id: id || columnId, title, description, deadline}));
+      const response = await dispatch(addCard({ boardName: boardId.boardId || currentBoardName, id: id || columnId, title, description, priority, deadline}));
       dispatch(closeModal());
       console.log(columnId, id)
       console.log(response)

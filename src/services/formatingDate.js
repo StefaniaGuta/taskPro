@@ -15,3 +15,8 @@ export const formattedDateForBtn = (date) => {
   }
   return format(date, 'MMMM dd');
 };
+
+export const formatDeadline = (dateString) => {
+  const date = new Date(dateString);
+  return format(date, 'dd/MM/yyyy');
+};
