@@ -40,15 +40,14 @@ export const deleteCard = createAsyncThunk(
 
 export const editCard = createAsyncThunk(
   'cards/editCard',
-  async ({ cardId, editedCard }, thunkAPI) => {
+  async ({ boardName, id, title, description, priority, deadline }, thunkAPI) => {
     try {
-      const { data } = await axios.patch(
-        
-        editedCard
-      );
-
-      return { card: data.card, columnId: editedCard.column };
+      const { data } = await axios.patch(`${URL}api/boards/${boardName}/${id}`, {title, description, priority, deadline});
+      console.log('response API', data)
+      console.log('edited')
+      return data;
     } catch (error) {
+      console.log(error)
       return thunkAPI.rejectWithValue(error.message);
     }
   }

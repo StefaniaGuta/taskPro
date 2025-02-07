@@ -14,7 +14,7 @@ import ButtonModal from '../ButtonModal/ButtonModal.jsx';
 
 import {
   CardSection,
-  AddCardModal,
+  CardModal,
   Title,
   InputTitle,
   InputDescription,
@@ -102,7 +102,7 @@ const ModalAddCard = ({id, columnId}) => {
 
   return (
     <CardSection>
-    <AddCardModal>
+    <CardModal>
       <CloseButton/>
       <Title>Add card</Title>
       <Formik
@@ -174,7 +174,7 @@ const ModalAddCard = ({id, columnId}) => {
           </Form>
         )}
       </Formik>
-    </AddCardModal>
+    </CardModal>
     </CardSection>
   );
 };

@@ -31,7 +31,9 @@ const ModalEditColumn = ({columnId, updateColumn}) => {
     try {
       const { name } = values;
       const response = await dispatch(editColumn({ boardName: boardId.boardId || currentBoard, id: columnId, name: name }));  
-      updateColumn(columnId, name);
+      if(updateColumn){
+        updateColumn(columnId, name);
+      }
       console.log(response)
       dispatch(closeModal());
       return response.payload;

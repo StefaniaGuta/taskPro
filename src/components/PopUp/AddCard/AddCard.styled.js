@@ -12,7 +12,7 @@ export const CardSection = styled.section`
   justify-content: flex-start;
 `
 
-export const AddCardModal = styled.div`
+export const CardModal = styled.div`
   @media screen and (min-width: 320px) {
     width: 70vw;
     margin-left: 25px;

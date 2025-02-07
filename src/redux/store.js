@@ -15,7 +15,6 @@ import { boardsReducer } from './board/boardSlice';
 import { themeReducer } from './theme/ThemeSlice';
 import { boardSearchReducer } from './search/searchSlice';
 import { filterReducer } from './filter/filterSlice';
-import { miniImgApi } from '../redux/miniImgApi/miniImgApi';
 import {cardsReducer} from '../redux/cards/cardsSlice';
 import {columnsReducer} from '../redux/columns/columnSlice';
 import {needHelpReducer} from '../redux/NeedHelp/slice';
@@ -38,7 +37,6 @@ export const store = configureStore({
     search: boardSearchReducer,
     filter: filterReducer,
     needHelp: needHelpReducer,
-    [miniImgApi.reducerPath]: miniImgApi.reducer,
 
   },
   middleware: getDefaultMiddleware =>
@@ -46,9 +44,8 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(miniImgApi.middleware, 
-
-    ),
+    
+})
 });
 
 export const persistor = persistStore(store);
