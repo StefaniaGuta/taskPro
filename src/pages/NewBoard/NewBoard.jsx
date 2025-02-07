@@ -6,11 +6,14 @@ import FilterComponent from "components/FilterComponent/FilterComponent";
 import ModalAddColumn from "components/PopUp/ModalAddColumn/ModalAddColumn";
 import ModalEditColumn from "components/PopUp/ModalEditColumn/ModalEditColumn";
 import ModalAddCard from '../../components/PopUp/AddCard/AddCard';
+import ModalEditCard from "components/PopUp/EditCard/EditCard";
 import images from '../../images/BgImages/images';
 import { openModal, closeModal } from "../../redux/modal/modalSlice";
 import { deleteColumn } from "../../redux/columns/columnsOperations";
 import { deleteCard } from "../../redux/cards/cardsOpeartions";
+import { updateLocalColumn } from "../../redux/columns/columnSlice";
 import styles from "./NewBoard.module.css";
+import { formatDeadline } from '../../services/formatingDate';
 
 const NewBoard = () => {
   const dispatch = useDispatch();
@@ -25,6 +28,7 @@ const NewBoard = () => {
   const boardName = state?.name || slug;
   const [currentImage, setCurrentImage] = useState(backgroundImage);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
+  const [cardId, setCardId] = useState();
   const allColumns = useSelector((state) => state.columns.columns);
   const columns = allColumns.filter((column) => column.boardName === boardName);
 
@@ -36,9 +40,13 @@ const NewBoard = () => {
     dispatch(openModal("cardModal"));
   };
   
-  const openEditCardModal = (columnId) => {
+  const openEditColumnModal = (columnId) => {
     setSelectedColumnId(columnId);
     dispatch(openModal("editColumn"))
+  }
+  const openEditCardModal = (card) => {
+    setCardId(card)
+    dispatch(openModal("editCardModal"))          
   }
 
   useEffect(() => {
@@ -68,7 +76,9 @@ const NewBoard = () => {
 
     return () => window.removeEventListener("resize", updateDeviceType);
   }, [backgroundImage]);
-
+const updateColumnLocally = (columnId, updatedName) => {
+    dispatch(updateLocalColumn({ id: columnId, name: updatedName }));
+  };
   
   return (
     <>
@@ -106,25 +116,29 @@ const NewBoard = () => {
                           e.stopPropagation();
                           dispatch(deleteColumn({boardName: boardName, id: column._id}))
                         }}>D</button>
-                        <button onClick={() => openEditCardModal(column._id)}>Edit</button>    
+                        <button onClick={() => openEditColumnModal(column._id)}>Edit</button>    
                   </h2>
                   {filteredCards.length > 0 ? (
                     <ul style={{ display: "block", width: "200px"}}>
                       {filteredCards.filter((card) => card.columnId === column._id).map((card) => (
-                        <div key={card._id} className={styles['task-card']}>
+                        <div key={card._id} className={`${styles["task-card"]} ${styles[`card-${card.priority}`]}`}>
                           <h3 className={styles['card-title']}>{card.title}</h3>
                           <span className={styles['card-description']}>{card.description}</span>
-                          <span>{card.priority}</span>
-                          <span>{card.deadline}</span>
+                          <span>
+                          <span className={`${styles.PriorityColor} ${styles[`priority-${card.priority}`]}`}></span>
+                            {card.priority}
+                          </span>
+                          <span>{formatDeadline(card.deadline)}</span>
                           <button onClick={(e) => {
                           e.stopPropagation();
                           dispatch(deleteCard({boardName: boardName, id: card._id}))
                         }}>D</button>
+                        <button onClick={() => openEditCardModal(card)} >E</button>
                         </div>
                       ))}
                     </ul>
                   ) : (
-                    <p>No cards</p>
+                    <p></p>
                   )}
                   <button onClick={() => handleOpenCardModal(column._id)}>
                     Add Card
@@ -133,7 +147,7 @@ const NewBoard = () => {
               ))}
             </ul>
           ) : (
-            <p>NO</p>
+            <p></p>
           )}
         </div>
         {componentName === "cardModal" && (
@@ -147,7 +161,14 @@ const NewBoard = () => {
           <ModalEditColumn
             onClose={() => dispatch(closeModal())}
             columnId={selectedColumnId}
+            updateColumn={updateColumnLocally}
              
+          />
+        )}
+        {componentName === "editCardModal" && (
+          <ModalEditCard 
+            onClose={() => dispatch(closeModal())}
+            cardId={cardId}
           />
         )}
       </section>

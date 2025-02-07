@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addColumn, editColumn } from "./columnsOperations";
+import { addColumn, editColumn, deleteColumn } from "./columnsOperations";
 
 const columnsSlice = createSlice({
   name: "columns",
@@ -23,7 +23,6 @@ const columnsSlice = createSlice({
       .addCase(addColumn.fulfilled, (state, action) => {
         state.columns.push(action.payload);
         state.isLoading = false;
-        console.log(action.payload)
       })
       .addCase(addColumn.rejected, (state, action) => {
         state.isLoading = false;
@@ -32,20 +31,22 @@ const columnsSlice = createSlice({
       .addCase(editColumn.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(editColumn.fulfilled, (state, action) => {
-        state.isLoading = false;
-        const updatedColumn = action.payload; 
-        state.columns = state.columns.map(column =>
-            column._id === updatedColumn._id ? { ...column, ...updatedColumn } : column
-        );
-        console.log('payload', action.payload)
-    })
-    
       .addCase(editColumn.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
-      
+      .addCase(deleteColumn.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteColumn.fulfilled, (state, action) => {
+        state.isLoading = true;
+        state.cards = action.payload
+        state.columns = state.columns.filter((col) => col._id !== action.payload.id)
+      })
+      .addCase(deleteColumn.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
   },
 });
 export const { updateLocalColumn } = columnsSlice.actions;

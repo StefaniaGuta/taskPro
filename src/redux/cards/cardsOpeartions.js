@@ -29,8 +29,7 @@ export const deleteCard = createAsyncThunk(
   async ({ boardName, id}, thunkAPI) => {
     try {
       await axios.delete(`${URL}api/boards/${boardName}/${id}`);
-      console.log('card deleted-cardsOperation')
-      return {id};
+      return { id };
     } catch (error) {
       console.log( 'error steregere card', error)
       return thunkAPI.rejectWithValue(error.message);
@@ -43,8 +42,6 @@ export const editCard = createAsyncThunk(
   async ({ boardName, id, title, description, priority, deadline }, thunkAPI) => {
     try {
       const { data } = await axios.patch(`${URL}api/boards/${boardName}/${id}`, {title, description, priority, deadline});
-      console.log('response API', data)
-      console.log('edited')
       return data;
     } catch (error) {
       console.log(error)

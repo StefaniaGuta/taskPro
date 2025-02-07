@@ -27,16 +27,14 @@ extraReducers: (builder) => {
     })
     .addCase(deleteCard.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.cards = state.cards.filter(card => card._id !== action.payload);
+      state.cards = state.cards.filter(card => card._id !== action.payload.id);
     })
-  
     .addCase(deleteCard.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload; 
     })
     .addCase(editCard.pending, (state) => {
       state.isLoading = true;
-      console.log(state)
     })
     .addCase(editCard.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -47,11 +45,9 @@ extraReducers: (builder) => {
         state.cards[index] = action.payload;
       }
     })
-    
     .addCase(editCard.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
-      console.log(action.payload)
     })
 },
 });
