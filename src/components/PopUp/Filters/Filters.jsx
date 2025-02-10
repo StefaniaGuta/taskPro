@@ -12,27 +12,24 @@ import {
   ImageContainer,
   FormikFieldImage,
   ShowAll,
-  ImgStyled,
 } from './Filters.styled';
 import CloseButton from '../CloseButton/CloseButton';
 import { setFilter } from '../../../redux/filter/filterSlice';
-import { useGetMiniImgQuery } from '../../../redux/miniImgApi/miniImgApi';
 import urlIcon from '../../../images/icons/sprite.svg';
-import { useEditBoardMutation } from '../../../redux/boardApi/boardApi';
 
 const Filters = ({ componentName }) => {
   const dispatch = useDispatch();
   const onFilterChange = (e) => {
     dispatch(setFilter(e.target.value));
   };
-  const { data } = useGetMiniImgQuery();
-  const [editBoard] = useEditBoardMutation();
+
+ // const [editBoard] = useEditBoardMutation();
 
   const updateBackground = async (name) => {
-    await editBoard({
-      values: { backgroundId: name },
-      id: componentName.boardId,
-    });
+    //await editBoard({
+    //  values: { backgroundId: name },
+    //  id: componentName.boardId,
+   // });
   };
 
   return (
@@ -62,17 +59,7 @@ const Filters = ({ componentName }) => {
                   <use xlinkHref={`${urlIcon}#icon-image-default`} />
                 </svg>
               </label>
-              {data?.map(({ _id, name, image }) => (
-                <label key={_id}>
-                  <FormikFieldImage
-                    type="radio"
-                    name="backgroundId"
-                    value={name}
-                    onChange={() => updateBackground(name)}
-                  />
-                  <ImgStyled width={28} src={image.retina} alt={name} />
-                </label>
-              ))}
+              
             </ImageContainer>
 
             <Container>

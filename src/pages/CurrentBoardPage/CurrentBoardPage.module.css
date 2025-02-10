@@ -1,11 +1,36 @@
 .BoardsSection {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   background-color: #F6F6F7;
-  width: 100vw;
-  height: 700px;
+  height: 100vh;
+  width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
+  overflow-y: scroll;
+}
+
+.NameFilter {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.NameFilter h1{
+  width: 100px;
+  height: 21px;
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  color: #161616;
+  text-transform: capitalize;
 }
 
 .task-card {
@@ -15,10 +40,10 @@
   padding: 20px;
   box-sizing: border-box;
   width: 300px;
-  height: 200px;
+  height: 157px;
   border-radius: 8px;
   background-color: #ffffff;
-  margin-bottom: 10px;
+  gap: 5px;
 }
 
 .card-none {
@@ -37,28 +62,97 @@
 }
 
 .card-title {
+  width: 260px;
+  height: 21px;
   font-family: 'Poppins', sans-serif;
+  font-weight: 600;
   font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -2%;
+  text-transform: capitalize;
+  margin: 0;
 }
 
 .card-description {
-  font-size: 12px;
+  width:250px;
+  height: 38px;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
+  font-size: 12px;
   line-height: 16px;
-  color: #161616;
-  margin-bottom: 16px;
   letter-spacing: -2%;
+  overflow-x: scroll;
+  color: #161616B2;
+}
+
+.card-description::first-letter{
+  text-transform: capitalize;
+}
+
+.bottomCard{
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #1616161A;
+  padding-top: 14px;
+  margin-top: 14px;
+}
+
+.bottomCard .Svgs{
+  display: flex;
+  justify-content: space-between;
+  width: 80px;
+  position: absolute;
+  right: 20px;
+}
+
+.DeadlineBell{
+  visibility: hidden;
+}
+
+.deadlineBell-high{
+  visibility: visible;
+}
+
+.Priority,
+.Deadline{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+  font-size: 8px;
+  line-height: 12px;
+  letter-spacing: -2%;
+  color: #16161680;
+}
+
+.Priority h4,
+.Deadline h4{
+  width: 40px;
+  height: 15px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: -2%;
+  font-weight: 400;
+  text-transform: capitalize;
+  margin: 0;
+  color: #161616;
 }
 
 .ColumnsSection {
   display: flex;
-  width: 700px;
+  width: 100vw;
+  gap: 10px;
+  padding: 10px;
+}
+
+.ColumnsSection .ulButton {
+  display: flex;
+  flex-direction: row;
   gap: 10px;
 }
 
 .ColumnsSection  ul {
   display: flex;
-  width: 100vw;
   gap: 10px;
   margin: 0;
   padding: 0;
@@ -66,25 +160,22 @@
 
 .ColumnsSection .columnName {
   list-style: none;
+  text-transform: capitalize;
   width: 300px;
   height: 56px;
   background-color: #ffffff;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   padding: 18px 20px;
-  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 15px 0;
+  margin: 0;
   font-family: Poppins, sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
   letter-spacing: -0.02em;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;  
+  border-radius: 8px;
 }
 
 
@@ -110,20 +201,27 @@
   line-height: 21px;
   letter-spacing: -0.02em;
   text-align: left;
+  border-radius: 8px;
 }
-  
-.AddColumBtn span{
+
+.AddCardBtn{
+  width: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: #161616;
+  height: 56px;
+  box-sizing: border-box;
+  background-color: #BEDBB0;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  gap: 10px;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
-  cursor: pointer;
-  color: #ffffff;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin-top: 10px;
 }
 
 .BoardsSection .PriorityColor{
@@ -146,9 +244,18 @@
   background-color: #BEDBB0;
 }
 
+.BoardsSection .Cards{
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  overflow-y: scroll;
+  width: 310px;
+  margin-top: 10px;
+}
+
 
 @media screen and (min-width: 1200px) {
-  .ColumnsSection li {
-    width: 334px;
+  .BoardsSection {
+    padding-left: 260px;
   }
 }

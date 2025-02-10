@@ -6,6 +6,7 @@ import FilterComponent from "components/FilterComponent/FilterComponent";
 import ModalAddColumn from "components/PopUp/ModalAddColumn/ModalAddColumn";
 import ModalEditColumn from "components/PopUp/ModalEditColumn/ModalEditColumn";
 import ModalAddCard from '../../components/PopUp/AddCard/AddCard';
+import ModalEditCard from "../../components/PopUp/EditCard/EditCard";
 import Header from "../../components/Header/Header"; 
 import { openModal, closeModal } from "../../redux/modal/modalSlice";
 import { editColumn, deleteColumn} from "../../redux/columns/columnsOperations";
@@ -14,13 +15,16 @@ import { deleteCard } from "../../redux/cards/cardsOpeartions";
 import { updateLocalColumn } from '../../redux/columns/columnSlice';
 import styles from './CurrentBoardPage.module.css';
 import images from '../../images/BgImages/images';
+import { formatDeadline } from '../../services/formatingDate';
 
+import url from '../../components/PopUp/icons.svg';
 
 
 const CurrentBoardPage = () => {
   const location = useLocation();
   const {state} = location;
   const [showColumnsMap, setShowColumnsMap] = useState([]);
+  const [cardId, setCardId] = useState();
   const dispatch = useDispatch();
   const modalState = useSelector((state) => state.modal);
   const { componentName } = modalState;
@@ -66,6 +70,7 @@ const CurrentBoardPage = () => {
       columns.some((col) => col._id === card.columnId)
     ),
   ];
+
 
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const [currentImage, setCurrentImage] = useState(backgroundImage);
@@ -122,9 +127,14 @@ const CurrentBoardPage = () => {
   
   
 
-  const openEditCardModal = (columnId) => {
+  const openEditColumnModal = (columnId) => {
     setSelectedColumnId(columnId);
     dispatch(openModal("editColumn"))
+  }
+
+  const openEditCardModal = (card) => {
+    setCardId(card)
+    dispatch(openModal("editCardModal"))          
   }
 
   
@@ -201,6 +211,32 @@ const CurrentBoardPage = () => {
     );
     dispatch(updateLocalColumn({ id: columnId, name: updatedName }));
   };
+
+  const updateCardLocally = (updatedCard) => {
+    setShowColumnsMap(prevColumns =>
+      prevColumns.map(column => ({
+        ...column,
+        cards: column.cards.map(card =>
+          card._id === updatedCard._id ? { ...card, ...updatedCard } : card
+        )
+      }))
+    );
+  };
+
+  const deleteBackendColumn = async (column) => {
+      await dispatch(deleteColumn({ boardName: currentBoard.slug, id: column._id }));
+      setShowColumnsMap((prevColumns) => prevColumns.filter((col) => col._id !== column._id));
+  }
+
+  const deleteBackendCards = async (card) => {
+    await dispatch(deleteCard({ boardName: currentBoard.slug, id: card._id }));
+    setShowColumnsMap(prevColumns =>
+      prevColumns.map(column => ({
+        ...column,
+        cards: column.cards.filter(c => c._id !== card._id)
+      })))
+      console.log(card._id)
+  }
   
   
   return (
@@ -212,8 +248,13 @@ const CurrentBoardPage = () => {
           backgroundImage: `url(${changeBackgroundImage() || currentImage})`,
         }}
       >
-        <h2>{changeName() || currentBoardName}</h2>
+
+        <div className={styles.NameFilter}>
+        <h1>{changeName() || currentBoardName}</h1>
         <FilterComponent />
+        </div>
+        
+
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="all-columns" direction="horizontal" type="column">
             {(provided) => (
@@ -222,83 +263,130 @@ const CurrentBoardPage = () => {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {uniqueColumns.map((column, index) => (
-                  <Draggable key={column._id} draggableId={column._id} index={index}>
-                    {(provided) => (
-                      <div
-                        className={styles.Column}
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <h2 className={styles.columnName}>
-                        {column.name}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              dispatch(deleteColumn({ boardName: currentBoard.slug, id: column._id }));
-                            }}
-                          > D </button>
-                          <button onClick={() => openEditCardModal(column._id)}>E</button>
-                        </h2>
+                {uniqueColumns.length > 0 ? (
+                  <div className={`${styles.ulButton}`}>
 
-                        <Droppable droppableId={column._id} type="card">
-                          {(provided) => (
-                            <ul
-                              ref={provided.innerRef}
-                              {...provided.droppableProps}
-                              style={{ display: "block", width: "200px" }}
-                            >
-                              {cardToDisplay
-                                .filter((card) => card.columnId === column._id)
-                                .map((card, index) => (
-                                  <Draggable key={card._id} draggableId={card._id} index={index}>
-                                    {(provided) => (
-                                      <div
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        className={styles["task-card"]}
-                                      >
-                                        <h3 className={styles["card-title"]}>{card.title}</h3>
-                                        <span className={styles["card-description"]}>{card.description}</span>
-                                        <span>{card.priority}</span>
-                                        <span>{card.deadline}</span>
-                                        <button
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            dispatch(deleteCard({ boardName: currentBoard.slug, id: card._id }));
-                                          }}
-                                        >
-                                          D
-                                        </button>
-                                      </div>
-                                    )}
-                                  </Draggable>
-                                ))}
-                              {provided.placeholder}
-                            </ul>
-                          )}
-                        </Droppable>
+                    {uniqueColumns.map((column, index) => (
+                      <Draggable key={column._id} draggableId={column._id} index={index}>
+                        {(provided) => (
+                          <div
+                            className={styles.Column}
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <h2 className={styles.columnName}>
+                              {column.name}
+                              <div style={{width: '40px', display: 'flex', justifyContent: 'space-between'}}>
+                                <svg width="16" height="16"
+                                  onClick={() => openEditColumnModal(column._id)}
+                                  >
+                                    <use xlinkHref={`${url}#pencil`} />
+                                  </svg>
 
-                        <button onClick={() => handleOpenCardModal(column._id)}>Add Card</button>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
+                                  <svg width="16" height="16"
+                                  onClick={() => deleteBackendColumn(column)}
+                                  >
+                                    <use xlinkHref={`${url}#bin`} />
+                                  </svg>
+                              </div>
+                            </h2>
+
+                            <Droppable droppableId={column._id} type="card">
+                              {(provided) => (
+                                <ul
+                                  ref={provided.innerRef}
+                                  {...provided.droppableProps}
+                                  className={`${styles.Cards}`}
+                                >
+                                  {cardToDisplay
+                                    .filter((card) => card.columnId === column._id)
+                                    .map((card, index) => (
+                                      <Draggable key={card._id} draggableId={card._id} index={index}>
+                                        {(provided) => (
+                                          <div
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            className={`${styles["task-card"]} ${styles[`card-${card.priority}`]}`}
+                                          >
+                                            <h2 className={styles["card-title"]}>{card.title}</h2>
+                                            <span className={styles["card-description"]}>{card.description}</span>
+                                            
+
+                                            <div className={`${styles.bottomCard}`}>
+                                              <span className={`${styles.Priority}`}>
+                                                Priority
+                                                <div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
+                                                <span className={`${styles.PriorityColor} ${styles[`priority-${card.priority}`]}`}></span>
+                                                <h4>{card.priority}</h4>
+                                                </div>
+                                              </span>
+
+                                              <span className={`${styles.Deadline}`}> 
+                                                Deadline
+                                                <h4>{formatDeadline(card.deadline)}</h4>
+                                              </span>
+                                              
+                                              <div className={`${styles.Svgs}`}>
+                                              <svg width="16" height="16" className={`${styles.DeadlineBell} ${styles[`deadlineBell-${card.priority}`]}`}>
+                                                  <use xlinkHref={`${url}#bell`} />
+                                                </svg>
+                                                <svg width="16" height="16">
+                                                  <use xlinkHref={`${url}#move-card`} />
+                                                </svg>
+                                                <svg width="16" height="16" onClick={() => openEditCardModal(card)}>
+                                                  <use xlinkHref={`${url}#pencil`} />
+                                                </svg>
+                                                <svg width="16" height="16" onClick={() => deleteBackendCards(card)}>
+                                                  <use xlinkHref={`${url}#bin`} />
+                                                </svg>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        )}
+                                      </Draggable>
+                                    ))}
+                                  {provided.placeholder}
+                                </ul>
+                              )}
+                            </Droppable>
+
+                            <button className={styles.AddCardBtn} onClick={() => handleOpenCardModal(column._id)}>
+                              <svg width="28" height="28">
+                                <use xlinkHref={`${url}#buttons-plus`} />
+                              </svg>
+                              Add another card
+                            </button>
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    <button
+                      className={styles.AddColumBtn}
+                      onClick={() => dispatch(openModal("columnModal"))}
+                    >
+                      <svg width="28" height="28">
+                        <use xlinkHref={`${url}#buttons-plus`} />
+                      </svg>
+                      Add another column
+                  </button>
+                  </div>
+              ) : (
+                <button
+                  className={styles.AddColumBtn}
+                  onClick={() => dispatch(openModal("columnModal"))}
+                >
+                  <span>+</span>
+                  Add another column
+                </button>
+              )}
                 {provided.placeholder}
               </div>
             )}
           </Droppable>
         </DragDropContext>
-
-        <button
-          className={styles.AddColumBtn}
-          onClick={() => dispatch(openModal("columnModal"))}
-        >
-          <span>+</span>
-          Add another column
-        </button>
+ 
         {componentName === "columnModal" && (
           <ModalAddColumn onClose={() => dispatch(closeModal())} />
         )}
@@ -313,6 +401,13 @@ const CurrentBoardPage = () => {
             onClose={() => dispatch(closeModal())}
             columnId={selectedColumnId}
             updateColumn={updateColumnLocally}
+          />
+        )}
+        {componentName === "editCardModal" && (
+          <ModalEditCard 
+            onClose={() => dispatch(closeModal())}
+            cardId={cardId}
+            updateCard = {updateCardLocally}
           />
         )}
       </section>
