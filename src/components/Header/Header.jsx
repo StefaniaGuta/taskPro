@@ -1,23 +1,32 @@
-import { HeaderSection, HeaderUserWrap} from "./Header.styled";
+import { HeaderSection, Menu, HeaderUserWrap} from "./Header.styled";
 //import { TempForLanguages } from "components/TempForLanguages/TempForLanguage";
 import Profile from "components/Profile/Profile";
 import ThemeSelect from "components/ThemeSelect/ThemeSelect";
-import SideBar from "components/SideBar/SideBar";
+import SideBar from "../SideBar/SideBar";
 import { useSelector } from 'react-redux';
+import { useState } from "react";
+
+import url from '../PopUp/icons.svg';
 
 const Header = () => {
   const theme = useSelector(state => state.auth.user.theme);
+  const [isOpen, setIsOpen] = useState(false);
+  
+  const toggleSide = () => {
+    setIsOpen(!isOpen);
+  }
+
     return (
       <HeaderSection theme={theme}>
+          <Menu theme={theme} width="32" height="32" onClick={toggleSide}>
+            <use xlinkHref={`${url}#menu-burger`} />
+          </Menu>
+          {isOpen && <SideBar  isOpen={isOpen} setIsOpen={setIsOpen}/>}
         
-          <SideBar/>
           <HeaderUserWrap >
           <ThemeSelect />
           <Profile/>
           </HeaderUserWrap>
-       
-          
-        
       </HeaderSection>
     );
   };

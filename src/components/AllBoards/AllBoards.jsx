@@ -2,104 +2,114 @@ import { getAllBoards, deleteBoard, getBoardById } from '../../redux/board/board
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Notiflix from "notiflix";
-import SideBin from '../../images/SideBin.png';
-import SidePencil from '../../images/SidePencil.png';
 import styles from './AllBoards.module.css'
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ModalEditBoard from 'components/PopUp/ModalEditBoard/ModalEditBoard';
 import { openModal, closeModal } from "../../redux/modal/modalSlice";
 
+import url from '../PopUp/icons.svg'
+
 const AllBoards = () => {
   const theme = useSelector((state) => state.auth.user.theme);
-    const [boards, setBoards] = useState([]);
-    const [selectedBoard, setSelectedBoard] = useState(null);  
-    const dispatch = useDispatch()
-    //const navigate = useNavigate()
-    const modalState = useSelector((state) => state.modal);
-    const { componentName } = modalState;
+  const [boards, setBoards] = useState([]);
+  const [selectedBoard, setSelectedBoard] = useState(null);  
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const modalState = useSelector((state) => state.modal);
+  const { componentName } = modalState;
+  //const addedBoard = useSelector(state => state.boards.boards);
+  //console.log(addedBoard)
+  //const filteredBoards = boards.concat(addedBoard);
 
     
   useEffect(() => {
     const showAllBoards = async () => {
-        try {
-          const response = await dispatch(getAllBoards()).unwrap(); 
-          setBoards(response.dashboards); 
-          console.log('render')
-        } catch (error) {
-          console.error('Eroare la preluarea boardurilor:', error);
-        }
-    };
+      try {
+        const response = await dispatch(getAllBoards()).unwrap(); 
+        setBoards(response.dashboards); 
+        console.log('render')
+      } catch (error) {
+        console.error('Eroare la preluarea boardurilor:', error);
+      }
+  };
     showAllBoards();
-    }, [dispatch]);
+  }, [dispatch]);
 
-    const getSpecificBoard = async (board) => {
-      try {
-        const boardName = board.slug
-        const response = await dispatch(getBoardById(boardName))
-        setSelectedBoard(response.payload)
-        //navigate('/current')
-        return response.payload
-      } catch (e) {
-        console.log(e)
-      }
+   
+  const getSpecificBoard = async (board) => {
+    try {
+      const boardName = board.slug;
+      const transferedBoard = board;
+      const response = await dispatch(getBoardById(boardName))
+      navigate(`/current/${boardName}`, {replace: true, state: { transferedBoard} });
+      return response.payload
+    } catch (e) {
+      console.log(e)
     }
+  }
 
-    const deleteSpecificBoard = async () => {
-      try {
-        const boardName = selectedBoard.slug;
-        await dispatch(deleteBoard(boardName)).unwrap();
-        setBoards((prevBoards) => prevBoards.filter((board) => board.name !== boardName));
-        Notiflix.Notify.success('Board deleted successfully!');
-      } catch (e) {
-        console.log(e)
-      }
+  const deleteSpecificBoard = async (board) => {
+    try {
+      const boardName = board.slug;
+      await dispatch(deleteBoard(boardName)).unwrap();
+      setBoards((prevBoards) => prevBoards.filter((board) => board.slug !== boardName));
+      Notiflix.Notify.success('Board deleted successfully!');
+    } catch (e) {
+      console.log(e)
     }
+  }
 
-      return (
-        <>
-        <div className={styles.NewBoard}>
-            {boards.length > 0 ? (
-          <ul className={styles.BoardsList}>
-            {boards.map((board) => (
-              <li 
-                className={styles.Board}
-                key={board._id} 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  getSpecificBoard(board);
-                }}
-              >
+  const openEditModal = (board) => {
+    dispatch(openModal("editBoard"));
+    setSelectedBoard(board)
+  }
+
+  return(
+    <>
+      {boards.length > 0 ? (
+        <ul className={styles.BoardsList}>
+          {boards.map((board) => (
+            <li 
+              className={styles.Board}
+              key={board._id} 
+            >
+              <div className={styles.NameIcon}>
                 <svg className={`${styles.Icon} ${styles[theme]}`} width="18" height="18">
                   <use xlinkHref={board.icon} />
                 </svg>
-                <h2 className={styles.ProjectName}>{board.name}</h2>
-
-                <div className={styles.icons}>
-                  <img
-                    src={SidePencil}
-                    alt='icon'
-                    onClick={() => dispatch(openModal("editBoard"))}
-                  />
-                  <img onClick={(e) => {
+                <h2 className={styles.ProjectName}
+                  onClick={(e) => {
                     e.stopPropagation();
-                    deleteSpecificBoard(board);
+                    getSpecificBoard(board)
                   }}
-                  src={SideBin} 
-                  alt='icon' 
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p></p>
-        )}
-        </div>
-        {componentName === "editBoard" && (
-          <ModalEditBoard boardName={selectedBoard} onClose={() => dispatch(closeModal())}/>
-        )} 
-        </>
-      )
+                >
+                  {board.name}
+                </h2>
+              </div>
+
+              <div className={styles.icons}>
+                <svg width="16" height="16" onClick={() => openEditModal(board)}>
+                  <use xlinkHref={`${url}#pencil`} />
+                </svg>
+
+                <svg width="16" height="16"onClick={(e) => {
+                  e.stopPropagation();
+                  deleteSpecificBoard(board);
+                }}>
+                  <use xlinkHref={`${url}#bin`} />
+                </svg>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p></p>
+      )}
+      {componentName === "editBoard" && (
+        <ModalEditBoard boardName={selectedBoard} onClose={() => dispatch(closeModal())}/>
+      )} 
+    </>
+  )
 }
 
 export default AllBoards;

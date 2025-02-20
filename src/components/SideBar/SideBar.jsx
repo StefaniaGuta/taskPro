@@ -1,43 +1,27 @@
-import { useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logOut } from '../../redux/auth/authOperations';
 import ModalCreateNewBoard from 'components/PopUp/ModalCreateNewBoard/ModalCreateNewBoard';
-import NeedHelpModal from '../../components/PopUp/NeedHelp/NeedHelp';
-import menu from '../../images/menu.png';
+import NeedHelpModal from '../PopUp/NeedHelp/NeedHelp';
 import SidebarLogo from '../../images/Sidebar-logo.png';
 import NeedHelpImg from '../../images/NeedHelpImg.png';
-import Project from '../../images/Project.png';
-import puzzle from '../../images/puzzle-piece-02.png';
-import logout from '../../images/logout.png';
-import helpCircle from '../../images/help-circle.png';
-import SideBin from '../../images/SideBin.png';
-import SidePencil from '../../images/SidePencil.png';
-import closeDark from '../../images/closeDark.png';
 import openDark from '../../images/openDark.png';
 import openViolet from '../../images/openViolet.png';
 import { useSelector } from 'react-redux';
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import { closeModal, openModal} from '../../redux/modal/modalSlice';
 import AllBoards from '../AllBoards/AllBoards';
 
 import style from './SideBar.module.css';
+import url from '../PopUp/icons.svg';
 
 
-const SideBar = () => {
+const SideBar = ({ isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useSelector(state => state.auth.user.theme);
   const modalState = useSelector(state => state.modal);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1200);
   const { componentName } = modalState;
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleLogout = async () => {
     try {
@@ -48,134 +32,75 @@ const SideBar = () => {
     }
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1200) {
-        setIsDesktop(true);
-        if (!isOpen) {
-          setIsOpen(true);
-        }
-      } else {
-        setIsDesktop(false);
-        setIsOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [isOpen]);
-
   const CreateBoard = () => {
     dispatch(openModal("createBoard"));
-    
   };
-
+  const closeSidebar = () => setIsOpen(false);
   const getLogo = () => {
     if (theme === 'dark') {
-      return isOpen ? openDark : closeDark;
+      return  openDark;
     }
     if (theme === 'violet') {
-      return isOpen ? openViolet : menu;
+      return openViolet ;
     }
-    return isOpen ? SidebarLogo : menu;
+    return SidebarLogo;
   };
 
-  const DrawerList = (
-    <Box
-      className={`${style.Sidebar} ${style[theme]}`}
-      sx={{
-        border: 'none',
-        boxShadow: 'none',
-        transform: 'none',
-      }}>
-      <img
-        className={style.SideLogo}
-        src={getLogo()}
-        alt='menu'
-        onClick={toggleSidebar}
-      />
-      {isOpen && (
-        <>
-          <p className={style.Boards}>My boards</p>
-          <div className={style.CreateBoardSection}>
-            <h2 className={style.CreateBoard}>Create a new board</h2>
-            <button type='button'
-              className={style.CreateBoardBtn}
-              onClick={CreateBoard}
-            >
-              +
-            </button>
-          </div>
-
-          <div className={style.ProjectSection} tabIndex="0" onClick={() => navigate('/office')}>
-            <div className={style.NameDiv}>
-              <img src={Project} alt='project' />
-              <h2 className={style.ProjectName}>Project office</h2>
-            </div>
-
-            <div className={style.icons}>
-              <img
-                className={style.ProjectIcon}
-                src={SidePencil}
-                alt='icon'
-                
-              />
-              <img className={style.ProjectIcon} src={SideBin} alt='icon' />
-            </div>
-          </div>
-
-          <div className={style.NewBoard}>
-            <img src={puzzle} alt='puzzle' />
-            <h2>Neon Light Project</h2>
-          </div>
-
-          <AllBoards/>
-
-          <div className={style.HelpSection}>
-            <img src={NeedHelpImg} alt='needhelp' />
-            <p>If you need help with <span>TaskPro</span>, check out our support resources or reach out to our customer support team.</p>
-            <button
-              className={style.HelpBtn}
-              onClick={() => dispatch(openModal("needHelp"))}
-            >
-              <img className={style.HelpCircle} src={helpCircle} alt='help' />
-              Need help?
-            </button>
-          </div>
-          <button
-            className={style.LogOut}
-            type='button'
-            onClick={handleLogout}
-          >
-            <img src={logout} alt='logout' />
-            Log out
-          </button>
-        </>
-      )}
-    </Box>
-  );
-
+  if (!isOpen) return null;
+  
   return (
-    <div>
-      <button className={`${style.OpenCloseBtn} ${style[theme]}`}>
-        <img
-          src={getLogo()}
-          alt="menu"
-          onClick={toggleSidebar}
-          className={style.SideLogo}
-        />
-      </button>
+    <section className={`${style.Sidebar} ${style[theme]}`}>
+      <div className={style.SideBardContent}>
+        
+          <img
+            src={getLogo()}
+            alt="menu"
+            onClick={closeSidebar} 
+            className={style.SideLogo}
+          />
 
-      <Drawer open={isOpen} onClose={toggleSidebar} variant={isDesktop ? 'persistent' : 'temporary'}>
-        {DrawerList}
-        {componentName === "needHelp" && <NeedHelpModal onClose={() => dispatch(closeModal())} />}
-        {componentName === "createBoard" && <ModalCreateNewBoard onClose={() => dispatch(closeModal())} />}
-      </Drawer>
+        <p className={style.Boards}>My boards</p>
+        <div className={style.CreateBoardSection}>
+          <h2 className={style.CreateBoard}>Create a new board</h2>
+          <button type='button'
+            className={style.CreateBoardBtn}
+            onClick={CreateBoard}
+          >
+            +
+          </button>
+        </div>
+
+        <AllBoards/>
+
+        <div className={style.HelpSection}>
+          <img src={NeedHelpImg} alt='needhelp' />
+          <p>If you need help with <span>TaskPro</span>, check out our support resources or reach out to our customer support team.</p>
+          
+          <button
+            className={style.HelpBtn}
+            onClick={() => dispatch(openModal("needHelp"))}
+          >
+            <span className={style.HelpCircle}>?</span>
+            Need help?
+          </button>
+        </div>
+        <button
+          className={style.LogOut}
+          type='button'
+          onClick={handleLogout}
+        >
+          <svg width="32" height="32">
+            <use xlinkHref={`${url}#log-out`} />
+          </svg>
+          Log out
+        </button>
+       
+      </div>
+
       
-    </div>
+      {componentName === "needHelp" && <NeedHelpModal onClose={() => dispatch(closeModal())} />}
+      {componentName === "createBoard" && <ModalCreateNewBoard onClose={() => dispatch(closeModal())} />}
+    </section>
   );
 };
 

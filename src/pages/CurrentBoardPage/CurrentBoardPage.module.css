@@ -21,14 +21,11 @@
   width: 100px;
   height: 21px;
   margin: 0;
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
   letter-spacing: -0.02em;
-  text-align: left;
-  text-underline-position: from-font;
-  text-decoration-skip-ink: none;
   color: #161616;
   text-transform: capitalize;
 }
@@ -62,7 +59,7 @@
 }
 
 .card-title {
-  width: 260px;
+  width: 256px;
   height: 21px;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
@@ -74,14 +71,14 @@
 }
 
 .card-description {
-  width:250px;
+  width:256px;
   height: 38px;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
   letter-spacing: -2%;
-  overflow-x: scroll;
+  overflow-x: auto;
   color: #161616B2;
 }
 
@@ -103,6 +100,18 @@
   width: 80px;
   position: absolute;
   right: 20px;
+}
+
+.columnName svg,
+.bottomCard .Svgs svg {
+  fill: transparent;
+  stroke:#161616;
+  cursor: pointer;
+}
+
+.columnName svg:hover,
+.bottomCard .Svgs svg:hover{
+  stroke: #BEDBB0;
 }
 
 .DeadlineBell{
@@ -170,7 +179,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 0;
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
@@ -179,8 +188,7 @@
 }
 
 
-
-.ColumnsSection.dark li{
+.ColumnsSection.dark .task-card{
   background-color:  #121212;
   color: #FFFFFF;
 } 
@@ -195,13 +203,14 @@
   background-color: #ffffff;
   border: none;
   gap: 10px;
-  font-family: Poppins;
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
   letter-spacing: -0.02em;
   text-align: left;
   border-radius: 8px;
+  text-transform: capitalize;
 }
 
 .AddCardBtn{
@@ -215,7 +224,7 @@
   border: none;
   border-radius: 8px;
   gap: 10px;
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
@@ -248,8 +257,8 @@
   display: flex;
   flex-direction: column;
   max-height: 500px;
-  overflow-y: scroll;
-  width: 310px;
+  overflow-y: auto;
+  width: 320px;
   margin-top: 10px;
 }
 

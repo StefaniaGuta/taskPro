@@ -2,7 +2,9 @@ import styled, { keyframes } from 'styled-components';
 import { Form, ErrorMessage as FormikError, Field } from 'formik';
 
 export const NewBoardSection = styled.section`
-  position: fixed;
+  position: absolute;
+  top: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0, .3);

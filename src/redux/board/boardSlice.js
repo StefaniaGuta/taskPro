@@ -34,7 +34,6 @@ const boardsSlice = createSlice({
     })
     .addCase(createNewBoard.pending, (state) => {
       state.boards.isLoading = true;
-      console.log( 'new board state', state.boards);
     })
     .addCase(createNewBoard.fulfilled, (state, action) => {
       state.boards.isLoading = false;
