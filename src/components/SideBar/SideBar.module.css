@@ -255,3 +255,10 @@
     margin: 0 24px;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .Sidebar{
+    width: 225px;
+    background-color: transparent;
+  }
+}

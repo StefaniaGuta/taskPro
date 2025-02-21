@@ -92,7 +92,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
           <svg width="32" height="32">
             <use xlinkHref={`${url}#log-out`} />
           </svg>
-          Log out
+          Log Out
         </button>
        
       </div>

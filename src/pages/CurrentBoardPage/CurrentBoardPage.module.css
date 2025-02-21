@@ -118,7 +118,7 @@
   visibility: hidden;
 }
 
-.deadlineBell-high{
+.Cards .deadlineBell-high{
   visibility: visible;
 }
 
@@ -186,12 +186,6 @@
   letter-spacing: -0.02em;
   border-radius: 8px;
 }
-
-
-.ColumnsSection.dark .task-card{
-  background-color:  #121212;
-  color: #FFFFFF;
-} 
 
 .AddColumBtn{
   width: 300px;
@@ -262,6 +256,83 @@
   margin-top: 10px;
 }
 
+.BoardsSection .Cards{
+  scrollbar-color: #1616165D #FFFFFF4D;
+  scrollbar-width: thin;
+}
+
+/*Theme*/
+
+.BoardsSection.dark h1,
+.Cards.dark .bottomCard h4{
+  color: #FFFFFF;
+}
+
+.Column.dark .columnName,
+.Cards.dark .task-card{
+  background-color: #121212;
+  color: #FFFFFF;
+}
+
+.Column.dark .columnName svg,
+.Cards.dark .Svgs svg{
+  stroke: #FFFFFF80;
+}
+
+.Cards.dark .card-description,
+.Cards.dark .bottomCard span{
+  color: #FFFFFF80;
+}
+
+.Cards.dark .bottomCard {
+  border-top: 1px solid #FFFFFF1A;
+} 
+
+.Cards.dark .priority-none{
+  background-color: #FFFFFF4D;
+}
+
+.Cards.dark .card-none{
+  border-left: 4px solid #FFFFFF4D;
+}
+
+.Cards.dark .Svgs svg:hover,
+.Column.dark .columnName svg:hover{
+  stroke: #BEDBB0;
+}
+
+.BoardsSection .Cards.dark{
+  scrollbar-color: #121212 #FFFFFF4D;
+  scrollbar-width: thin;
+}
+
+.BoardsSection.dark .AddColumBtn{
+  background-color: #121212;
+  color: #FFFFFF;
+}
+.BoardsSection.violet .AddColumBtn{
+  background-color: #FFFFFF;
+}
+
+.BoardsSection.violet .AddCardBtn{
+  background-color: #5255BC;
+  color: #FFFFFF;
+}
+
+.BoardsSection .Cards.violet{
+  scrollbar-color: #B8BCFD #FFFFFF3D;
+}
+
+.Cards.violet .Svgs svg:hover,
+.Column.violet .columnName svg:hover,
+.Cards.violet .deadlineBell-high{
+  stroke: #5255BC;
+}
+
+.Cards.light .deadlineBell-high,
+.Cards.dark .deadlineBell-high{
+  stroke: #BEDBB0;
+}
 
 @media screen and (min-width: 1200px) {
   .BoardsSection {

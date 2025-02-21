@@ -67,7 +67,7 @@ const AllBoards = () => {
   return(
     <>
       {boards.length > 0 ? (
-        <ul className={styles.BoardsList}>
+        <ul className={`${styles.BoardsList} ${styles[theme]}`}>
           {boards.map((board) => (
             <li 
               className={styles.Board}
