@@ -2,35 +2,34 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Form } from 'formik';
 import { useDispatch} from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   FiltersContainer,
+  Dash,
   LabelContainer,
   ModalTitle,
-  Container,
   Span,
   Text,
-  ImageContainer,
-  FormikFieldImage,
   ShowAll,
+  Container,
 } from './Filters.styled';
 import CloseButton from '../CloseButton/CloseButton';
 import { setFilter } from '../../../redux/filter/filterSlice';
-import urlIcon from '../../../images/icons/sprite.svg';
 
-const Filters = ({ componentName }) => {
+const Filters = ({ columns, setFilteredCards }) => {
   const dispatch = useDispatch();
+  const allCards = columns.flatMap((column) => column.cards);
+  //const cardsAdded = useSelector((state) => state.cards.cards || []);
+  
   const onFilterChange = (e) => {
     dispatch(setFilter(e.target.value));
+    setFilteredCards(allCards.filter((card) => card.priority === e.target.value));
+    console.log(allCards.filter((card) => card.priority === e.target.value))
   };
-
- // const [editBoard] = useEditBoardMutation();
-
-  const updateBackground = async (name) => {
-    //await editBoard({
-    //  values: { backgroundId: name },
-    //  id: componentName.boardId,
-   // });
-  };
+   const showAllCards = () => {
+    setFilteredCards(allCards);
+    console.log(allCards)
+   }
 
   return (
     <>
@@ -46,42 +45,26 @@ const Filters = ({ componentName }) => {
           onSubmit={() => {}}
         >
           <Form>
-            <Text id="my-radio-groupImage">Background</Text>
-            <ImageContainer role="group" aria-labelledby="my-radio-groupImage">
-              <label>
-                <FormikFieldImage
-                  type="radio"
-                  name="backgroundId"
-                  value="default"
-                  onChange={() => updateBackground('default')}
-                />
-                <svg width="16" height="16" stroke="var(--iconImageColor)">
-                  <use xlinkHref={`${urlIcon}#icon-image-default`} />
-                </svg>
-              </label>
-              
-            </ImageContainer>
-
-            <Container>
+              <Dash></Dash>
+              <Container>
               <Text id="filtersRadioButton">Label color</Text>
               <ShowAll>
                 <input
                   type="radio"
                   value="all"
                   name="filtersRadioButton"
-                  onChange={onFilterChange}
+                 onClick={() => showAllCards()}
                   style={{ display: 'none' }}
                 />
                 <Span value="all" />
                 Show all
               </ShowAll>
             </Container>
-
             <LabelContainer role="group" aria-labelledby="my-radio-group">
               <label>
                 <input
                   type="radio"
-                  value="without"
+                  value="none"
                   name="filtersRadioButton"
                   onChange={onFilterChange}
                 />

@@ -1,110 +1,88 @@
 import styled from 'styled-components';
-import { Field } from 'formik';
 
 export const FiltersContainer = styled.div`
-  @media screen and (min-width: 320px) {
-    width: 80vw;
-  }
-  @media screen and (min-width: 375px) {
-    width: 300px;
-  }
-  height: 367px;
+  width: 276px;
+  height: 220px;
   padding: 24px;
-  margin-bottom: 50px;
-  background-color: var(--modalBgColor);
-  border-radius: 8px;
-  border: 1px solid var(--borderBoardColor);
-  box-shadow: 0px 4px 16px 0px var(--modalBoxShadow);
-  position: relative;
-`;
-
-export const ModalTitle = styled.h2`
-  text-align: start;
-  color: var(--titleBoardColor);
-  border-bottom: 1px solid var(--modalFilterBorderColor);
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
-  font-size: var(--fontSize18);
-  letter-spacing: var(--letterSpacing36);
-  padding-bottom: 14px;
-  margin-bottom: 14px;
-`;
-
-export const Text = styled.h3`
-  color: var(--titleBoardColor);
-  font-size: var(--fontSize14);
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
-  letter-spacing: var(--letterSpacing28);
-  text-align: start;
-`;
-
-export const ImageContainer = styled.div`
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  padding-bottom: 14px;
-  margin-top: 14px;
-  margin-bottom: 24px;
-
-  border-bottom: 1px solid var(--modalFilterBorderColor);
-
-  label {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition-property: outline-color;
-    transition-duration: var(--transition);
-    outline: 2.5px solid rgba(0, 0, 0, 0);
-
-    &:hover,
-    &:focus,
-    &:active {
-      outline-color: var(--accentColor);
-    }
-  }
-  label:first-of-type {
-    background-color: var(--iconImageBGColor);
-  }
-`;
-
-export const FormikFieldImage = styled(Field)`
-  opacity: 0;
   position: absolute;
-  /* display: none; */
-  cursor: pointer;
+  top: 90px;
+  right: 25px;
+  background-color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#161616';
+      default:
+        return '#FCFCFC';
+    }
+  }};
+  border-radius: 8px;
+  border: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '1px solid #BEDBB080';
+      default:
+        return 'none';
+    }
+  }};
+  box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.05);
+  z-index: 1;
+
 `;
+
+export const Dash = styled.span`
+  width: 274px;
+  border: 1px solid #1616161A;
+  display: flex;
+`
 
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin: 14px 0;
 `;
 
 export const ShowAll = styled.label`
-  color: var(--labelColor);
-  font-size: var(--fontSize12);
-  font-family: var(--poppinsFont);
-  letter-spacing: var(--letterSpacing24);
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -2%;
   text-decoration: underline;
-  background-color: var(--modalBgColor);
+  text-decoration-style: solid;
+  text-decoration-offset: Auto;
+  text-decoration-thickness: Auto;
+  color: #16161680;
   cursor: pointer;
   display: flex;
   align-items: center;
 
-  
+
   &:hover,
   &:focus {
     color: var(--titleBoardColor);
   }
+`;
+
+export const ModalTitle = styled.h2`
+  width: 51px;
+  height: 27px;
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: -2%;
+  color: #161616;
+`;
+
+export const Text = styled.h3`
+  width: 74px;
+  height: 21px;
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -2%;
+  margin: 0;
 `;
 
 export const Span = styled.span`
@@ -112,16 +90,15 @@ export const Span = styled.span`
   width: 14px;
   height: 14px;
   border-radius: 50%;
-
   background-color: ${(props) => {
     if (props.value === 'low') {
-      return 'var(--labelLowColor)';
+      return '#8FA1D0';
     } else if (props.value === 'medium') {
-      return 'var(--labelMediumColor)';
+      return '#E09CB5';
     } else if (props.value === 'high') {
-      return 'var(--labelHighColor)';
+      return '#BEDBB0';
     } else if (props.value === 'priority') {
-      return 'var(--labelWithoutColor)';
+      return '#1616164D';
     } else {
       return 'var(--transparentColor)';
     }
@@ -141,7 +118,6 @@ export const Span = styled.span`
     height: 11px;
     border-radius: 50%;
     border: 2px solid var(--modalBgColor);
-
     opacity: 0;
   }
 `;
@@ -153,12 +129,15 @@ export const LabelContainer = styled.div`
   gap: 12px;
 
   label {
+  width: 120px;
+  height: 18px;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: -2%;
+  color: #16161680;
     display: flex;
-    color: var(--labelColor);
-    font-size: var(--fontSize12);
-    font-family: Poppins;
-    letter-spacing: var(--letterSpacing24);
-
     cursor: pointer;
     transition-property: color;
     transition-duration: var(--transition);
@@ -179,8 +158,4 @@ export const LabelContainer = styled.div`
       opacity: 1;
     }
   }
-`;
-export const ImgStyled = styled.img`
-  object-fit: cover;
-  border-radius: 8px;
 `;

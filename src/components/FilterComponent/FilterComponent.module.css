@@ -15,16 +15,24 @@
     padding: 0;
     align-self: flex-start;
     justify-self: self-end;
+    cursor: pointer;
 }
 
 .dark {
     color: #FFFFFFCC;
 }
 
-.violet{
-    background-color: #D6D8FF;
+.FilterBtn.dark svg{
+    stroke: #FFFFFFCC;
+}
+.FilterBtn svg {
+    fill: transparent;
+    stroke:#161616;
+    cursor: pointer;
 }
 
-.FilterBtn.dark img{
-    filter: invert(1);
+.FilterBtn:hover,
+.FilterBtn:hover svg{
+    color: #BEDBB0;
+    stroke: #BEDBB0;
 }
