@@ -6,7 +6,7 @@ import url from '../../components/PopUp/icons.svg';
 import style from './FilterComponent.module.css';
 import { openModal, closeModal } from "../../redux/modal/modalSlice";
 
-const FilterComponent = ({columns, setFilteredCards}) => {
+const FilterComponent = ({setFilter}) => {
   const dispatch = useDispatch()
   const modalState = useSelector((state) => state.modal);
   const { componentName } = modalState;
@@ -20,7 +20,7 @@ const FilterComponent = ({columns, setFilteredCards}) => {
         </svg>
         Filters
       </button>
-      {componentName === "Filters" && (<Filters columns={columns} setFilteredCards={setFilteredCards} onClose={() => dispatch(closeModal())} />)}
+      {componentName === "Filters" && (<Filters setFilter={setFilter} onClose={() => dispatch(closeModal())} />)}
     </>
   )
 }

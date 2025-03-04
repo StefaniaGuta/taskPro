@@ -41,7 +41,7 @@ const ModalAddCard = ({id, columnId}) => {
   const currentBoardName = useSelector((state) => state.boards.boards.current?.slug);
   const dispatch = useDispatch();
 
-  const priorityValue = ['low', 'medium', 'high', 'none'];
+  const priorityValue = ['low', 'medium', 'high', 'without'];
 
   useEffect(() => {
     setFormattedDate(formattedDateForBtn(date));
@@ -68,7 +68,7 @@ const ModalAddCard = ({id, columnId}) => {
     priority: yup
       .string()
       .required('Priority is required')
-      .oneOf(['low', 'medium', 'high', 'none']),
+      .oneOf(['low', 'medium', 'high', 'without']),
     deadline: yup.date().required('Deadline is required'),
   });
 
@@ -86,8 +86,6 @@ const ModalAddCard = ({id, columnId}) => {
     try {
       const response = await dispatch(addCard({ boardName: boardId.boardId || currentBoardName, id: id || columnId, title, description, priority, deadline}));
       dispatch(closeModal());
-      console.log(columnId, id)
-      console.log(response)
       return response.data;
     } catch (error) {
       console.log('Error creating card:', error);

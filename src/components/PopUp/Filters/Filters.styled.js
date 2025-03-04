@@ -97,7 +97,7 @@ export const Span = styled.span`
       return '#E09CB5';
     } else if (props.value === 'high') {
       return '#BEDBB0';
-    } else if (props.value === 'priority') {
+    } else if (props.value === 'without') {
       return '#1616164D';
     } else {
       return 'var(--transparentColor)';

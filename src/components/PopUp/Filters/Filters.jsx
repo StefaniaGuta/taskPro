@@ -2,7 +2,9 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Form } from 'formik';
 import { useDispatch} from 'react-redux';
-import { useSelector } from 'react-redux';
+//import { useSelector } from 'react-redux';
+import { closeModal } from '../../../redux/modal/modalSlice';
+//import { useEffect } from 'react';
 import {
   FiltersContainer,
   Dash,
@@ -14,22 +16,27 @@ import {
   Container,
 } from './Filters.styled';
 import CloseButton from '../CloseButton/CloseButton';
-import { setFilter } from '../../../redux/filter/filterSlice';
+import { setFilterSlice } from '../../../redux/filter/filterSlice';
 
-const Filters = ({ columns, setFilteredCards }) => {
+const Filters = ({ setFilter }) => {
   const dispatch = useDispatch();
-  const allCards = columns.flatMap((column) => column.cards);
-  //const cardsAdded = useSelector((state) => state.cards.cards || []);
-  
-  const onFilterChange = (e) => {
-    dispatch(setFilter(e.target.value));
-    setFilteredCards(allCards.filter((card) => card.priority === e.target.value));
-    console.log(allCards.filter((card) => card.priority === e.target.value))
+
+  const onFilterChange = async (e) => {
+    try {
+      const selectedFilter = e.target.value;
+      const filter = dispatch(setFilterSlice(selectedFilter));
+      setFilter(filter);
+      dispatch(closeModal());
+    } catch (e) {
+      console.log(e);
+    }
   };
-   const showAllCards = () => {
-    setFilteredCards(allCards);
-    console.log(allCards)
-   }
+  
+  const showAllCards = async () => {
+    const allCards =  dispatch(setFilterSlice('all'));
+    setFilter(allCards);
+    dispatch(closeModal());
+  };
 
   return (
     <>
@@ -64,11 +71,11 @@ const Filters = ({ columns, setFilteredCards }) => {
               <label>
                 <input
                   type="radio"
-                  value="none"
+                  value="without"
                   name="filtersRadioButton"
                   onChange={onFilterChange}
                 />
-                <Span value="priority" />
+                <Span value="without" />
                 Without priority
               </label>
 

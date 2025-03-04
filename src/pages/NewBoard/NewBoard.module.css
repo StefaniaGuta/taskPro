@@ -23,7 +23,7 @@
   gap: 5px;
 }
 
-.card-none {
+.card-without {
   border-left: 4px solid #1616164D;
 }
 .card-low {
@@ -189,7 +189,7 @@
   border-radius: 50%;
 }
 
-.priority-none {
+.priority-without {
   background-color: #1616164D;
 }
 .priority-low {

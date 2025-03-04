@@ -40,7 +40,7 @@ const ModalEditCard = ({ cardId, updateCard }) => {
   const [formattedDate, setFormattedDate] = useState('');
 
 
-  const priorityValue = ['low', 'medium', 'high', 'none'];
+  const priorityValue = ['low', 'medium', 'high', 'without'];
 
   useEffect(() => {
     setFormattedDate(formattedDateForBtn(date));
@@ -65,7 +65,7 @@ const ModalEditCard = ({ cardId, updateCard }) => {
     description: yup.string(),
     priority: yup
       .string()
-      .oneOf(['low', 'medium', 'high', 'none']),
+      .oneOf(['low', 'medium', 'high', 'without']),
     deadline: yup.date(),
     column: yup.string(),
   });

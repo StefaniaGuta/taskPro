@@ -12,7 +12,6 @@ const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const RegistrationPage = lazy(() => import('../../pages/RegistrationPage/RegistrationPage'));
 const LoginPage = lazy(() => import('../../pages/LogInPage/LoginPage'));
 const MainPage = lazy(() => import('../../pages/MainPage/MainPage'));
-const ProjectOffice = lazy(() => import('../ProjectOffice/ProjectOffice')); 
 const CurrentBoardPage = lazy(() => import('../../pages/CurrentBoardPage/CurrentBoardPage'));
 const NewBoard = lazy(() => import('../../pages/NewBoard/NewBoard'));
 
@@ -54,12 +53,6 @@ const App = () => {
               path="page"
               element={
                 <PrivateRoute component={<MainPage />} />
-              }
-            />
-            <Route
-              path="office"
-              element={
-                <PrivateRoute component={<ProjectOffice />} />
               }
             />
             
