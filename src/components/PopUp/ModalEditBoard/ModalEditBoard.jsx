@@ -1,15 +1,14 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import {updateBoard} from '../../../redux/board/boardOperations';
 import data from '../../../images/BgImages/images'
-import urlIcon from '../../../images/icons/sprite.svg';
+import ButtonModal from '../ButtonModal/ButtonModal';
 import CloseButton from '../CloseButton/CloseButton';
 import ModalBoardIcons from '../ModalBoardIcons/ModalBoardIcons';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   EditBoardSection,
@@ -24,14 +23,13 @@ import {
   ImageContainer,
   FormikField,
   FormikFieldImage,
-  Button,
-  ContainerIconButton,
   ImgStyled,
   ImgBox,
 } from './ModalEditBoard.styled';
 
 
 const ModalEditBoard = (boardName) => {
+  const theme = useSelector(state => state.auth.user.theme);
   const [width, setWidth] = useState(window.innerWidth);  
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,7 +38,6 @@ const ModalEditBoard = (boardName) => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      //console.log('Submitting values:', values);
       const board = boardName.boardName.slug;
       const updates = {
           name: values.name,
@@ -49,7 +46,6 @@ const ModalEditBoard = (boardName) => {
       };
 
       const response = await dispatch(updateBoard({boardName:board, dataUpdate: updates}));
-      // console.log('Update response:', response);
 
       if (response?.payload) {
           navigate(`/current/${board}`, {
@@ -86,9 +82,9 @@ const ModalEditBoard = (boardName) => {
   };
   return (
     <EditBoardSection>
-      <ModalCard>
+      <ModalCard theme={theme}>
         <CloseButton />
-        <Title>Edit board</Title>
+        <Title theme={theme}>Edit board</Title>
 
         <Formik
           initialValues={{
@@ -102,6 +98,7 @@ const ModalEditBoard = (boardName) => {
           <FormikForm>
             <FormFieldTitle>
               <FieldTitle
+               theme={theme}
                 type="text"
                 name="name"
                 title="You need to enter the name of the column"
@@ -110,13 +107,13 @@ const ModalEditBoard = (boardName) => {
               <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
-            <Text id="my-radio-groupIcon">Icons</Text>
+            <Text theme={theme} id="my-radio-groupIcon">Icons</Text>
             <IconContainer role="group" aria-labelledby="my-radio-groupIcon">
               <FormikField name="icon" component={ModalBoardIcons} />
               <ErrorMessage name="icon" component="p" />
             </IconContainer>
 
-            <Text id="my-radio-groupImage">Background</Text>
+            <Text theme={theme} id="my-radio-groupImage">Background</Text>
             <ImageContainer role="group" aria-labelledby="my-radio-groupImage">
               {data.map(item => (
                 <label key={item.id}>
@@ -141,14 +138,7 @@ const ModalEditBoard = (boardName) => {
               <ErrorMessage name="backgroundImage" component="p" />
             </ImageContainer>
 
-            <Button type="submit" >
-              <ContainerIconButton>
-                <svg width="14" height="14">
-                  <use xlinkHref={`${urlIcon}#icon-plus`} />
-                </svg>
-              </ContainerIconButton>
-              Edit
-            </Button>
+            <ButtonModal theme={theme} buttonName={'Edit'} />
           </FormikForm>
         </Formik>
       </ModalCard>

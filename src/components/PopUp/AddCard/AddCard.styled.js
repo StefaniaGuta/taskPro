@@ -85,7 +85,14 @@ export const InputTitle = styled(Field)`
         return '1px solid #BEDBB0;';
     }
   }};
-  color: var(--textInputBoardColor);
+  color:${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
   line-height: 18px;
   font-family: var(--poppinsFont), var(--roboto);
   font-size: var(--fontSize14);
@@ -98,6 +105,17 @@ export const InputTitle = styled(Field)`
     opacity: 1;
     outline: 1px solid var(--borderNeedHelpColor);
   }
+
+  &::placeholder{
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
+  }  
 `;
 
 export const InputDescription = styled(Field)`
@@ -114,7 +132,15 @@ export const InputDescription = styled(Field)`
         return '1px solid #BEDBB0;';
     }
   }};
-  color: var(--textInputBoardColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
+  };
   line-height: 18px;
   font-family: var(--poppinsFont), var(--roboto);
   font-size: var(--fontSize14);
@@ -129,13 +155,30 @@ export const InputDescription = styled(Field)`
     opacity: 1;
     outline: 1px solid var(--borderNeedHelpColor);
   }
+  &::placeholder{
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
+  }  
 `;
 
 export const StyledPriority = styled.p`
   font-size: var(--fontSize12);
   font-weight: var(--fontWeight500);
   letter-spacing: -0.24px;
-  color: #16161680;
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
   margin-top: 24px;
   margin-bottom: 4px;
   text-align: left;
@@ -145,7 +188,14 @@ export const StyledLabelDeadline = styled.p`
   font-size: var(--fontSize12);
   font-weight: var(--fontWeight500);
   letter-spacing: -0.24px;
-  color: #16161680;
+  color:${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
   margin-top: 14px;
   margin-bottom: 4px;
   text-align: left;
@@ -270,4 +320,12 @@ export const BtnName = styled.span`
   display: flex;
   align-items: stretch;
   gap: 6px;
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#5255BC';
+      default:
+        return '#BEDBB0';
+    }
+  }}; 
 `;

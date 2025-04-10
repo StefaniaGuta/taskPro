@@ -72,17 +72,16 @@ const AllBoards = () => {
             <li 
               className={styles.Board}
               key={board._id} 
+              onClick={(e) => {
+                e.stopPropagation();
+                getSpecificBoard(board)
+              }}
             >
               <div className={styles.NameIcon}>
                 <svg className={`${styles.Icon} ${styles[theme]}`} width="18" height="18">
                   <use xlinkHref={board.icon} />
                 </svg>
-                <h2 className={styles.ProjectName}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    getSpecificBoard(board)
-                  }}
-                >
+                <h2 className={styles.ProjectName}>
                   {board.name}
                 </h2>
               </div>

@@ -2,18 +2,17 @@ import styled, { keyframes } from 'styled-components';
 import { Form, ErrorMessage as FormikError, Field } from 'formik';
 
 export const NewBoardSection = styled.section`
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  position: fixed;
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0, .3);
+  top: 0;
 `;
 
 export const ModalCard = styled.div`
   position: relative;
   width: 70vw;
-  height: 395px;
+  height: 450px;
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
@@ -40,10 +39,10 @@ export const ModalCard = styled.div`
 
 
   @media screen and (min-width: 320px) {
-    width: 90vw;
+    width: 75vw;
   }
   @media screen and (min-width: 375px) {
-    width: 335px;
+    width: 300px;
   }
 
   @media screen and (min-width: 768px) {

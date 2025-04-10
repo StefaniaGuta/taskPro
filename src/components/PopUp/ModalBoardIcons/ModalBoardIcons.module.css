@@ -14,6 +14,11 @@
     transition-duration: 250ms;
 }
 
+.Icon.dark{
+    stroke: #FFFFFF80;
+    fill: #16161680;
+}
+
 .Icon:hover,
 .Icon:focus {
     stroke: #161616;

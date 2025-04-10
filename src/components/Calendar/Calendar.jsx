@@ -1,5 +1,5 @@
+import { useSelector } from 'react-redux';
 import React from 'react';
-import i18next from 'i18next';
 import ReactDatePicker, {
   registerLocale,
   setDefaultLocale,
@@ -13,15 +13,12 @@ const Calendar = React.forwardRef(
     const minDate = new Date();
     setDefaultLocale('en');
     registerLocale('ro', ro);
+    const theme = useSelector(state => state.auth.user.theme);
 
     return (
       <ReactDatePicker
+      theme={theme}
         ref={ref}
-        locale={
-          i18next.language === 'ro' || i18next.language === 'ro-UA'
-            ? 'ro'
-            : 'en'
-        }
         selected={selectedDate}
         onChange={date => setDate(date)}
         minDate={minDate}

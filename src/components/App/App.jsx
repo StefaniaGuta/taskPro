@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { PublicRoute } from '../../routes/PublicRoute';
 import { PrivateRoute }  from '../../routes/PrivateRoute';
 import SharedLayout from 'layouts/SharedLayout';
-import Loader from 'components/Loader';
+import Loader from '../Loader/Loader';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 

@@ -12,7 +12,7 @@ export const EditBoardSection = styled.section`
 export const ModalCard = styled.div`
   position: relative;
   width: 70vw;
-  height: 395px;
+  height: 450px;
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
@@ -39,10 +39,10 @@ export const ModalCard = styled.div`
 
 
   @media screen and (min-width: 320px) {
-    width: 90vw;
+    width: 75vw;
   }
   @media screen and (min-width: 375px) {
-    width: 335px;
+    width: 300px;
   }
 
   @media screen and (min-width: 768px) {

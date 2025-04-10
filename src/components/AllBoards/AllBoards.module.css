@@ -33,12 +33,6 @@
   stroke:#161616;
 }
 
-.Board:hover .icons,
-.Board:focus-within .icons {
-  opacity: 1;
-  transition: opacity var(--transition);
-}
-
 .Board:hover::after,
 .Board:focus::after {
   content: '';
@@ -83,7 +77,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  opacity: 0;
 }
 
 .icons svg {
@@ -147,5 +140,4 @@
     width: 260px;
     justify-content: space-evenly;
   }
-  
 }

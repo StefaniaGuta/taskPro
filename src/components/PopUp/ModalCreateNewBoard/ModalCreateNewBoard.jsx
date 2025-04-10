@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
-import urlIcon from '../../../images/icons/sprite.svg';
+import ButtonModal from '../ButtonModal/ButtonModal';
 import { createNewBoard, boardBackground } from '../../../redux/board/boardOperations';
 import ModalBoardIcons from '../ModalBoardIcons/ModalBoardIcons';
 import { useState, useEffect } from 'react';
@@ -25,9 +25,6 @@ import {
   ImageContainer,
   FormikField,
   ImgBox,
-  Button,
-
-  ContainerIconButton,
   FormikFieldImage,
   NewBoardSection,
   ImgStyled,
@@ -130,14 +127,7 @@ const ModalCreateNewBoard = () => {
               <ErrorMessage name="backgroundImage" component="p" />
             </ImageContainer>
 
-            <Button type="submit" theme={theme}>
-              <ContainerIconButton>
-                <svg width="14" height="14">
-                  <use xlinkHref={`${urlIcon}#icon-plus`} />
-                </svg>
-              </ContainerIconButton>
-              Create
-            </Button>
+            <ButtonModal theme={theme} buttonName={'Create'} />
           </FormikForm>
         </Formik>
       </ModalCard>

@@ -44,6 +44,14 @@ export const Button = styled.button`
         return '#161616';
     }
   }};
+  fill: ${({ theme }) => {
+    switch (theme) {
+      case 'violet':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
 
   font-size: var(--fontSize14);
   font-family: var(--poppinsFont);

@@ -1,9 +1,11 @@
 import url from '../../../images/icons/sprite.svg';
+import { useSelector } from 'react-redux';
 
 import s from './ModalBoardIcons.module.css'
 
 const ModalBoardIcons = ({ field, form }) => {
   const { name, value } = field;
+  const theme = useSelector(state => state.auth.user.theme);
 
   const onOptionChange = e => {
     const iconId = e.target.value;
@@ -24,7 +26,7 @@ const ModalBoardIcons = ({ field, form }) => {
               checked={value === iconValue}
               onChange={onOptionChange}
             />
-            <svg className={s.Icon} width="18" height="18">
+            <svg className={`${s.Icon} ${s[theme]}`} width="18" height="18">
               <use xlinkHref={`${url}#icon-board-${iconValue}`} />
             </svg>
           </label>

@@ -32,6 +32,7 @@ import {
 
 
 const ModalEditCard = ({ cardId, updateCard }) => {
+  const theme = useSelector(state => state.auth.user.theme);
   const boardId = useParams(); 
   const currentBoardName = useSelector((state) => state.boards.boards.current?.slug);
   const dispatch = useDispatch();
@@ -98,10 +99,11 @@ const ModalEditCard = ({ cardId, updateCard }) => {
 
   return (
     <CardSection>
-      <CardModal>
+      <CardModal theme={theme}>
       <CloseButton/>
-        <Title>Edit card</Title>
+        <Title theme={theme}>Edit card</Title>
         <Formik
+          theme={theme}
           initialValues={initialValues}
           onSubmit={handleSubmit}
           validationSchema={schema}
@@ -110,6 +112,7 @@ const ModalEditCard = ({ cardId, updateCard }) => {
           {({ setFieldValue, values }) => (
             <Form>
               <InputTitle
+                theme={theme}
                 id="title"
                 name="title"
                 type="text"
@@ -117,6 +120,7 @@ const ModalEditCard = ({ cardId, updateCard }) => {
               />
               <StyleErrorMessage name="title" component="div" />
               <InputDescription
+                theme={theme}
                 as="textarea"
                 id="description"
                 name="description"
@@ -129,12 +133,13 @@ const ModalEditCard = ({ cardId, updateCard }) => {
               />
               <StyleErrorMessage name="description" component="div" />
               <LabelDiv>
-                <StyledPriority id="priority">Label color</StyledPriority>
+                <StyledPriority theme={theme} id="priority">Label color</StyledPriority>
                 <LabelContainer role="group" aria-labelledby="my-radio-group">
                   {priorityValue.map((value) => {
                     return (
                       <label htmlFor={value} key={value}>
                         <input
+                          theme={theme}
                           value={value}
                           type="radio"
                           id={value}
@@ -152,7 +157,7 @@ const ModalEditCard = ({ cardId, updateCard }) => {
                 </LabelContainer>
                 <StyleErrorMessage name="priority" component="div" />
               </LabelDiv>
-              <StyledLabelDeadline> Deadline</StyledLabelDeadline>
+              <StyledLabelDeadline theme={theme}> Deadline</StyledLabelDeadline>
               <CalendarContainer>
                 <ButtonDate type="button">
                   <BtnName>
@@ -167,7 +172,7 @@ const ModalEditCard = ({ cardId, updateCard }) => {
                 />
                 <StyleErrorMessage name="deadline" component="div" />
               </CalendarContainer>
-              <ButtonModal buttonName={'Edit'} />
+              <ButtonModal theme={theme} buttonName={'Edit'} />
             </Form>
           )}
         </Formik>

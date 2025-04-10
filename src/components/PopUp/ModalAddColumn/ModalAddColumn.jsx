@@ -2,10 +2,10 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
-import urlIcon from '../../../images/icons/sprite.svg';
 import CloseButton from '../CloseButton/CloseButton';
 import { useParams } from 'react-router-dom';
 import {addColumn } from '../../../redux/columns/columnsOperations';
+import ButtonModal from '../ButtonModal/ButtonModal';
 
 
 import {
@@ -15,8 +15,6 @@ import {
   ErrorMessage,
   ModalContainer,
   Title,
-  Button,
-  ContainerIconButton,
   ColumnSection,
 } from './ModalAddColumn.styled';
 
@@ -67,14 +65,7 @@ const ModalAddColumn = () => {
               <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
-            <Button type="submit" theme={theme}>
-              <ContainerIconButton>
-                <svg width="14" height="14">
-                  <use xlinkHref={`${urlIcon}#icon-plus`} />
-                </svg>
-              </ContainerIconButton>
-              Add
-            </Button>
+            <ButtonModal theme={theme} buttonName={'Add'} />
           </Form>
         </Formik>
       </ModalContainer>

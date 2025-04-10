@@ -2,12 +2,11 @@ import styled, { keyframes } from 'styled-components';
 import { ErrorMessage, Field } from 'formik';
 
 export const NeedHelpSection = styled.section`
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  position: fixed;
   width: 100%;
   height: 100%;
   background-color: rgba(0,0,0, .3);
+  top: 0;
 `
 
 export const NeedHelpContainer = styled.div`
@@ -37,7 +36,6 @@ export const NeedHelpContainer = styled.div`
     box-shadow: 0px 4px 16px 0px #1616160D;
     margin-inline: auto;
     margin-top: 20vh;
-
   
   @media screen and (min-width: 375px) {
     width: 335px;

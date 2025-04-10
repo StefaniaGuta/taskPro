@@ -13,7 +13,6 @@ import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/authSlice';
 import { boardsReducer } from './board/boardSlice';
 import { themeReducer } from './theme/ThemeSlice';
-import { boardSearchReducer } from './search/searchSlice';
 import { filterReducer } from './filter/filterSlice';
 import {cardsReducer} from '../redux/cards/cardsSlice';
 import {columnsReducer} from '../redux/columns/columnSlice';
@@ -34,7 +33,6 @@ export const store = configureStore({
     cards: cardsReducer,
     columns: columnsReducer,
     theme: themeReducer,
-    search: boardSearchReducer,
     filter: filterReducer,
     needHelp: needHelpReducer,
 

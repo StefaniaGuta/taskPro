@@ -23,18 +23,32 @@ const NewBoard = () => {
   const name = useSelector((state) => state.boards.boards.name);
   const slug = useSelector((state) => state.boards.boards.slug);
   const modalState = useSelector((state) => state.modal);
+  const allColumns = useSelector((state) => state.columns.columns);
+  const [filter, setFilter] = useState();
+  const [currentImage, setCurrentImage] = useState(backgroundImage);
+  const [selectedColumnId, setSelectedColumnId] = useState(null);
+  const [cardId, setCardId] = useState();
   const { componentName } = modalState;
   const location = useLocation();
   const { state } = location;
   const boardName = state?.name || slug;
-  const [currentImage, setCurrentImage] = useState(backgroundImage);
-  const [selectedColumnId, setSelectedColumnId] = useState(null);
-  const [cardId, setCardId] = useState();
-  const allColumns = useSelector((state) => state.columns.columns);
   const columns = allColumns.filter((column) => column.boardName === boardName);
 
   const cardsAdded = useSelector((state) => state.cards.cards || []);
   const filteredCards = cardsAdded.filter((card) => columns.some((col) => col._id === card.columnId));
+
+  const displaynonfilteredCards = () => {
+    if (filter) {
+      const filteredCardsMaped = filteredCards.filter((card) => card.priority === filter.payload);
+      if (filter.payload === "all") {
+        return filteredCards
+      } else {
+        return filteredCardsMaped;
+      }
+    } else {
+        return filteredCards;
+    }
+  }
 
   const handleOpenCardModal = (columnId) => {
     setSelectedColumnId(columnId);
@@ -92,15 +106,15 @@ const updateColumnLocally = (columnId, updatedName) => {
       >
         <div className={styles.NameFilter}>
           <h1>{boardName || name}</h1>
-          <FilterComponent />
+          <FilterComponent setFilter={setFilter}/>
         </div>
         
-        <div className={styles.ColumnsSection}>
+        <ul className={styles.ColumnsSection}>
           {columns.length > 0 ? (
             <div className={`${styles.ulButton}`}>
             <ul>
               {columns.map((column) => (
-                <div className={styles.Column} key={column._id}>
+                <li className={`${styles.Column} ${styles[theme]}`} key={column._id}>
                   <h2 className={styles.columnName}> 
                     {column.name}
                     <div style={{width: '40px', display: 'flex', justifyContent: 'space-between'}}>
@@ -117,14 +131,17 @@ const updateColumnLocally = (columnId, updatedName) => {
                     </div>  
                   </h2>
                   {filteredCards.length > 0 ? (
-                    <ul className={`${styles.Cards}`}>
-                      {filteredCards.filter((card) => card.columnId === column._id).map((card) => (
-                        <div key={card._id} className={`${styles["task-card"]} ${styles[`card-${card.priority}`]}`}>
+                    <ul className={`${styles.Cards} ${styles[theme]}`}>
+                      {displaynonfilteredCards()
+                      .filter((card) => card.columnId === column._id)
+                      .map((card) => (
+                        <li key={card._id} className={`${styles["task-card"]} ${styles[`card-${card.priority}`]}`}>
                           <h2 className={styles['card-title']}>{card.title}</h2>
                           <span className={styles['card-description']}>{card.description}</span>
                           
 
                           <div className={`${styles.bottomCard}`}>
+                            <div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
                             <span className={`${styles.Priority}`}>
                               Priority
                               <div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
@@ -137,28 +154,29 @@ const updateColumnLocally = (columnId, updatedName) => {
                               Deadline
                               <h4>{formatDeadline(card.deadline)}</h4>
                             </span>
+                            </div>
 
-                          <div className={`${styles.Svgs}`}>
-                            <svg width="14" height="16" className={`${styles.DeadlineBell} ${styles[`deadlineBell-${card.priority}`]}`}>
-                              <use xlinkHref={`${url}#bell`} />
-                            </svg>
-                            <svg width="16" height="16">
-                              <use xlinkHref={`${url}#move-card`} />
-                            </svg>
-                            <svg width="16" height="16" onClick={() => openEditCardModal(card)}>
-                              <use xlinkHref={`${url}#pencil`} />
-                            </svg>
-                            <svg width="16" height="16"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                              dispatch(deleteCard({boardName: boardName, id: card._id}))
-                              }}
-                            >
-                              <use xlinkHref={`${url}#bin`} />
-                            </svg>
-                          </div>
-                        </div>  
-                        </div>
+                            <div className={`${styles.Svgs}`}>
+                              <svg width="14" height="16" className={`${styles.DeadlineBell} ${styles[`deadlineBell-${card.priority}`]}`}>
+                                <use xlinkHref={`${url}#bell`} />
+                              </svg>
+                              <svg width="16" height="16">
+                                <use xlinkHref={`${url}#move-card`} />
+                              </svg>
+                              <svg width="16" height="16" onClick={() => openEditCardModal(card)}>
+                                <use xlinkHref={`${url}#pencil`} />
+                              </svg>
+                              <svg width="16" height="16"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                dispatch(deleteCard({boardName: boardName, id: card._id}))
+                                }}
+                              >
+                                <use xlinkHref={`${url}#bin`} />
+                              </svg>
+                            </div>
+                          </div>  
+                        </li>
                       ))}
                     </ul>
                   ) : (
@@ -166,11 +184,11 @@ const updateColumnLocally = (columnId, updatedName) => {
                   )}
                   <button className={styles.AddCardBtn} onClick={() => handleOpenCardModal(column._id)}>
                     <svg width="28" height="28">
-                      <use xlinkHref={`${url}#buttons-plus`} />
+                      <use xlinkHref={theme !== "violet" ?`${url}#buttons-plus` : `${url}#buttons-plus-violet`} />
                     </svg>
                     Add another card
                   </button>
-                </div>
+                </li>
                 
               ))}
             </ul>
@@ -179,7 +197,7 @@ const updateColumnLocally = (columnId, updatedName) => {
               onClick={() => dispatch(openModal("columnModal"))}
             >
               <svg width="28" height="28">
-                <use xlinkHref={`${url}#buttons-plus`} />
+                <use xlinkHref={theme !== "dark" ?`${url}#buttons-plus` : `${url}#buttons-plus-violet`} />
               </svg>
               Add another column
             </button>
@@ -190,12 +208,12 @@ const updateColumnLocally = (columnId, updatedName) => {
               onClick={() => dispatch(openModal("columnModal"))}
             >
               <svg width="28" height="28">
-                <use xlinkHref={`${url}#buttons-plus`} />
+                <use xlinkHref={theme !== "dark" ?`${url}#buttons-plus` : `${url}#buttons-plus-violet`} />
               </svg>
               Add another column
             </button>
           )}
-        </div>
+        </ul>
 
         {componentName === "columnModal" && (
           <ModalAddColumn onClose={() => dispatch(closeModal())} />

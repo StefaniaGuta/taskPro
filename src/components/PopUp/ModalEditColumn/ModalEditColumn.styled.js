@@ -109,7 +109,14 @@ export const FieldTitle = styled(FormikField)`
   background-color: var(--bgInputBoardColor);
   box-shadow: 0px 4px 16px 0px rgba(var(--boxShadowInputBoardColor));
 
-  color: var(--textInputBoardColor);
+  color:${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
   font-size: var(--fontSize14);
   font-family: var(--poppinsFont), var(--roboto);
   letter-spacing: -0.28px;

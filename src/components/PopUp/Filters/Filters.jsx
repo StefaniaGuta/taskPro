@@ -2,9 +2,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Form } from 'formik';
 import { useDispatch} from 'react-redux';
-//import { useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
-//import { useEffect } from 'react';
 import {
   FiltersContainer,
   Dash,

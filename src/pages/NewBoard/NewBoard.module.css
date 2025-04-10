@@ -7,13 +7,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 .task-card {
   display: flex;
   flex-direction: column;
-  position: relative;
+  
   padding: 20px;
   box-sizing: border-box;
   width: 300px;
@@ -79,7 +79,7 @@
   gap: 10px;
 }
 
-.ColumnsSection  ul {
+.ColumnsSection ul {
   display: flex;
   gap: 10px;
   margin: 0;
@@ -107,16 +107,12 @@
 }
 
 
-.dark {
+.BoardsSection.dark {
   background-color: #1F1F1F;
 }
   
-.violet {
+.BoardsSection.violet {
   background-color: #D6D8FF;
-}
-
-.BoardsSection.dark .NameFilter h2 {
-  color :#ffffff;
 }
 
 .NameFilter {
@@ -150,6 +146,7 @@
   height: 56px;
   box-sizing: border-box;
   background-color: #ffffff;
+  fill: #161616;
   border: none;
   gap: 10px;
   font-family: Poppins;
@@ -179,6 +176,7 @@
   letter-spacing: -0.02em;
   text-align: left;
   margin-top: 10px;
+  fill: #161616;
 }
 
 
@@ -202,11 +200,6 @@
   background-color: #BEDBB0;
 }
 
-.BoardsSection.dark .AddColumBtn {
-  background-color: #121212;
-  color: #FFFFFF;
-}
-
 .BoardsSection .Cards{
   display: flex;
   flex-direction: column;
@@ -219,6 +212,7 @@
 .bottomCard{
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-top: 1px solid #1616161A;
   padding-top: 14px;
   margin-top: 14px;
@@ -228,12 +222,10 @@
   display: flex;
   justify-content: space-between;
   width: 80px;
-  position: absolute;
-  right: 20px;
 }
 
 .columnName svg,
-.bottomCard .Svgs svg {
+.bottomCard .Svgs svg:not(:first-child)  {
   fill: transparent;
   stroke:#161616;
   cursor: pointer;
@@ -248,8 +240,10 @@
   visibility: hidden;
 }
 
-.deadlineBell-high{
+.Cards .deadlineBell-high{
   visibility: visible;
+  stroke:#BEDBB0;
+  fill: transparent;
 }
 
 .Priority,
@@ -275,6 +269,86 @@
   text-transform: capitalize;
   margin: 0;
   color: #161616;
+}
+
+.BoardsSection.dark h1,
+.Cards.dark .bottomCard h4{
+  color: #FFFFFF;
+}
+
+.Column.dark .columnName,
+.Cards.dark .task-card{
+  background-color: #121212;
+  color: #FFFFFF;
+}
+
+.Column.dark .columnName svg,
+.Cards.dark .Svgs svg{
+  stroke: #FFFFFF80;
+}
+
+.Cards.dark .card-description,
+.Cards.dark .bottomCard span{
+  color: #FFFFFF80;
+}
+
+.Cards.dark .bottomCard {
+  border-top: 1px solid #FFFFFF1A;
+} 
+
+.Cards.dark .priority-without{
+  background-color: #FFFFFF4D;
+}
+
+.Cards.dark .card-without{
+  border-left: 4px solid #FFFFFF4D;
+}
+
+.Cards.dark .Svgs svg:hover,
+.Column.dark .columnName svg:hover{
+  stroke: #BEDBB0;
+}
+
+.BoardsSection .Cards.dark{
+  scrollbar-color: #121212 #FFFFFF4D;
+  scrollbar-width: thin;
+}
+
+.BoardsSection.dark .AddColumBtn{
+  background-color: #121212;
+  color: #FFFFFF;
+  fill: #FFFFFF;
+}
+
+.BoardsSection.violet .AddColumBtn{
+  background-color: #FFFFFF;
+  fill: #5255BC;
+}
+
+.BoardsSection.violet .AddCardBtn{
+  background-color: #5255BC;
+  color: #FFFFFF;
+  fill: #FFFFFF;
+}
+
+.BoardsSection .Cards.violet{
+  scrollbar-color: #B8BCFD #FFFFFF3D;
+}
+
+.Cards.violet .Svgs svg:hover,
+.Column.violet .columnName svg:hover,
+.Cards.violet .deadlineBell-high{
+  stroke: #5255BC;
+}
+
+.BoardsSection.dark .NameFilter h1{
+  color: #FFFFFF;
+}
+
+.BoardsSection.dark .AddColumBtn {
+  background-color: #121212;
+  color: #FFFFFF;
+  fill: #FFFFFF;
 }
 
 @media screen and (min-width: 768px) {

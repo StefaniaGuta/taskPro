@@ -1,11 +1,11 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import urlIcon from '../../../images/icons/sprite.svg';
 import CloseButton from '../CloseButton/CloseButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import { editColumn } from '../../../redux/columns/columnsOperations'; 
 import { useParams } from 'react-router-dom';
+import ButtonModal from '../ButtonModal/ButtonModal';
 import {
   Form,
   FormFieldTitle,
@@ -13,12 +13,11 @@ import {
   ErrorMessage,
   ModalContainer,
   Title,
-  Button,
-  ContainerIconButton,
   EditColumnSection
 } from './ModalEditColumn.styled';
 
 const ModalEditColumn = ({columnId, updateColumn}) => {
+  const theme = useSelector(state => state.auth.user.theme);
   const dispatch = useDispatch();
   const boardId = useParams(); 
   const currentBoard = useSelector((state) => state.boards.boards.current?.slug);
@@ -44,9 +43,9 @@ const ModalEditColumn = ({columnId, updateColumn}) => {
 
   return (
     <EditColumnSection>
-      <ModalContainer>
+      <ModalContainer theme={theme}>
         <CloseButton />
-        <Title>Edit column</Title>
+        <Title theme={theme}>Edit column</Title>
         <Formik
           initialValues={{
             name: currentColumnName,
@@ -57,6 +56,7 @@ const ModalEditColumn = ({columnId, updateColumn}) => {
           <Form>
             <FormFieldTitle>
               <FieldTitle
+                theme={theme}
                 type="text"
                 name="name"
                 title="You need to enter the name of the column"
@@ -66,14 +66,7 @@ const ModalEditColumn = ({columnId, updateColumn}) => {
               <ErrorMessage name="name" component="p" />
             </FormFieldTitle>
 
-            <Button type="submit" >
-              <ContainerIconButton>
-                <svg width="14" height="14">
-                  <use xlinkHref={`${urlIcon}#icon-plus`} />
-                </svg>
-              </ContainerIconButton>
-              Edit
-            </Button>
+            <ButtonModal theme={theme} buttonName={'Edit'} />
           </Form>
         </Formik>
       </ModalContainer>
