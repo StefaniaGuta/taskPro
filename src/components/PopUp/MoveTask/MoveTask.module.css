@@ -1,0 +1,54 @@
+.MoveMenu{
+  position: relative;
+  cursor: pointer;
+}
+
+.MoveMenu svg{
+  fill: transparent;
+  stroke: #161616;
+}
+
+.Menu{
+  position: absolute;
+  top: 25px;
+  right: -46px;
+  background-color: #FCFCFC;
+  border-radius: 8px;
+  z-index: 1111;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 150px;
+  min-height: 120px;
+  box-shadow: 0px 4px 16px 0px #1111111A;
+
+}
+
+.Menu h2{
+  width: 130px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: -2%;
+  margin: 0 0 0 10px;
+  text-transform: capitalize;
+  color: #161616;
+  cursor: pointer;
+}
+.Menu h2:first-child{
+  padding-top: 10px;
+}
+
+.Menu h2:last-child{
+  padding-bottom: 10px;
+}
+
+.Menu h2:hover,
+.Menu h2:focus{
+  color: #BEDBB0;
+}

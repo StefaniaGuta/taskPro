@@ -49,3 +49,22 @@ export const editCard = createAsyncThunk(
     }
   }
 );
+
+export const moveCard = createAsyncThunk( 
+  'cards/moveCard',
+  async ({ boardName, cardId, newColId }, thunkAPI) => {
+    try {
+      const response = await axios.patch(`${URL}api/boards/${boardName}/${cardId}`, {
+        columnId: newColId._id
+      });
+
+      return {
+        card: response.data,
+        newColId: newColId._id,
+      };
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

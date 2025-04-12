@@ -7,6 +7,7 @@ import ModalAddColumn from "components/PopUp/ModalAddColumn/ModalAddColumn";
 import ModalEditColumn from "components/PopUp/ModalEditColumn/ModalEditColumn";
 import ModalAddCard from '../../components/PopUp/AddCard/AddCard';
 import ModalEditCard from "components/PopUp/EditCard/EditCard";
+import MoveButton from "components/PopUp/MoveTask/MoveTask";
 import images from '../../images/BgImages/images';
 import { openModal, closeModal } from "../../redux/modal/modalSlice";
 import { deleteColumn } from "../../redux/columns/columnsOperations";
@@ -20,6 +21,7 @@ const NewBoard = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.auth.user.theme);
   const backgroundImage = useSelector((state) => state.boards.boards.backgroundImage);
+  const board = useSelector((state) => state.boards.boards);
   const name = useSelector((state) => state.boards.boards.name);
   const slug = useSelector((state) => state.boards.boards.slug);
   const modalState = useSelector((state) => state.modal);
@@ -160,9 +162,7 @@ const updateColumnLocally = (columnId, updatedName) => {
                               <svg width="14" height="16" className={`${styles.DeadlineBell} ${styles[`deadlineBell-${card.priority}`]}`}>
                                 <use xlinkHref={`${url}#bell`} />
                               </svg>
-                              <svg width="16" height="16">
-                                <use xlinkHref={`${url}#move-card`} />
-                              </svg>
+                              <MoveButton boardName={board} columnId={column} cardId={card} allColumns={columns}/>
                               <svg width="16" height="16" onClick={() => openEditCardModal(card)}>
                                 <use xlinkHref={`${url}#pencil`} />
                               </svg>

@@ -15,6 +15,7 @@ import { updateLocalColumn } from '../../redux/columns/columnSlice';
 import styles from './CurrentBoardPage.module.css';
 import images from '../../images/BgImages/images';
 import { formatDeadline } from '../../services/formatingDate';
+import MoveButton from "components/PopUp/MoveTask/MoveTask";
 
 import url from '../../components/PopUp/icons.svg';
 
@@ -243,9 +244,7 @@ const CurrentBoardPage = () => {
                           <svg width="14" height="16" className={`${styles.DeadlineBell} ${styles[`deadlineBell-${card.priority}`]}`}>
                             <use xlinkHref={`${url}#bell`} />
                           </svg>
-                          <svg width="16" height="16">
-                            <use xlinkHref={`${url}#move-card`} />
-                          </svg>
+                          <MoveButton boardName={currentBoard} columnId={column} cardId={card} allColumns={uniqueColumns}/>
                           <svg width="16" height="16" onClick={() => openEditCardModal(card)}>
                             <use xlinkHref={`${url}#pencil`} />
                           </svg>
