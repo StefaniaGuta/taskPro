@@ -1,12 +1,10 @@
 import url from '../../PopUp/icons.svg';
 import { useState } from 'react';
 import styles from './MoveTask.module.css';
-//import { useSelector } from 'react-redux';
 import { moveCard } from '../../../redux/cards/cardsOpeartions';
 import { useDispatch } from 'react-redux';
-//import { getBoardById } from '../../../redux/board/boardOperations';
 
-const MoveButton = ({columnId, cardId, allColumns, boardName}) => {
+const MoveButton = ({columnId, cardId, allColumns, boardName, triggerRefresh}) => {
   const [open, setOpen] = useState(null);
   const dispatch = useDispatch();
   
@@ -25,9 +23,8 @@ const MoveButton = ({columnId, cardId, allColumns, boardName}) => {
       );
     
       if (response.meta.requestStatus === 'fulfilled') {
-        //await dispatch(getBoardById(boardName.slug));
+        await triggerRefresh();
         setOpen(false);
-        console.log('moved');
       }
     }catch(e){
       console.log(e)

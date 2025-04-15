@@ -37,19 +37,19 @@ const CurrentBoardPage = () => {
   const currentBoardSlug= currentBoard.slug;
 
   const changeName = () => {
-      if (currentBoardName !== editedBoard?.name) {
-        return editedBoard?.name
-      } else {
-        return currentBoardName;
-      }
+    if (currentBoardName !== editedBoard?.name) {
+      return editedBoard?.name
+    } else {
+      return currentBoardName;
+    }
   }
 
   const changeBackgroundImage = () => {
-      if (backgroundImage !== editedBoard?.backgroundImage) {
-        return editedBoard?.backgroundImage
-      } else {
-        return backgroundImage;
-      }
+    if (backgroundImage !== editedBoard?.backgroundImage) {
+      return editedBoard?.backgroundImage
+    } else {
+      return backgroundImage;
+    }
   }
   
   //columns 
@@ -126,9 +126,6 @@ const CurrentBoardPage = () => {
       showColumns();
     }
   }, [dispatch, currentBoard.slug,]);
-  
-  
-
   const openEditColumnModal = (columnId) => {
     setSelectedColumnId(columnId);
     dispatch(openModal("editColumn"))
@@ -185,6 +182,15 @@ const CurrentBoardPage = () => {
         return cardToDisplay;
     }
   }
+
+  const refreshBoard = async () => {
+    try {
+      const response = await dispatch(getBoardById(currentBoard.slug));
+      setShowColumnsMap(response.payload.columns);
+    } catch (error) {
+      console.error("Error refreshing board:", error);
+    }
+  };
   
   return (
     <>
@@ -244,7 +250,13 @@ const CurrentBoardPage = () => {
                           <svg width="14" height="16" className={`${styles.DeadlineBell} ${styles[`deadlineBell-${card.priority}`]}`}>
                             <use xlinkHref={`${url}#bell`} />
                           </svg>
-                          <MoveButton boardName={currentBoard} columnId={column} cardId={card} allColumns={uniqueColumns}/>
+                          <MoveButton 
+                            boardName={currentBoard} 
+                            columnId={column} 
+                            cardId={card} 
+                            allColumns={uniqueColumns}
+                            triggerRefresh={refreshBoard}
+                          />
                           <svg width="16" height="16" onClick={() => openEditCardModal(card)}>
                             <use xlinkHref={`${url}#pencil`} />
                           </svg>
