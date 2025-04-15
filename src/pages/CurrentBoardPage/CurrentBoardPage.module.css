@@ -167,6 +167,10 @@
   padding: 0;
 }
 
+.ColumnsSection li{
+  list-style-type: none;
+}
+
 .ColumnsSection .columnName {
   list-style: none;
   text-transform: capitalize;

@@ -85,8 +85,6 @@ const ModalEditCard = ({ cardId, updateCard }) => {
       updateCard(response.payload);
     }
      dispatch(closeModal());
-      console.log('response modal', response)
-      console.log('values', values)
       return response.payload;
     } catch (error) {
       console.log(error);

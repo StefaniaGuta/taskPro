@@ -76,7 +76,6 @@ const ModalAddCard = ({id, columnId}) => {
     e.preventDefault();
     const value = e.target.value;
     setSelect(value);
-    console.log(value)
   };
 
 

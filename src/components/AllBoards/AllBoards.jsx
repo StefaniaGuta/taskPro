@@ -26,8 +26,7 @@ const AllBoards = () => {
     const showAllBoards = async () => {
       try {
         const response = await dispatch(getAllBoards()).unwrap(); 
-        setBoards(response.dashboards); 
-        console.log('render')
+        setBoards(response.dashboards);
       } catch (error) {
         console.error('Eroare la preluarea boardurilor:', error);
       }
