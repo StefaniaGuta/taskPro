@@ -10,8 +10,8 @@
 
 .Menu{
   position: absolute;
-  top: 25px;
-  right: -46px;
+  top: -48px;
+  right: 24px;
   background-color: #FCFCFC;
   border-radius: 8px;
   z-index: 1111;
@@ -19,7 +19,7 @@
   flex-direction: column;
   justify-content: center;
   width: 150px;
-  min-height: 120px;
+  min-height: 85px;
   box-shadow: 0px 4px 16px 0px #1111111A;
 
 }

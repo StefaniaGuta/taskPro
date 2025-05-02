@@ -1,8 +1,8 @@
 .MenuContainer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 90px;
+    justify-content: space-around;
+    min-width: 90px;
     gap: 10px;
     cursor: pointer;
 }

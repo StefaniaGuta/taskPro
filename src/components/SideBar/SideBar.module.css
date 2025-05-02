@@ -4,24 +4,23 @@
 }
 
 .Sidebar {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: auto;
+  min-height: 106.2vh;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 111;
+  inset: 0; 
   background-color: #1515154D;
 }
 
 .SideBardContent {
   width: 225px;
-  height: 100vh;
+  height: 100%;
   overflow: visible;
   background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
 }
 
 .SideLogo {
@@ -49,7 +48,7 @@
   align-items: center;
   width: 197px;
   height: 70px;
-  margin: 0 14px;
+  margin: 0 14px 10px 14px;
   border-top: 1px solid #1616161A;
   border-bottom: 1px solid #1616161A;
 }
@@ -80,6 +79,14 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.helpLogOutContainer{
+  width: 230px;
+  height: 310px;
+  display: flex;
+  flex-direction: column;
 }
 
 .HelpSection {
@@ -87,10 +94,10 @@
   height: 210px;
   border-radius: 8px;
   background-color: #F6F6F7;
-  margin: 0 14px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  align-self: center;
   padding: 15px;
 }
 
@@ -234,16 +241,23 @@
   .Boards {
     padding: 0 0 8px 24px;
   }
+
   .CreateBoardSection {
     width: 212px;
-    margin: 0 24px 10px 24px;
+    margin: 0 24px 20px 24px;
+  }
+
+  .helpLogOutContainer{
+    width: 260px;
+    height: 350px;
+    gap:20px;
   }
 
   .HelpSection {
     width: 180px;
     height: 240px;
-    margin: auto;
   }
+
   .HelpSection p {
     width: 172px;
     height: 102px;

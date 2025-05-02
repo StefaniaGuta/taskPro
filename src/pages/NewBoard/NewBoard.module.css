@@ -71,6 +71,7 @@
   width: 100vw;
   gap: 10px;
   padding: 10px;
+  margin: 0;
 }
 
 .ColumnsSection .ulButton {
@@ -153,7 +154,7 @@
   fill: #161616;
   border: none;
   gap: 10px;
-  font-family: Poppins;
+  font-family: Poppins, sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 21px;
@@ -312,7 +313,10 @@
 .Column.dark .columnName svg:hover{
   stroke: #BEDBB0;
 }
-
+.BoardsSection .Cards{
+  scrollbar-color: #1616165D #FFFFFF4D;
+  scrollbar-width: thin;
+}
 .BoardsSection .Cards.dark{
   scrollbar-color: #121212 #FFFFFF4D;
   scrollbar-width: thin;

@@ -13,7 +13,7 @@
   padding: 20px;
   background: #151515;
   border-radius: 8px;
-  margin-top: 256px;
+  margin-top: 250px;
 }
 
 .buttonsContainer {
@@ -119,7 +119,6 @@
 
   .container {
     width: 40vw;
-    margin-top: 311px;
   }
 
 }

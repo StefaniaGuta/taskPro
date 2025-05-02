@@ -21,10 +21,6 @@ const ModalEditColumn = ({columnId, updateColumn}) => {
   const dispatch = useDispatch();
   const boardId = useParams(); 
   const currentBoard = useSelector((state) => state.boards.boards.current?.slug);
-  const currentColumnName = useSelector((state) =>
-    state.boards.boards.current?.columns.find((col) => col._id === columnId)?.name
-  );
-  
   
   const handleSubmit = async (values) => {
     try {
@@ -33,7 +29,6 @@ const ModalEditColumn = ({columnId, updateColumn}) => {
       if(updateColumn){
         updateColumn(columnId, name);
       }
-      console.log(response)
       dispatch(closeModal());
       return response.payload;
     } catch (e) {
@@ -48,7 +43,7 @@ const ModalEditColumn = ({columnId, updateColumn}) => {
         <Title theme={theme}>Edit column</Title>
         <Formik
           initialValues={{
-            name: currentColumnName,
+            name: '',
           }}
           validationSchema={schema}
           onSubmit={handleSubmit}

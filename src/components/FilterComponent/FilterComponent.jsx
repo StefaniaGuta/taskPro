@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-//import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Filters from '../PopUp/Filters/Filters';
 import url from '../../components/PopUp/icons.svg';

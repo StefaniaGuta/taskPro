@@ -317,7 +317,6 @@ export const LabelEditPhoto = styled.label`
   }};
   stroke: var(--iconPlusEditColor);
   justify-content: center;
-  align-items: center;
   border-radius: 8px;
   cursor: pointer;
 

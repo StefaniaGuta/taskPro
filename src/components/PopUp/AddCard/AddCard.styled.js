@@ -27,7 +27,7 @@ export const CardModal = styled.div`
     margin-left: 25vw;
   }
 
-  height: 522px;
+  height: 480px;
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -67,13 +67,13 @@ export const Title = styled.h2`
   font-family: var(--poppinsFont);
   font-weight: var(--fontWeight500);
   letter-spacing: var(--letterSpacing36);
-  margin-bottom: 24px;
+  margin: 0 0 24px 0;
   text-align: start;
 `;
 
 export const InputTitle = styled(Field)`
   width: 85%;
-  height: 49px;
+  height: 30px;
   padding: 14px 18px;
   background-color: var(--bgInputBoardColor);
   border-radius: 8px;
@@ -98,6 +98,7 @@ export const InputTitle = styled(Field)`
   font-size: var(--fontSize14);
   letter-spacing: -0.28px;
   opacity: 0.4000000059604645;
+  margin-bottom: 10px;
 
   &:hover,
   &:focus,

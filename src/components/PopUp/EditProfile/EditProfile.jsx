@@ -15,18 +15,14 @@ import {
   ToggleShowPassword,
   BtnWrapper,
   BtnUpdate,
-
   StyleErrorMessage,
   Error,
   SuccessUpdateAvatar,
   Success,
   Edit,
   EditTitle,
-
-
   ProfilePhotoBlock,
   PhotoUser,
-
   LabelEditPhoto,
   InputEditPhoto,
   BtnSavePhotoUser,
@@ -66,7 +62,7 @@ const schema = yup.object().shape({
     .matches(/^[^\s]+$/, 'Password should not contain spaces'),
 });
 
-const EditProfile = ({toggleModal}) => {
+const EditProfile = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState(null);
@@ -77,13 +73,14 @@ const EditProfile = ({toggleModal}) => {
   const [showPasswordSuccessMessage, setShowPasswordSuccessMessage] =useState(false);
   const [isAvatarOnly, setIsAvatarOnly] = useState(false);
   const theme = useSelector(state => state.auth.user.theme);
-
+  const user = useSelector(state => state.auth.user);
+  
   const initialValues = {
-    name: currentUser?.name || '',
-    email: currentUser?.email || '',
+    name: user?.name || '',
+    email: user?.email || '',
     password: '',
   };
-
+console.log(user);
   const handleAvatarChange = (event) => {
     const file = event.target.files[0];
     setSelectedAvatar(file);
@@ -114,8 +111,8 @@ const EditProfile = ({toggleModal}) => {
 
   const handleUpdateUser = async (values, { resetForm }) => {
     const updatedUser = {
-      name: values.name || currentUser?.name,
-      email: values.email || currentUser?.email,
+      name: values.name || user?.name,
+      email: values.email || user?.email,
     };
 
     if (values.password) {
@@ -188,12 +185,12 @@ const EditProfile = ({toggleModal}) => {
           </SuccessUpdateAvatar>
         )}
         <PhotoBox>
-          {selectedAvatar || currentUser?.avatarURL ? (
+          {selectedAvatar || user?.avatarURL ? (
             <PhotoUser
               src={
                 selectedAvatar
                   ? URL.createObjectURL(selectedAvatar)
-                  : currentUser?.avatarURL
+                  : user?.avatarURL
               }
               alt="user avatar"
             ></PhotoUser>
@@ -205,9 +202,6 @@ const EditProfile = ({toggleModal}) => {
           {!showSaveButton && (
             <LabelEditPhoto htmlFor="inputFile" theme={theme}>
               +
-              <svg width="10" height="10">
-                <use xlinkHref={`${url}#icon-plus+`} />
-              </svg>
             </LabelEditPhoto>
           )}
           {showSaveButton && (

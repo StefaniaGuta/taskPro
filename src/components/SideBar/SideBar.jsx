@@ -51,13 +51,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
   return (
     <section className={`${style.Sidebar} ${style[theme]}`}>
       <div className={style.SideBardContent}>
-        
+        <div>
           <img
             src={getLogo()}
             alt="menu"
             onClick={closeSidebar} 
             className={style.SideLogo}
-          />
+            />
 
         <p className={style.Boards}>My boards</p>
         <div className={style.CreateBoardSection}>
@@ -65,13 +65,14 @@ const SideBar = ({ isOpen, setIsOpen }) => {
           <button type='button'
             className={style.CreateBoardBtn}
             onClick={CreateBoard}
-          >
+            >
             +
           </button>
         </div>
 
         <AllBoards/>
-
+      </div>
+      <div className={style.helpLogOutContainer}>
         <div className={style.HelpSection}>
           <img src={NeedHelpImg} alt='needhelp' />
           <p>If you need help with <span>TaskPro</span>, check out our support resources or reach out to our customer support team.</p>
@@ -79,7 +80,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
           <button
             className={style.HelpBtn}
             onClick={() => dispatch(openModal("needHelp"))}
-          >
+            >
             <span className={style.HelpCircle}>?</span>
             Need help?
           </button>
@@ -88,16 +89,15 @@ const SideBar = ({ isOpen, setIsOpen }) => {
           className={style.LogOut}
           type='button'
           onClick={handleLogout}
-        >
+          >
           <svg width="32" height="32">
             <use xlinkHref={`${url}#log-out`} />
           </svg>
           Log Out
         </button>
-       
       </div>
-
-      
+      </div>
+       
       {componentName === "needHelp" && <NeedHelpModal onClose={() => dispatch(closeModal())} />}
       {componentName === "createBoard" && <ModalCreateNewBoard onClose={() => dispatch(closeModal())} />}
     </section>

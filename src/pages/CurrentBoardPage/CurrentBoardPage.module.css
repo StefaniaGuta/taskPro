@@ -3,7 +3,6 @@
   flex-direction: column;
   background-color: #F6F6F7;
   height: 100vh;
-  width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -71,12 +70,11 @@
 
 .card-description {
   width:256px;
-  height: 38px;
+  height: 30px;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
-  letter-spacing: -2%;
   overflow-x: auto;
   color: #161616B2;
 }
@@ -90,8 +88,8 @@
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid #1616161A;
-  padding-top: 14px;
-  margin-top: 14px;
+  padding-top: 10px;
+  margin-top: 10px;
 }
 
 .bottomCard .Svgs{
@@ -152,6 +150,7 @@
   width: 100vw;
   gap: 10px;
   padding: 10px;
+  margin: 0;
 }
 
 .ColumnsSection .ulButton {
@@ -342,5 +341,9 @@
 @media screen and (min-width: 1200px) {
   .BoardsSection {
     padding-left: 260px;
+  }
+
+  .BoardsSection .Cards{
+    max-height: 470px;
   }
 }
