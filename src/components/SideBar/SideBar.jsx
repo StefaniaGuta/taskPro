@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import * as React from 'react';
 import { closeModal, openModal} from '../../redux/modal/modalSlice';
 import AllBoards from '../AllBoards/AllBoards';
-
+import useWindowWidth from "../Header/useWidth";
 import style from './SideBar.module.css';
 import url from '../PopUp/icons.svg';
 
@@ -22,6 +22,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
   const theme = useSelector(state => state.auth.user.theme);
   const modalState = useSelector(state => state.modal);
   const { componentName } = modalState;
+  const width = useWindowWidth();
 
   const handleLogout = async () => {
     try {
@@ -36,6 +37,14 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     dispatch(openModal("createBoard"));
   };
   const closeSidebar = () => setIsOpen(false);
+
+  const Logo = () => {
+    if (width <1200) {
+      closeSidebar()
+    } else {
+      navigate("/page")
+    }
+  }
   const getLogo = () => {
     if (theme === 'dark') {
       return  openDark;
@@ -45,8 +54,10 @@ const SideBar = ({ isOpen, setIsOpen }) => {
     }
     return SidebarLogo;
   };
-
-  if (!isOpen) return null;
+ 
+  if(width < 1200){
+    if (!isOpen) return null;
+  }
   
   return (
     <section className={`${style.Sidebar} ${style[theme]}`}>
@@ -55,7 +66,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
           <img
             src={getLogo()}
             alt="menu"
-            onClick={closeSidebar} 
+            onClick={Logo} 
             className={style.SideLogo}
             />
 
