@@ -28,7 +28,7 @@ import {
 } from './ModalEditBoard.styled';
 
 
-const ModalEditBoard = (boardName) => {
+const ModalEditBoard = ({boardName, onUpdateBoard}) => {
   const theme = useSelector(state => state.auth.user.theme);
   const [width, setWidth] = useState(window.innerWidth);  
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const ModalEditBoard = (boardName) => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      const board = boardName.boardName.slug;
+      const board = boardName.slug;
       const updates = {
           name: values.name,
           icon: values.icon,
@@ -48,14 +48,16 @@ const ModalEditBoard = (boardName) => {
       const response = await dispatch(updateBoard({boardName:board, dataUpdate: updates}));
 
       if (response?.payload) {
-          navigate(`/current/${board}`, {
-              replace: true,
-              state: {updates, transferedBoard: boardName.boardName},
-          });
+        onUpdateBoard(response.payload);
+        navigate(`/current/${board}`, {
+            replace: true,
+            state: {updates, transferedBoard: boardName},
+        });
       }
-
+      
       dispatch(closeModal());
       resetForm();
+      return response.payload;
     } catch (error) {
         console.error('Error updating board:', error);
     }
@@ -88,9 +90,9 @@ const ModalEditBoard = (boardName) => {
 
         <Formik
           initialValues={{
-            name: boardName.boardName.name,
-            icon: boardName.boardName.icon,
-            backgroundImage: boardName.boardName.backgroundImage
+            name: boardName.name,
+            icon: boardName.icon,
+            backgroundImage: boardName.backgroundImage
           }}
           validationSchema={schema}
           onSubmit={handleSubmit}

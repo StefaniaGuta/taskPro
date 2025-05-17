@@ -17,10 +17,6 @@ const AllBoards = () => {
   const navigate = useNavigate()
   const modalState = useSelector((state) => state.modal);
   const { componentName } = modalState;
-  //const addedBoard = useSelector(state => state.boards.boards);
-  //console.log(addedBoard)
-  //const filteredBoards = boards.concat(addedBoard);
-
     
   useEffect(() => {
     const showAllBoards = async () => {
@@ -57,12 +53,15 @@ const AllBoards = () => {
       console.log(e)
     }
   }
-
-  const openEditModal = (board) => {
-    dispatch(openModal("editBoard"));
-    setSelectedBoard(board)
-  }
-
+  
+  const updateBoardInList = (updatedBoard) => {
+    setBoards((prevBoards) =>
+      prevBoards.map((board) =>
+        board.slug === updatedBoard.slug ? updatedBoard : board
+      )
+    );
+  };
+  
   return(
     <>
       {boards.length > 0 ? (
@@ -86,7 +85,11 @@ const AllBoards = () => {
               </div>
 
               <div className={styles.icons}>
-                <svg width="16" height="16" onClick={() => openEditModal(board)}>
+                <svg width="16" height="16" onClick={(e) => {
+                  e.stopPropagation(); 
+                  dispatch(openModal("editBoard")); 
+                  setSelectedBoard(board);
+                }}>
                   <use xlinkHref={`${url}#pencil`} />
                 </svg>
 
@@ -104,7 +107,7 @@ const AllBoards = () => {
         <p></p>
       )}
       {componentName === "editBoard" && (
-        <ModalEditBoard boardName={selectedBoard} onClose={() => dispatch(closeModal())}/>
+        <ModalEditBoard boardName={selectedBoard} onUpdateBoard={updateBoardInList} onClose={() => dispatch(closeModal())}/>
       )} 
     </>
   )
