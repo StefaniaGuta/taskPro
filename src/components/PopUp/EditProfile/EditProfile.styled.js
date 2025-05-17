@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { Form, Field, ErrorMessage } from 'formik';
+import { Form, Field } from 'formik';
 
 export const EditProfileSection= styled.section`
   position: fixed;
@@ -38,7 +38,14 @@ export const InputForm = styled(Field)`
   }};
   border-radius: 8px;
   background-color: var(--modalBgColor);
-  color: var(--textInputBoardColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
   font-family: var(--poppinsFont), var(--roboto);
   font-size: var(--fontSize14);
   letter-spacing: -0.28px;
@@ -121,14 +128,6 @@ export const BtnUpdate = styled.button`
   transition: all 0.3s;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 
-  @media screen and (min-width: 375px) {
-    width: 287px;
-  }
-
-  @media screen and (min-width: 768px) {
-    width: 380px;
-  }
-
   &:before {
     content: '';
     position: absolute;
@@ -164,31 +163,6 @@ export const BtnUpdate = styled.button`
     transform: translateY(1px);
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   }
-`;
-
-export const StyleErrorMessage = styled(ErrorMessage)``;
-
-export const Error = styled.p`
-  position: absolute;
-  width: 100%;
-  color: var(--errorColor);
-  font-size: 10px;
-  margin-top: 1px;
-`;
-
-export const ErrorServer = styled.p`
-  position: absolute;
-  width: 100%;
-  color: var(--errorColor);
-  font-size: 10px;
-  margin-top: 1px;
-`;
-
-export const Success = styled.p`
-  position: absolute;
-  width: 100%;
-  color: green;
-  font-size: 8px;
 `;
 
 export const Edit = styled.div`
@@ -280,24 +254,6 @@ export const PhotoUser = styled.img`
 export const PhotoBox = styled.div`
   position: relative;
   margin-bottom: 25px;
-`;
-
-export const SpanErrorImg = styled.span`
-  position: absolute;
-  top: 12%;
-  font-size: 10px;
-  color: var(--errorColor);
-  width: 100%;
-`;
-
-export const SuccessUpdateAvatar = styled.span`
-  position: absolute;
-  top: 8%;
-  font-size: 10px;
-  width: 70px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
 `;
 
 export const LabelEditPhoto = styled.label`

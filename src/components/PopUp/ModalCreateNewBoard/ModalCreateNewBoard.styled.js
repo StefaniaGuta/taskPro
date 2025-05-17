@@ -104,6 +104,14 @@ export const FieldTitle = styled(Field)`
         return '1px solid #BEDBB0;';
     }
   }};
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
   opacity: 0.4000000059604645;
 
   box-shadow: 0px 4px 16px 0px rgba(var(--boxShadowInputBoardColor));
@@ -126,6 +134,16 @@ export const FieldTitle = styled(Field)`
 
   @media screen and (min-width: 768px) {
     width: 89.7%;
+  }
+    &::placeholder{
+    color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
   }
 `;
 

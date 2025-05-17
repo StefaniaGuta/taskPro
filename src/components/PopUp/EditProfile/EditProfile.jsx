@@ -15,10 +15,6 @@ import {
   ToggleShowPassword,
   BtnWrapper,
   BtnUpdate,
-  StyleErrorMessage,
-  Error,
-  SuccessUpdateAvatar,
-  Success,
   Edit,
   EditTitle,
   ProfilePhotoBlock,
@@ -53,8 +49,7 @@ const schema = yup.object().shape({
       if (!value) return true;
       return emailRegex.test(value);
     })
-    .optional()
-    .notRequired(),
+    .optional(),
   password: yup
     .string()
     .min(8)
@@ -67,10 +62,6 @@ const EditProfile = () => {
   const [showPassword, setShowPassword] = useState(null);
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [showSaveButton, setShowSaveButton] = useState(false);
-  const [showAvatarSuccessMessage, setShowAvatarSuccessMessage] =useState(false);
-  const [showNameSuccessMessage, setShowNameSuccessMessage] = useState(false);
-  const [showEmailSuccessMessage, setShowEmailSuccessMessage] = useState(false);
-  const [showPasswordSuccessMessage, setShowPasswordSuccessMessage] =useState(false);
   const [isAvatarOnly, setIsAvatarOnly] = useState(false);
   const theme = useSelector(state => state.auth.user.theme);
   const user = useSelector(state => state.auth.user);
@@ -80,7 +71,6 @@ const EditProfile = () => {
     email: user?.email || '',
     password: '',
   };
-console.log(user);
   const handleAvatarChange = (event) => {
     const file = event.target.files[0];
     setSelectedAvatar(file);
@@ -93,12 +83,8 @@ console.log(user);
       const formData = new FormData();
       formData.append('avatarImage', selectedAvatar);
 
-      setShowAvatarSuccessMessage(true);
       setShowSaveButton(false);
 
-      setTimeout(() => {
-        setShowAvatarSuccessMessage(false);
-      }, 4000);
       setIsAvatarOnly(false);
     } catch (error) {
       console.log(error);
@@ -112,7 +98,8 @@ console.log(user);
   const handleUpdateUser = async (values, { resetForm }) => {
     const updatedUser = {
       name: values.name || user?.name,
-      email: values.email || user?.email,
+      email: values.email || "",
+      password: values.password || ""
     };
 
     if (values.password) {
@@ -123,15 +110,15 @@ console.log(user);
       const formData = new FormData();
       formData.append('name', updatedUser.name);
       formData.append('email', updatedUser.email);
-      formData.append('password', updatedUser.password || "");
+      formData.append('password', updatedUser.password);
       formData.append('avatar', selectedAvatar);
 
       try {
         await dispatch(editUser(formData)).unwrap();
-        setShowAvatarSuccessMessage(true);
-        setTimeout(() => setShowAvatarSuccessMessage(false), 1000);
+        await dispatch(currentUser());
         setShowSaveButton(false);
         resetForm();
+        dispatch(closeModal());
       } catch (error) {
         console.log("Failed to update avatar:", error);
       }
@@ -139,22 +126,7 @@ console.log(user);
     }
 
     try {
-      const response = await dispatch(editUser(updatedUser)).unwrap();
-      
-      console.log('Response after update:', response);
-
-      if (values.name) {
-        setShowNameSuccessMessage(true);
-        setTimeout(() => setShowNameSuccessMessage(false), 1000);
-      }
-      if (values.email) {
-        setShowEmailSuccessMessage(true);
-        setTimeout(() => setShowEmailSuccessMessage(false), 1000);
-      }
-      if (values.password) {
-        setShowPasswordSuccessMessage(true);
-        setTimeout(() => setShowPasswordSuccessMessage(false), 1000);
-      }
+      await dispatch(editUser(updatedUser)).unwrap();
 
       resetForm();
 
@@ -162,14 +134,9 @@ console.log(user);
       dispatch(closeModal());
       return updatedUser;
     } catch (error) {
-      console.log(updatedUser)
       console.log("Failed to update user:", error);
     }
 };
-
-
-  
-     
   return (
     <EditProfileSection>
     <Edit theme={theme}>
@@ -179,11 +146,6 @@ console.log(user);
       <EditTitle theme={theme}>Edit profile</EditTitle>
 
       <ProfilePhotoBlock>
-        {showAvatarSuccessMessage && (
-          <SuccessUpdateAvatar style={{ color: 'green' }}>
-            Field successfully updated
-          </SuccessUpdateAvatar>
-        )}
         <PhotoBox>
           {selectedAvatar || user?.avatarURL ? (
             <PhotoUser
@@ -236,14 +198,6 @@ console.log(user);
               placeholder="Edit name"
               autoComplete="off"
             />
-            <StyleErrorMessage name="name">
-              {(msg) => <Error>{msg}</Error>}
-            </StyleErrorMessage>
-            {showNameSuccessMessage && (
-              <Success style={{ marginTop: '5px', color: 'green' }}>
-                Field successfully updated
-              </Success>
-            )}
           </FeedbackFormGroup>
           <FeedbackFormGroup>
             <InputForm
@@ -254,14 +208,6 @@ console.log(user);
               autoComplete="off"
             />
             
-            <StyleErrorMessage name="email">
-              {(msg) => <Error>{msg}</Error>}
-            </StyleErrorMessage>
-            {showEmailSuccessMessage && (
-              <Success style={{ marginTop: '5px', color: 'green' }}>
-                Field successfully updated
-              </Success>
-            )}
           </FeedbackFormGroup>
           <FeedbackFormGroup>
             <PasswordWrapper>
@@ -288,14 +234,6 @@ console.log(user);
                 )}
               </ToggleShowPassword>
             </PasswordWrapper>
-            <StyleErrorMessage name="password">
-              {(msg) => <Error>{msg}</Error>}
-            </StyleErrorMessage>
-            {showPasswordSuccessMessage && (
-              <Success style={{ marginTop: '5px', color: 'green' }}>
-                Field successfully updated
-              </Success>
-            )}
           </FeedbackFormGroup>
           <BtnWrapper>
             <BtnUpdate type="submit" theme={theme}>

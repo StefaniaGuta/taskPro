@@ -69,7 +69,6 @@ export const logOut = createAsyncThunk(
     try {
       await axios.get(`${API_URL}api/auth/logout`) 
       clearAuthHeader();
-      console.log('log out')
   } catch (error) {
     console.log(error)
     return thunkAPI.rejectWithValue(error.message);
@@ -93,12 +92,14 @@ export const currentUser = createAsyncThunk(
     "users/profile",
     async (formData, thunkAPI) => {
       try {
-  
         const { data } = await axios.patch(`${API_URL}api/auth/update`, formData);
+        Notiflix.Notify.success('User successfully updated!');
         return data;
       } catch (err) {
-        console.log(err);
-        return thunkAPI.rejectWithValue(err.message);
+          if(err.response.data.message === "Email already registered!"){
+            Notiflix.Notify.failure('Email already registered!');
+          }
+          return thunkAPI.rejectWithValue(err.message);
       }
     }
   );

@@ -24,3 +24,7 @@
     stroke: #161616;
     transition-duration: 250ms;
 } 
+
+.Icon.dark:hover{
+    stroke: #BEDBB0;
+}

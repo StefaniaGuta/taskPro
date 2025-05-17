@@ -89,7 +89,7 @@ const ModalCreateNewBoard = () => {
                 theme={theme}
                 type="text"
                 name="name"
-                title="You need to enter the name of the column"
+                title="You need to enter the name of the board"
                 required
                 placeholder="Title"
               />
