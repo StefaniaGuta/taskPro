@@ -1,7 +1,7 @@
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Form } from 'formik';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../../../redux/modal/modalSlice';
 import {
   FiltersContainer,
@@ -17,6 +17,7 @@ import CloseButton from '../CloseButton/CloseButton';
 import { setFilterSlice } from '../../../redux/filter/filterSlice';
 
 const Filters = ({ setFilter }) => {
+  const theme = useSelector(state => state.auth.user.theme);
   const dispatch = useDispatch();
 
   const onFilterChange = async (e) => {
@@ -38,9 +39,9 @@ const Filters = ({ setFilter }) => {
 
   return (
     <>
-      <FiltersContainer>
+      <FiltersContainer theme={theme}>
         <CloseButton />
-        <ModalTitle>Filters</ModalTitle>
+        <ModalTitle theme={theme}>Filters</ModalTitle>
 
         <Formik
           initialValues={{
@@ -50,10 +51,10 @@ const Filters = ({ setFilter }) => {
           onSubmit={() => {}}
         >
           <Form>
-              <Dash></Dash>
+              <Dash theme={theme}></Dash>
               <Container>
-              <Text id="filtersRadioButton">Label color</Text>
-              <ShowAll>
+              <Text theme={theme} id="filtersRadioButton">Label color</Text>
+              <ShowAll theme={theme}>
                 <input
                   type="radio"
                   value="all"
@@ -65,7 +66,7 @@ const Filters = ({ setFilter }) => {
                 Show all
               </ShowAll>
             </Container>
-            <LabelContainer role="group" aria-labelledby="my-radio-group">
+            <LabelContainer theme={theme} role="group" aria-labelledby="my-radio-group">
               <label>
                 <input
                   type="radio"
@@ -73,7 +74,7 @@ const Filters = ({ setFilter }) => {
                   name="filtersRadioButton"
                   onChange={onFilterChange}
                 />
-                <Span value="without" />
+                <Span theme={theme} value="without" />
                 Without priority
               </label>
 
@@ -84,7 +85,7 @@ const Filters = ({ setFilter }) => {
                   name="filtersRadioButton"
                   onChange={onFilterChange}
                 />
-                <Span value="low" />
+                <Span theme={theme} value="low" />
                 Low
               </label>
 
@@ -95,7 +96,7 @@ const Filters = ({ setFilter }) => {
                   name="filtersRadioButton"
                   onChange={onFilterChange}
                 />
-                <Span value="medium" />
+                <Span theme={theme} value="medium" />
                 Medium
               </label>
 
@@ -106,7 +107,7 @@ const Filters = ({ setFilter }) => {
                   name="filtersRadioButton"
                   onChange={onFilterChange}
                 />
-                <Span value="high" />
+                <Span theme={theme} value="high" />
                 High
               </label>
             </LabelContainer>

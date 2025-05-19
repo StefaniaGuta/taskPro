@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logIn } from '../../redux/auth/authOperations';
+import Notiflix from "notiflix";
 
 
 const Login = () => {
@@ -24,7 +25,7 @@ const Login = () => {
         setForm({ email: '', password: '' });
         navigate("/page");
       } else {
-        console.error("Autentificarea a eșuat.");
+       Notiflix.Notify.failure('Email or password is wrong');
       }
     } catch (error) {
       console.log(error);

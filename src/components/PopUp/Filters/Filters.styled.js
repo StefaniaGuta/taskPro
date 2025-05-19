@@ -31,7 +31,14 @@ export const FiltersContainer = styled.div`
 
 export const Dash = styled.span`
   width: 274px;
-  border: 1px solid #1616161A;
+   border: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '1px solid #FFFFFF1A';
+      default:
+        return '1px solid #1616161A';
+    }
+  }};
   display: flex;
 `
 
@@ -51,7 +58,14 @@ export const ShowAll = styled.label`
   text-decoration-style: solid;
   text-decoration-offset: Auto;
   text-decoration-thickness: Auto;
-  color: #16161680;
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -71,7 +85,14 @@ export const ModalTitle = styled.h2`
   font-size: 18px;
   line-height: 27px;
   letter-spacing: -2%;
-  color: #161616;
+   color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
 `;
 
 export const Text = styled.h3`
@@ -83,6 +104,14 @@ export const Text = styled.h3`
   line-height: 21px;
   letter-spacing: -2%;
   margin: 0;
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF';
+      default:
+        return '#161616';
+    }
+  }};
 `;
 
 export const Span = styled.span`
@@ -98,7 +127,7 @@ export const Span = styled.span`
     } else if (props.value === 'high') {
       return '#BEDBB0';
     } else if (props.value === 'without') {
-      return '#1616164D';
+      return '#FFFFFF4D';
     } else {
       return 'var(--transparentColor)';
     }
@@ -127,7 +156,14 @@ export const LabelContainer = styled.div`
   flex-direction: column;
   align-items: start;
   gap: 12px;
-
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return '#FFFFFF80';
+      default:
+        return '#161616';
+    }
+  }};
   label {
   width: 120px;
   height: 18px;
@@ -136,7 +172,6 @@ export const LabelContainer = styled.div`
   font-size: 12px;
   line-height: 18px;
   letter-spacing: -2%;
-  color: #16161680;
     display: flex;
     cursor: pointer;
     transition-property: color;

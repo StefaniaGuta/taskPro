@@ -19,7 +19,7 @@
   flex-direction: column;
   justify-content: center;
   width: 150px;
-  min-height: 85px;
+  min-height: 50px;
   box-shadow: 0px 4px 16px 0px #1111111A;
 
 }
@@ -48,7 +48,24 @@
   padding-bottom: 10px;
 }
 
+.Menu.dark{
+  background-color: #1F1F1F;
+}
+
+.Menu.dark h2{
+  color: #FFFFFF80;
+}
+
+.Menu h2:hover svg,
 .Menu h2:hover,
-.Menu h2:focus{
+.Menu.dark h2:hover svg,
+.Menu.dark h2:hover{
+  stroke: #BEDBB0;
   color: #BEDBB0;
+}
+
+.Menu.violet h2:hover svg,
+.Menu.violet h2:hover{
+  stroke: #5255BC;
+  color: #5255BC;
 }

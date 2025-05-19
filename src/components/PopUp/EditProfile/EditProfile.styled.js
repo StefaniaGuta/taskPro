@@ -199,7 +199,6 @@ export const Edit = styled.div`
 
   @media screen and (min-width: 768px) {
     width: 400px;
-    height: 440px;
     padding: 24px;
     
   }

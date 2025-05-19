@@ -236,7 +236,7 @@ export const Span = styled.span`
     } else if (props.value === 'high') {
       return '#BEDBB0';
     } else {
-      return '#1616164D';
+      return '#FFFFFF4D';
     }
   }};
 

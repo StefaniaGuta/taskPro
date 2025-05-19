@@ -57,6 +57,10 @@ export const logIn = createAsyncThunk(
      setAuthHeader(token);
       return data;
     } catch (error) {
+      if (error.response.data.message === "Email or password is wrong") {
+        Notiflix.Notify.failure('Email or password is wrong');
+      }
+      console.log(error.response.data.message)
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }

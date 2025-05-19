@@ -2,9 +2,10 @@ import url from '../../PopUp/icons.svg';
 import { useState } from 'react';
 import styles from './MoveTask.module.css';
 import { moveCard } from '../../../redux/cards/cardsOpeartions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const MoveButton = ({columnId, cardId, allColumns, boardName, triggerRefresh}) => {
+  const theme = useSelector(state => state.auth.user.theme);
   const [open, setOpen] = useState(null);
   const dispatch = useDispatch();
   
@@ -32,12 +33,12 @@ const MoveButton = ({columnId, cardId, allColumns, boardName, triggerRefresh}) =
   };
 
   return (
-    <section className={styles.MoveMenu}>
+    <section className={`${styles.MoveMenu} ${styles[theme]}`}>
       <svg onClick={handleClick} width="16" height="16">
         <use xlinkHref={`${url}#move-card`} />
       </svg>
       {open && (
-        <ul className={styles.Menu}>
+        <ul className={`${styles.Menu} ${styles[theme]}`}>
           {allColumns.map((col) =>
             col._id !== columnId._id ? (
               <h2 key={col._id} onClick={() => choseCol(col)}>
