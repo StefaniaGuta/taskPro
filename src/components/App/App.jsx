@@ -22,7 +22,6 @@ const App = () => {
     if (theme) {
       document.body.setAttribute('data-theme', theme);
     }
-
   }, [theme]);
   
 

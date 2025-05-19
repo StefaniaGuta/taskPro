@@ -36,7 +36,6 @@ const ModalCreateNewBoard = () => {
   const theme = useSelector(state => state.auth.user.theme);
   const [width, setWidth] = useState(window.innerWidth);
   
-  
   const handleSubmit = async (values) => {
     try {
       const response = await dispatch(createNewBoard(values));
@@ -142,7 +141,7 @@ const schema = yup.object({
     .min(2, 'Too Short!')
     .max(30, 'Maximum 30 characters')
     .matches(
-       /^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9.%+\-_]*( [a-zA-Zа-яА-ЯёЁ0-9.%+\-_]+)*$/,
+      /^[a-zA-Zа-яА-ЯёЁ][a-zA-Zа-яА-ЯёЁ0-9.%+\-_]*( [a-zA-Zа-яА-ЯёЁ0-9.%+\-_]+)*$/,
       'Invalid name format'
     )
     .required('Title is required!'), 

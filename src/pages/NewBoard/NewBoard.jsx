@@ -15,7 +15,7 @@ import { deleteCard } from "../../redux/cards/cardsOpeartions";
 import { updateLocalColumn } from "../../redux/columns/columnSlice";
 import styles from "./NewBoard.module.css";
 import { formatDeadline } from '../../services/formatingDate';
-import url from '../../components/PopUp/icons.svg';
+import url from '../../components/PopUp/icons.svg'
 import { useParams } from "react-router-dom";
 
 const NewBoard = () => {
