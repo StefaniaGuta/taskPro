@@ -1,20 +1,22 @@
-import { getAllBoards, deleteBoard, getBoardById } from '../../redux/board/boardOperations';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import Notiflix from "notiflix";
 import styles from './AllBoards.module.css'
 import { useNavigate } from 'react-router-dom';
 import ModalEditBoard from 'components/PopUp/ModalEditBoard/ModalEditBoard';
+import { getAllBoards, deleteBoard, getBoardById } from '../../redux/board/boardOperations';
 import { openModal, closeModal } from "../../redux/modal/modalSlice";
 
 import url from '../PopUp/icons.svg'
 
 const AllBoards = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const location = useLocation();
   const theme = useSelector((state) => state.auth.user.theme);
   const [boards, setBoards] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState(null);  
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
   const modalState = useSelector((state) => state.modal);
   const { componentName } = modalState;
     
@@ -46,6 +48,9 @@ const AllBoards = () => {
   const deleteSpecificBoard = async (board) => {
     try {
       const boardName = board.slug;
+      if (location.pathname.includes(boardName)) {
+        navigate('/page');
+      }
       await dispatch(deleteBoard(boardName)).unwrap();
       setBoards((prevBoards) => prevBoards.filter((board) => board.slug !== boardName));
       Notiflix.Notify.success('Board deleted successfully!');
