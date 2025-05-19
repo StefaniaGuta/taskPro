@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+<<<<<<< HEAD
 import  App  from 'components/App/App';
+=======
+import { App } from 'components/App';
+>>>>>>> 5254c0e46bb385c3f9e3c369b5056561b8c385fb
 import './index.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
