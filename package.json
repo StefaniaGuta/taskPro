@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://StefaniaGuta.github.io/taskPro/",
   "dependencies": {
+    "@babel/helper-wrap-function": "^7.27.1",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.1",
