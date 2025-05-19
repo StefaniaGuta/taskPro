@@ -1,0 +1,38 @@
+.FilterBtn{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+    border: 0;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #161616CC;
+    width: 60px;
+    padding: 0;
+    align-self: flex-start;
+    justify-self: self-end;
+    cursor: pointer;
+}
+
+.dark {
+    color: #FFFFFFCC;
+}
+
+.FilterBtn.dark svg{
+    stroke: #FFFFFFCC;
+}
+.FilterBtn svg {
+    fill: transparent;
+    stroke:#161616;
+    cursor: pointer;
+}
+
+.FilterBtn:hover,
+.FilterBtn:hover svg{
+    color: #BEDBB0;
+    stroke: #BEDBB0;
+}

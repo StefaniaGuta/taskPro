@@ -1,0 +1,100 @@
+.container {
+  background: linear-gradient(180deg, rgba(196, 196, 196, 0) 25%, #BEDBB0 92.19%);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 14px; 
+  width: 166px;
+  height: 180px;
+  margin-top: 200px;
+  margin-bottom: 20px;
+}
+
+.text{
+  width: 90vw;
+  height: 54px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #161616;
+}
+
+.authButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoginButton {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  color: #161616;
+  width: 40px;
+  height: 21px;
+  text-decoration: none;
+
+}
+
+.activeButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+  width: 90vw;
+  height: 49px;
+  margin-top: 35px;
+  margin-bottom: 14px;
+  background: #161616;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 768px) {
+
+  .text {
+    width: 50vw;
+  }
+
+  .activeButton{
+    width: 37vw;
+    margin-top: 15px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+
+  .logo {
+    margin-top: 166px;
+  }
+
+  .text {
+    width: 35vw;
+  }
+
+  .activeButton{
+    width: 25vw;
+    margin-top: 15px;
+  }
+}

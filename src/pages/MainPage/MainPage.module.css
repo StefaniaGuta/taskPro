@@ -1,0 +1,55 @@
+.MainSection {
+    background-color: #f6f6f7;
+    min-height: 100dvh;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+.Text {
+    width: 250px;
+    height: 80px;
+    font-family: Poppins,sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+    margin-top: 120px;
+    text-align: center;
+    color: #161616B2;
+    align-self: flex-start;
+}
+
+.Text span {
+    color: #BEDBB0;
+}
+  
+.dark {
+background-color: #1F1F1F;
+}
+
+.violet {
+background-color: #D6D8FF;
+}
+.MainSection.violet span{
+color: #5255BC;
+}
+
+.MainSection.dark p{
+color: #FFFFFF80;
+}
+ 
+
+@media screen and (min-width: 768px) {
+    .Text {
+        width: 350px;
+    }
+}
+@media screen and (min-width: 1200px) {
+
+    .Text {
+    width: 450px;
+    height: 72px;
+    font-size: 14px;
+    line-height: 18px;
+    }
+}

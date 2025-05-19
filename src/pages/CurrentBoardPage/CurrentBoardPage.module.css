@@ -1,0 +1,349 @@
+.BoardsSection {
+  display: flex;
+  flex-direction: column;
+  background-color: #F6F6F7;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow-x: scroll;
+}
+
+.NameFilter {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.NameFilter h1{
+  width: 100px;
+  height: 21px;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  color: #161616;
+  text-transform: capitalize;
+}
+
+.task-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 300px;
+  height: 157px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  gap: 5px;
+}
+
+.card-without {
+  border-left: 4px solid #1616164D;
+}
+.card-low {
+  border-left: 4px solid #8FA1D0;
+}
+
+.card-medium {
+  border-left: 4px solid #E09CB5;
+}
+
+.card-high {
+  border-left: 4px solid #BEDBB0;
+}
+
+.card-title {
+  width: 256px;
+  height: 21px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: -2%;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.card-description {
+  width:256px;
+  height: 30px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  overflow-x: auto;
+  color: #161616B2;
+}
+
+.card-description::first-letter{
+  text-transform: capitalize;
+}
+
+.bottomCard{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #1616161A;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.bottomCard .Svgs{
+  display: flex;
+  justify-content: space-between;
+  width: 80px;
+}
+
+.columnName svg,
+.bottomCard .Svgs svg:not(:first-child) {
+  fill: transparent;
+  stroke:#161616;
+  cursor: pointer;
+}
+
+.columnName svg:hover,
+.bottomCard .Svgs svg:hover{
+  stroke: #BEDBB0;
+}
+
+.DeadlineBell{
+  visibility: hidden;
+}
+
+.Cards .deadlineBell-high{
+  visibility: visible;
+  stroke:#BEDBB0;
+  fill: transparent;
+}
+
+.Priority,
+.Deadline{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+  font-size: 8px;
+  line-height: 12px;
+  letter-spacing: -2%;
+  color: #16161680;
+}
+
+.Priority h4,
+.Deadline h4{
+  width: 40px;
+  height: 15px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  line-height: 15px;
+  letter-spacing: -2%;
+  font-weight: 400;
+  text-transform: capitalize;
+  margin: 0;
+  color: #161616;
+}
+
+.ColumnsSection {
+  display: flex;
+  width: 100vw;
+  gap: 10px;
+  padding: 10px;
+  margin: 0;
+}
+
+.ColumnsSection .ulButton {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.ColumnsSection ul {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+.ColumnsSection li{
+  list-style-type: none;
+}
+
+.ColumnsSection .columnName {
+  list-style: none;
+  text-transform: capitalize;
+  width: 300px;
+  height: 56px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  border-radius: 8px;
+}
+
+.AddColumBtn{
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  fill: #161616;
+  border: none;
+  gap: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  border-radius: 8px;
+  text-transform: capitalize;
+}
+
+.AddCardBtn{
+  width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
+  box-sizing: border-box;
+  background-color: #BEDBB0;
+  border: none;
+  border-radius: 8px;
+  gap: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin-top: 10px;
+  fill: #161616;
+}
+
+.BoardsSection .PriorityColor{
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.priority-without {
+  background-color: #1616164D;
+}
+.priority-low {
+  background-color: #8FA1D0;
+}
+.priority-medium {
+  background-color: #E09CB5;
+}
+.priority-high {
+  background-color: #BEDBB0;
+}
+
+.BoardsSection .Cards{
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  overflow-y: auto;
+  width: 320px;
+  margin-top: 10px;
+}
+
+.BoardsSection .Cards{
+  scrollbar-color: #1616165D #FFFFFF4D;
+  scrollbar-width: thin;
+}
+
+/*Theme*/
+
+.BoardsSection.dark h1,
+.Cards.dark .bottomCard h4{
+  color: #FFFFFF;
+}
+
+.Column.dark .columnName,
+.Cards.dark .task-card{
+  background-color: #121212;
+  color: #FFFFFF;
+}
+
+.Column.dark .columnName svg,
+.Cards.dark .Svgs svg{
+  stroke: #FFFFFF80;
+}
+
+.Cards.dark .card-description,
+.Cards.dark .bottomCard span{
+  color: #FFFFFF80;
+}
+
+.Cards.dark .bottomCard {
+  border-top: 1px solid #FFFFFF1A;
+} 
+
+.Cards.dark .priority-without{
+  background-color: #FFFFFF4D;
+}
+
+.Cards.dark .card-without{
+  border-left: 4px solid #FFFFFF4D;
+}
+
+.Cards.dark .Svgs svg:hover,
+.Column.dark .columnName svg:hover{
+  stroke: #BEDBB0;
+}
+
+.BoardsSection .Cards.dark{
+  scrollbar-color: #121212 #FFFFFF4D;
+  scrollbar-width: thin;
+}
+
+.BoardsSection.dark .AddColumBtn{
+  background-color: #121212;
+  color: #FFFFFF;
+  fill: #FFFFFF;
+}
+.BoardsSection.violet .AddColumBtn{
+  background-color: #FFFFFF;
+  fill: #5255BC;
+}
+
+.BoardsSection.violet .AddCardBtn{
+  background-color: #5255BC;
+  color: #FFFFFF;
+  fill: #FFFFFF;
+}
+
+.BoardsSection .Cards.violet{
+  scrollbar-color: #B8BCFD #FFFFFF3D;
+}
+
+.Cards.violet .Svgs svg:hover,
+.Column.violet .columnName svg:hover,
+.Cards.violet .deadlineBell-high{
+  stroke: #5255BC;
+}
+
+
+@media screen and (min-width: 1200px) {
+  .BoardsSection {
+    padding-left: 260px;
+  }
+
+  .BoardsSection .Cards{
+    max-height: 470px;
+  }
+}

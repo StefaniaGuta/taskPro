@@ -1,0 +1,143 @@
+.BoardsList {
+  width: 225px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  padding: 0;
+}
+
+.Board {
+  width: 225px;
+  height: 61px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+  position: relative;
+  padding: 0;
+  color: #16161680;
+}
+
+.BoardsList .Board:hover,
+.BoardsList .Board:focus{
+  color: #161616;
+  background: #F6F6F7;
+}
+
+.Board:hover .Icon{
+  stroke:#161616;
+}
+
+.Board:hover::after,
+.Board:focus::after {
+  content: '';
+  width: 4px;
+  height: 61px;
+  border-radius: 4px 0px 0px 4px;
+  background: #BEDBB0;
+  position: absolute;
+  right: 0;
+  transition: background-color var(--transition);
+} 
+
+.NameIcon{
+  width: 160px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.ProjectName {
+  width: 150px;
+  height: 21px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.Icon {
+  stroke: #16161680;
+  fill: transparent;
+}
+
+.icons{
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icons svg {
+  fill: transparent;
+  stroke:#161616;
+  cursor: pointer;
+}
+
+/*Theme*/
+
+.BoardsList.dark .ProjectName,
+.BoardsList.violet .ProjectName {
+  color: #FFFFFF80;
+}
+
+.BoardsList.dark .Board:hover{
+  background-color:#1F1F1F;
+}
+
+.BoardsList.dark .Board:hover .ProjectName,
+.BoardsList.violet .Board:hover .ProjectName{
+  color: #FFFFFF;
+
+}
+.BoardsList.dark .Board:hover .Icon,
+.BoardsList.violet .Board:hover .Icon{
+  stroke: #FFFFFF;
+}
+
+.BoardsList.dark .Board:hover .icons svg,
+.BoardsList.violet .Board:hover .icons svg,
+.BoardsList.violet .Icon,
+.Icon.dark{
+  stroke: #FFFFFF80;
+}
+
+.BoardsList.dark .Board .icons svg:hover{
+  stroke:#BEDBB0;
+}
+
+.BoardsList.violet .Board .icons svg:hover {
+  stroke: #5255BC;
+}
+
+.BoardsList.violet .Board:hover{
+  background-color: #FFFFFF80;
+}
+
+.BoardsList.violet .Board:hover::after,
+.BoardsList.violet .Board:focus::after {
+  background-color: #FFFFFF;
+}
+
+
+@media screen and (min-width: 768px) {
+  .BoardsList {
+    width: 260px;
+  }
+
+  .Board{
+    width: 260px;
+    justify-content: space-evenly;
+  }
+}
