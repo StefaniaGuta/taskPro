@@ -5,7 +5,6 @@ import SideBar from "../SideBar/SideBar";
 import { useSelector } from 'react-redux';
 import { useState } from "react";
 import useWindowWidth from "./useWidth";
-
 import url from '../PopUp/icons.svg';
 
 const Header = () => {
