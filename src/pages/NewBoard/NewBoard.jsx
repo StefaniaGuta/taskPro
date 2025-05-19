@@ -15,13 +15,15 @@ import { deleteCard } from "../../redux/cards/cardsOpeartions";
 import { updateLocalColumn } from "../../redux/columns/columnSlice";
 import styles from "./NewBoard.module.css";
 import { formatDeadline } from '../../services/formatingDate';
-import url from '../../components/PopUp/icons.svg';
-import { useParams } from "react-router-dom";
+import url from '../../components/PopUp/icons.svg'
 
 const NewBoard = () => {
   const dispatch = useDispatch();
   const theme = useSelector((state) => state.auth.user.theme);
   const backgroundImage = useSelector((state) => state.boards.boards.backgroundImage);
+  const board = useSelector((state) => state.boards.boards);
+  const name = useSelector((state) => state.boards.boards.name);
+  const slug = useSelector((state) => state.boards.boards.slug);
   const modalState = useSelector((state) => state.modal);
   const allColumns = useSelector((state) => state.columns.columns);
   const [filter, setFilter] = useState();
@@ -31,9 +33,8 @@ const NewBoard = () => {
   const { componentName } = modalState;
   const location = useLocation();
   const { state } = location;
-  const boardName = state?.name;
-  const params = useParams();
-  const columns = allColumns.filter((column) => column.boardName === params.boardId);
+  const boardName = state?.name || slug;
+  const columns = allColumns.filter((column) => column.boardName === boardName);
 
   const cardsAdded = useSelector((state) => state.cards.cards || []);
   const filteredCards = cardsAdded.filter((card) => columns.some((col) => col._id === card.columnId));
@@ -106,7 +107,7 @@ const updateColumnLocally = (columnId, updatedName) => {
         }}
       >
         <div className={styles.NameFilter}>
-          <h1>{boardName}</h1>
+          <h1>{boardName || name}</h1>
           <FilterComponent setFilter={setFilter}/>
         </div>
         
@@ -125,7 +126,7 @@ const updateColumnLocally = (columnId, updatedName) => {
 
                       <svg width="16" height="16"onClick={(e) => {
                         e.stopPropagation();
-                        dispatch(deleteColumn({boardName: params.boardId, id: column._id}))
+                        dispatch(deleteColumn({boardName: boardName, id: column._id}))
                       }}>
                         <use xlinkHref={`${url}#bin`} />
                       </svg>
@@ -161,14 +162,14 @@ const updateColumnLocally = (columnId, updatedName) => {
                               <svg width="14" height="16" className={`${styles.DeadlineBell} ${styles[`deadlineBell-${card.priority}`]}`}>
                                 <use xlinkHref={`${url}#bell`} />
                               </svg>
-                              <MoveButton boardName={params.boardId} columnId={column} cardId={card} allColumns={columns}/>
+                              <MoveButton boardName={board} columnId={column} cardId={card} allColumns={columns}/>
                               <svg width="16" height="16" onClick={() => openEditCardModal(card)}>
                                 <use xlinkHref={`${url}#pencil`} />
                               </svg>
                               <svg width="16" height="16"
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                dispatch(deleteCard({boardName: params.boardId, id: card._id}))
+                                dispatch(deleteCard({boardName: boardName, id: card._id}))
                                 }}
                               >
                                 <use xlinkHref={`${url}#bin`} />

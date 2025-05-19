@@ -10,13 +10,13 @@ const MoveButton = ({columnId, cardId, allColumns, boardName, triggerRefresh}) =
   
   const handleClick =() => {
     setOpen(!open);
-  } 
-
+  }
+  
   const choseCol = async (targetCol) => {
     try{
       const response = await dispatch(
         moveCard({
-          boardName: boardName,
+          boardName: boardName.slug,
           cardId: cardId._id,
           newColId: targetCol
         })

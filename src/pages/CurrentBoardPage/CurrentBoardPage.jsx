@@ -251,7 +251,7 @@ const CurrentBoardPage = () => {
                             <use xlinkHref={`${url}#bell`} />
                           </svg>
                           <MoveButton 
-                            boardName={currentBoardSlug} 
+                            boardName={currentBoard} 
                             columnId={column} 
                             cardId={card} 
                             allColumns={uniqueColumns}

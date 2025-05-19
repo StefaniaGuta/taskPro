@@ -128,7 +128,7 @@
 }
 
 .NameFilter h1{
-  width: 150px;
+  width: 100px;
   height: 21px;
   margin: 0;
   font-family: Poppins, sans-serif;
@@ -370,7 +370,7 @@
 }
 @media screen and (min-width: 1200px) {
   .BoardsSection {
-    padding-left:  260px;
+    padding-left: 270px;
   }
 
   .NameFilter {
