@@ -7,7 +7,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  overflow-x: scroll;
 }
 
 .task-card {
@@ -370,7 +369,7 @@
 }
 @media screen and (min-width: 1200px) {
   .BoardsSection {
-    padding-left: 270px;
+    padding-left: 260px;
   }
 
   .NameFilter {

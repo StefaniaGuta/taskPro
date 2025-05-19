@@ -33,7 +33,7 @@ const ModalAddColumn = () => {
       }
      const response = await dispatch(addColumn({boardName: boardId.boardId || currentBoard, name}));
      dispatch(closeModal());
-     return response.data;
+     return response.payload;
     } catch (error) {
       console.log('erroare in timpul crearii coloanei', error);
     }

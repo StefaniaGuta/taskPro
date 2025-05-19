@@ -16,7 +16,7 @@ const MoveButton = ({columnId, cardId, allColumns, boardName, triggerRefresh}) =
     try{
       const response = await dispatch(
         moveCard({
-          boardName: boardName.slug,
+          boardName: boardName,
           cardId: cardId._id,
           newColId: targetCol
         })
