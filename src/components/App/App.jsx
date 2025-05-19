@@ -3,11 +3,9 @@ import { Routes, Route } from 'react-router-dom';
 import { PublicRoute } from '../../routes/PublicRoute';
 import { PrivateRoute }  from '../../routes/PrivateRoute';
 import SharedLayout from 'layouts/SharedLayout';
-import Loader from '../Loader/Loader';
+import Loader from '../';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-//import { useDispatch } from 'react-redux';
-//import { currentUser } from '../../redux/auth/authOperations';
 
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
@@ -18,15 +16,12 @@ const CurrentBoardPage = lazy(() => import('../../pages/CurrentBoardPage/Current
 const NewBoard = lazy(() => import('../../pages/NewBoard/NewBoard'));
 
 const App = () => {
-  //const dispatch = useDispatch();
   const theme = useSelector(state => state.auth.user.theme);
 
   useEffect(() => {
     if (theme) {
       document.body.setAttribute('data-theme', theme);
     }
-
-    //dispatch(currentUser());
   }, [theme]);
   
 
