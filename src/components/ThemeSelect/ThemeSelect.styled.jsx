@@ -14,20 +14,20 @@ export const getCustomStyles = (theme) => ({
     cursor: 'pointer',
     color: state.isSelected
     ? theme === 'violet' 
-      ? '#5255BC' 
-      : '#BEDBB0' 
+      ? 'var(--violet)' 
+      : 'var(--green)' 
     : theme === 'dark' 
-      ? '#FFFFFF80' 
-      : '#161616',
+      ? 'var(--white-grey)' 
+      : 'var(--black)',
     backgroundColor: 'transparent',
   }),
   menu: (provided) => ({
     ...provided,
-    backgroundColor: theme === 'dark' ? '#151515' : '#FCFCFC',
+    backgroundColor: theme === 'dark' ? 'var(--black15)' : 'var(--grey-white)',
     width: '100px',
     height: '120px',
-    color: theme === 'dark' ? '#FCFCFC' : '#161616',
-    border: theme === 'violet' ? '1px solid #ECEDFD': '1px solid #BEDBB0',
+    color: theme === 'dark' ? 'var(--grey-white)' : 'var(--black)',
+    border: theme === 'violet' ? '1px solid #ECEDFD': '1px solid var(--green)',
     borderRadius: '8px',
     boxShadow: '0px 4px 16px 0px #1111111A',
   }),
@@ -37,17 +37,17 @@ export const getCustomStyles = (theme) => ({
   singleValue: (provided) => ({
     ...provided,
     height: '21px',
-    fontFamily: 'Poppins, sans-serif',
+    fontFamily: 'var(--font-family)',
     fontWeight: '500',
     fontSize: '14px',
     letterSpacing: '-0.02em',
-    lineHeight: '21px',
+    lineHeight: 'var(--line-height)',
     padding: '0',
-    color: theme === 'dark' ? '#FFFFFF80' : '#161616CC',
+    color: theme === 'dark' ? 'var(--white-grey)' : 'var(--black16CC)',
     margin: '0',
   }),
   dropdownIndicator: () => ({
-    color: theme === 'dark' ? '#FFFFFF80' : '#161616CC',
+    color: theme === 'dark' ? 'var(--white-grey)' : 'var(--black16CC)',
     padding: '0',
     height: '20px',
     width: '20px',

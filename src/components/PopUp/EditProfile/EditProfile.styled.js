@@ -31,23 +31,23 @@ export const InputForm = styled(Field)`
   border:${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '1px solid #5255BC';
+        return '1px solid var(--violet)';
       default:
-        return '1px solid #BEDBB0;';
+        return '1px solid var(--green);';
     }
   }};
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   background-color: var(--modalBgColor);
   color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#FFFFFF80';
+        return 'var(--white-grey)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
-  font-family: var(--poppinsFont), var(--roboto);
-  font-size: var(--fontSize14);
+  font-family: var(--font-family);
+  font-size: 14px;
   letter-spacing: -0.28px;
   opacity: 0.4000000059604645;
 
@@ -57,8 +57,19 @@ export const InputForm = styled(Field)`
   &:focus,
   &:active {
     opacity: 1;
-    outline: 1px solid var(--borderNeedHelpColor);
+    outline: 1px solid var(--white-grey);
   }
+
+  &::placeholder{
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return 'var(--white-grey)';
+      default:
+        return 'var(--black16)';
+    }
+  }};
+  } 
 
   @media screen and (min-width: 375px) {
     width: 287px;
@@ -69,7 +80,7 @@ export const InputForm = styled(Field)`
   }
 
   &::placeholder {
-    font-size: var(--fontSize14);
+    font-size: 14px;
   }
 `;
 
@@ -102,26 +113,26 @@ export const BtnUpdate = styled.button`
   background-color:${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#5255BC';
+        return 'var(--violet)';
       default:
-        return '#BEDBB0';
+        return 'var(--green)';
     }
   }};
-  border-radius: var(--borderRadius8);
+  border-radius: var(--border-radius);
   cursor: pointer;
   color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
-  font-size: var(--fontSize14);
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -176,12 +187,12 @@ export const Edit = styled.div`
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#161616';
+        return 'var(--black16)';
       default:
-        return '#FCFCFC';
+        return 'var(--grey-white)';
     }
   }};
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: ${({ theme }) => {
     switch (theme) {
       case 'dark':
@@ -208,33 +219,19 @@ export const EditTitle = styled.h3`
   color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#FFFFFF';
-      case 'violet':
-        return '#161616';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
   text-align: start;
   width: 100%;
   height: 26px;
-  font-family: var(--poppinsFont);
-  font-size: var(--fontSize18);
-  font-weight: var(--fontWeight500);
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 500;
   letter-spacing: -0.36px;
   margin: 0;
-`;
-
-export const BtnClose = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  stroke: var(--iconCloseColor);
-  transition: transform 0.3s ease-in-out;
-
-  &:hover {
-    transform: scale(1.2);
-  }
 `;
 
 export const ProfilePhotoBlock = styled.div`
@@ -245,7 +242,7 @@ export const ProfilePhotoBlock = styled.div`
 export const PhotoUser = styled.img`
   width: 68px;
   height: 68px;
-  border-radius: var(--borderRadius8);
+  border-radius: var(--border-radius);
   display: block;
   object-fit: cover;
 `;
@@ -265,14 +262,13 @@ export const LabelEditPhoto = styled.label`
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#ECEDFD';
+        return 'var(--bg-violet)';
       default:
-        return '#BEDBB0';
+        return 'var(--green)';
     }
   }};
-  stroke: var(--iconPlusEditColor);
   justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   cursor: pointer;
 
   &:hover,
@@ -299,23 +295,21 @@ export const BtnSavePhotoUser = styled.button`
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#ECEDFD';
+        return 'var(--bg-violet)';
       default:
-        return '#BEDBB0';
+        return 'var(--green)';
     }
   }};
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: none;
   padding: 0px;
   cursor: pointer;
 `;
 
 export const UserIconSvg = styled.svg`
-  fill: var(--userIconBgSvgColor);
-  color: var(--userIconSvgColor);
   width: 68px;
   height: 68px;
-  border-radius: var(--borderRadius8);
+  border-radius: var(--border-radius));
 `;

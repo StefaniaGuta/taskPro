@@ -30,32 +30,32 @@ export const Button = styled.button`
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#5255BC';
+        return 'var(--violet)';
       default:
-        return '#BEDBB0';
+        return 'var(--green)';
     }
   }};
 
   color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
   fill: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
 
-  font-size: var(--fontSize14);
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
+  font-size: 14px;
+  font-family: var(--font-family);
+  font-weight: 500;
   letter-spacing: -0.28px;
   cursor: pointer;
 
@@ -112,7 +112,4 @@ export const ContainerIconButton = styled.span`
   width: 28px;
   height: 28px;
   margin-right: 8px;
-  background-color: var(--iconBoardBgColor);
-  border-radius: var(--borderRadius8);
-  stroke: var(--iconPlusBoardColor);
 `;

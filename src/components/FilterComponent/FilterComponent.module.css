@@ -4,13 +4,13 @@
     justify-content: space-between;
     background-color: transparent;
     border: 0;
-    font-family: Poppins, sans-serif;
+    font-family: var(--font-family);
     font-size: 14px;
     font-weight: 500;
-    line-height: 21px;
+    line-height: var(--line-height);
     letter-spacing: -0.02em;
     text-align: left;
-    color: #161616CC;
+    color: var(--black1680);
     width: 60px;
     padding: 0;
     align-self: flex-start;
@@ -19,20 +19,28 @@
 }
 
 .dark {
-    color: #FFFFFFCC;
+    color: var(--whiteFFCC);
 }
 
 .FilterBtn.dark svg{
-    stroke: #FFFFFFCC;
+    stroke: var(--whiteFFCC);
 }
 .FilterBtn svg {
     fill: transparent;
-    stroke:#161616;
+    stroke:var(--black16);
     cursor: pointer;
 }
 
 .FilterBtn:hover,
 .FilterBtn:hover svg{
-    color: #BEDBB0;
-    stroke: #BEDBB0;
+    color: var(--green);
+    stroke: var(--green);
+    transition: color stroke var(--transition);
+}
+
+.FilterBtn.violet:hover,
+.FilterBtn.violet:hover svg{
+    color: var(--violet);
+    stroke: var(--violet);
+    transition: color stroke var(--transition);
 }

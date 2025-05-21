@@ -33,21 +33,21 @@ export const ModalContainer = styled.div`
   padding: 24px;
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
-  border: 1px solid var(--borderBoardColor);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--green);
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#161616';
+        return 'var(--black16)';
       default:
-        return '#FCFCFC';
+        return 'var(--grey-white)';
     }
   }};
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '1px solid #BEDBB080';
+        return '1px solid var(--green)';
       default:
         return 'none';
     }
@@ -61,15 +61,15 @@ export const Title = styled.div`
   color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
-  font-size: var(--fontSize18);
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
-  letter-spacing: var(--letterSpacing36);
+  font-size: 18px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  letter-spacing: -0.28px;
   margin-bottom: 24px;
   text-align: start;
 `;
@@ -84,10 +84,10 @@ export const FormFieldTitle = styled.label`
 export const ErrorMessage = styled(FormikError)`
   position: absolute;
   top: 120px;
-  color: var(--errorColor);
+  color: orange;
   font-size: 10px;
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
+  font-family: var(--font-family);
+  font-weight: 500;
 `;
 
 export const FieldTitle = styled(FormikField)`
@@ -96,36 +96,46 @@ export const FieldTitle = styled(FormikField)`
   padding: 0 18px;
   margin-bottom: 24px;
   align-items: center;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border:${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '1px solid #5255BC';
+        return '1px solid var(--violet)';
       default:
-        return '1px solid #BEDBB0;';
+        return '1px solid var(--green);';
     }
   }};
+  background-color: transparent;
   opacity: 0.4000000059604645;
-  background-color: var(--bgInputBoardColor);
-  box-shadow: 0px 4px 16px 0px rgba(var(--boxShadowInputBoardColor));
+  box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, .3));
 
   color:${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#FFFFFF80';
+        return 'var(--white-grey)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
-  font-size: var(--fontSize14);
-  font-family: var(--poppinsFont), var(--roboto);
+  font-size: 14px;
+  font-family: var(--font-family);
   letter-spacing: -0.28px;
 
   &:hover,
   &:focus,
   &:active {
     opacity: 1;
-    outline: 1px solid var(--borderNeedHelpColor);
+    outline: none;
+  }
+    &::placeholder{
+   color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return 'var(--white-grey)';
+      default:
+        return 'var(--black16)';
+    }
+    }}
   }
 `;
 
@@ -148,29 +158,29 @@ export const Button = styled.button`
   height: 49px;
   padding: 10px 0px 11px 0px;
   align-items: center;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: none;
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#5255BC';
+        return 'var(--violet)';
       default:
-        return '#BEDBB0';
+        return 'var(--green)';
     }
   }};
 
   color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
-  font-size: var(--fontSize14);
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
-  letter-spacing: -0.28px;
+  font-size: 14px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing);
   cursor: pointer;
 
   @media screen and (min-width: 768px) {
@@ -219,16 +229,4 @@ position: relative;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
   }
 
-`;
-
-export const ContainerIconButton = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  margin-right: 8px;
-  background-color: var(--iconBoardBgColor);
-  border-radius: var(--borderRadius8);
-  stroke: var(--iconPlusBoardColor);
 `;

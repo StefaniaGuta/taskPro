@@ -1,6 +1,6 @@
 .IconContainer {
     display: flex;
-  gap: 8px;
+    gap: 8px;
 }
 
 .IconContainer input {
@@ -8,23 +8,23 @@
 }
 
 .Icon {
-    stroke: #16161680;
-    fill: #FFF;
+    stroke: var(--black1680);
+    fill: var(--FFF-white);
     cursor: pointer;
-    transition-duration: 250ms;
+    transition: stroke fill var(--transition);
 }
 
 .Icon.dark{
-    stroke: #FFFFFF80;
-    fill: #16161680;
+    stroke: var(--white-grey);
+    fill: var(--black1680);
 }
 
 .Icon:hover,
 .Icon:focus {
-    stroke: #161616;
-    transition-duration: 250ms;
+    stroke: var(--black);
+    transition: stroke var(--transition);
 } 
 
 .Icon.dark:hover{
-    stroke: #BEDBB0;
+    stroke: var(--green);
 }

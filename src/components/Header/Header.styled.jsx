@@ -9,9 +9,9 @@ export const HeaderSection = styled.header`
    background-color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#161616';
+        return 'var(--black16)';
       default:
-        return '#FCFCFC';
+        return 'var(--grey-white)';
     }
   }};
 `;
@@ -26,9 +26,9 @@ export const Menu = styled.svg`
   stroke : ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
 `

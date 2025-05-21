@@ -1,3 +1,30 @@
+:root{
+  --font-family: 'Poppins', sans-serif;
+  --line-height: 21px;
+  --letter-spacing: -2%;
+  --green: #BEDBB0;
+  --dark-grey: #FFFFFF4D;
+  --white: #FFFFFF;
+  --black: #121212;
+  --white-grey: #FFFFFF80;
+  --violet: #5255BC;
+  --white-violet: #D6D8FF;
+  --border-radius: 8px;
+  --grey-white: #FCFCFC;
+  --black15: #151515;
+  --white-violet: #B8BCFD;
+  --FFF-white: #FFFF;
+  --F1A-grey: #FFFFFF1A;
+  --black-161A: #1616161A;
+  --black16: #161616;
+  --black1680: #16161680;
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --bg-violet: #ECEDFD;
+  --black16CC: #161616CC;
+  --whiteFFCC: #FFFFFFCC;
+  --font-weight500: 500;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

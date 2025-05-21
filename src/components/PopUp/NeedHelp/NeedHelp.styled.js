@@ -17,22 +17,22 @@ export const NeedHelpContainer = styled.div`
     background-color: ${({ theme }) => {
       switch (theme) {
         case 'dark':
-          return '#161616';
+          return 'var(--black16)';
         default:
-          return '#FCFCFC';
+          return 'var(--grey-white)';
       }
     }};
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     border: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '1px solid #BEDBB080';
+        return '1px solid var(--green)';
       default:
         return 'none';
     }
   }};
     padding: 24px;
-    font-family: var(--poppinsFont);
+    font-family: var(--font-family);
     box-shadow: 0px 4px 16px 0px #1616160D;
     margin-inline: auto;
     margin-top: 20vh;
@@ -48,16 +48,16 @@ export const NeedHelpContainer = styled.div`
 `;
 
 export const Title = styled.h2`
-  font-size: var(--fontSize18);
-  font-weight: var(--fontWeight500);
+  font-size: 18px;
+  font-weight: 500;
   letter-spacing: -0.36px;
   margin-bottom: 24px;
   color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
   text-align: left;
@@ -72,16 +72,23 @@ export const InputEmail = styled(Field)`
   border:${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '1px solid #5255BC';
+        return '1px solid var(--violet)';
       default:
-        return '1px solid #BEDBB0;';
+        return '1px solid var(--green);';
     }
   }};
   opacity: 0.4000000059604645;
-  color: var(--textInputColor);
+   color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return 'var(--white-grey)';
+      default:
+        return 'var(--black16)';
+    }
+  }};
   line-height: 18px;
-  font-family: var(--poppinsFont);
-  font-size: var(--fontSize14);
+  font-family: var(--font-family);
+  font-size: 14px;
   letter-spacing: -0.28px;
   outline: none;
   
@@ -94,9 +101,19 @@ export const InputEmail = styled(Field)`
   &:focus,
   &:active {
     opacity: 1;
-    outline: 1px solid var(--borderNeedHelpColor);
+    outline: 1px solid var(--green);
   }
 
+  &::placeholder{
+   color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return 'var(--white-grey)';
+      default:
+        return 'var(--black16)';
+    }
+    }}
+  }
   @media screen and (min-width: 768px) {
     width: 362px;
   }
@@ -107,22 +124,29 @@ export const InputComment = styled(Field)`
   height: 120px;
   padding: 14px 18px;
   background-color: inherit;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border:${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '1px solid #5255BC';
+        return '1px solid var(--violet)';
       default:
-        return '1px solid #BEDBB0;';
+        return '1px solid var(--green);';
     }
   }};
   opacity: 0.4000000059604645;
 
-  color: var(--textInputColor);
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return 'var(--white-grey)';
+      default:
+        return 'var(--black16)';
+    }
+    }}
   line-height: 18px;
 
-  font-family: var(--poppinsFont);
-  font-size: var(--fontSize14);
+  font-family: var(--font-family);
+  font-size: 14px;
   letter-spacing: -0.28px;
 
   resize: none;
@@ -137,7 +161,18 @@ export const InputComment = styled(Field)`
   &:focus,
   &:active {
     opacity: 1;
-    outline: 1px solid var(--borderNeedHelpColor);
+    outline: 1px solid var(--green);
+  }
+
+  &::placeholder{
+   color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return 'var(--white-grey)';
+      default:
+        return 'var(--black16)';
+    }
+    }}
   }
 
   @media screen and (min-width: 768px) {
@@ -165,23 +200,23 @@ export const Button = styled.button`
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#5255BC';
+        return 'var(--violet)';
       default:
-        return '#BEDBB0';
+        return 'var(--green)';
     }
   }};
 
   color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
   border: 0px;
-  font-size: var(--fontSize14);
-  font-weight: var(--fontWeight500);
+  font-size: 14px;
+  font-weight: 500;
   letter-spacing: -0.28px;
   margin-top: 24px;
   cursor: pointer;
@@ -244,7 +279,7 @@ export const StyleErrorMessage = styled(ErrorMessage)``;
 export const Error = styled.p`
   position: absolute;
   width: 100%;
-  color: var(--errorColor);
+  color: orange;
   font-size: 10px;
   bottom: -11px;
 `;

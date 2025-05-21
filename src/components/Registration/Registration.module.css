@@ -1,5 +1,5 @@
 .registrationContainer {
-  background: linear-gradient(180deg, rgba(196, 196, 196, 0) 25%, #BEDBB0 92.19%);
+  background: linear-gradient(180deg, rgba(196, 196, 196, 0) 25%, var(--green) 92.19%);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,8 +12,8 @@
   margin: 0 auto;
   padding: 20px;
   margin-top: 200px;
-  border-radius: 8px;
-  background: #151515;
+  border-radius: var(--border-radius);
+  background: var(--black);
 }
 
 .buttonsContainer {
@@ -24,26 +24,24 @@
 }
 
 .button {
-  font-family: 'Poppins';
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 27px;
-  /* identical to box height */
   letter-spacing: -0.02em;
   color: rgba(255, 255, 255, 0.3);
   text-decoration: none;
 }
 
 .activeButton {
-  font-family: 'Poppins';
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
   line-height: 27px;
-  /* identical to box height */
   letter-spacing: -0.02em;
-  color: #FFFFFF;
+  color: var(--white);
   text-decoration: none;
 }
 
@@ -55,20 +53,23 @@
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
-  font-family: 'Poppins';
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 21px;
-  /* identical to box height */
+  line-height: var(--line-height);
   letter-spacing: -0.02em;
-  color: #FFFFFF;
+  color: var(--white);
   background: #1F1F1F;
   opacity: 0.4;
-  border: 1px solid #BEDBB0;
+  border: 1px solid var(--green);
   box-shadow: 0px 4px 16px rgba(22, 22, 22, 0.08);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   height: 49px;
+}
+
+.inputGroup input::placeholder{
+  color: var(--dark-grey);
 }
 
 .errorMessage {
@@ -78,20 +79,18 @@
 .submitBtn {
   width: 100%;
   padding: 10px;
-  background: #BEDBB0;
-  border-radius: 8px;
+  background: var(--green);
+  border-radius: var(--border-radius);
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  font-family: 'Poppins';
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  line-height: 21px;
-  /* identical to box height */
+  line-height: var(--line-height);
   text-align: center;
   letter-spacing: -0.02em;
-  color: #161616;
+  color: var(--black);
   margin-top: 10px;
 }
 

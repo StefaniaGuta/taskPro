@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 import { updateTheme } from '../../redux/theme/themeOperation';
-import './ThemeSelect.css';
 import { getCustomStyles } from './ThemeSelect.styled';
 
 function ThemeSelect() {

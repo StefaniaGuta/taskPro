@@ -1,8 +1,3 @@
-:root {
-  --font-family : Poppins, sans-serif;
-  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .Sidebar {
   width: 100%;
   height: auto;
@@ -16,7 +11,7 @@
   width: 225px;
   height: 100%;
   overflow: visible;
-  background-color: #FFFFFF;
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -49,12 +44,12 @@
   width: 197px;
   height: 70px;
   margin: 0 14px 10px 14px;
-  border-top: 1px solid #1616161A;
-  border-bottom: 1px solid #1616161A;
+  border-top: 1px solid var(--black-161A);
+  border-bottom: 1px solid var(--black-161A);
 }
 
 .CreateBoardSection svg{
-  fill: #BEDBB0;
+  fill: var(--green);
 }
 
 .CreateBoard {
@@ -72,7 +67,7 @@
 .CreateBoardBtn {
   width: 40px;
   height: 36px;
-  background: #BEDBB0;
+  background: var(--green);
   border: none;
   border-radius: 6px;
   font-size: 25px;
@@ -92,7 +87,7 @@
 .HelpSection {
   width: 165px;
   height: 210px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   background-color: #F6F6F7;
   display: flex;
   flex-direction: column;
@@ -113,7 +108,7 @@
 }
 
 .HelpSection span {
-  color: #BEDBB0;
+  color: var(--green);
 }
 
 .HelpBtn{
@@ -134,9 +129,9 @@
 }
 
 .HelpBtn .HelpCircle {
-  border: 2px solid black;
+  border: 2px solid var(--black);
   border-radius: 50px;
-  color: #121212;
+  color: var(--black);
   width: 15px;
   height: 15px;
   margin-right: 10px;
@@ -153,11 +148,11 @@
   align-items: center;
   justify-content: space-around;
   border: none;
-  background-color: #FFFFFF;
+  background-color: var(--white);
   font-family: var(--font-family);
   font-size: 14px;
   font-weight: 500;
-  line-height: 21px;
+  line-height: var(--line-height);
   text-align: left;
   margin: 20px 0 0 10px;
   cursor: pointer;
@@ -165,28 +160,28 @@
 }
 
 .LogOut svg {
-  stroke: #BEDBB0;
+  stroke: var(--green);
 }
 
 /*Theme*/
 
 .Sidebar.violet .SideBardContent,
 .Sidebar.violet .LogOut {
-  background-color: #5255BC;
-  color: #FFFFFF;
+  background-color: var(--violet);
+  color: var(--white);
 }
 
 .Sidebar.violet .Boards,
 .Sidebar.violet .NeonProject h2,
 .Sidebar.dark .Boards,
 .Sidebar.dark .NeonProject h2{
-  color: #FFFFFF80;
+  color: var(--white-grey);
 }
 
 .Sidebar.dark .CreateBoardSection,
 .Sidebar.violet .CreateBoardSection{
-  border-top: 1px solid #FFFFFF1A;
-  border-bottom: 1px solid #FFFFFF1A;
+  border-top: 1px solid var(--F1A-grey);
+  border-bottom: 1px solid var(--F1A-grey);
 }
 
 .Sidebar.violet .HelpSection{
@@ -198,34 +193,34 @@
 }
 
 .Sidebar.violet .HelpSection span{
-  color:#5255BC;
+  color:var(--violet);
 }
 
 .Sidebar.violet .HelpSection .HelpBtn,
 .Sidebar.dark .HelpSection .HelpBtn{
-  color: #FFFF;
+  color: var(--FFF-white);
 }
 
 .Sidebar.violet .HelpBtn .HelpCircle,
 .Sidebar.dark .HelpBtn .HelpCircle{
-  color: #FFFF;
-  border-color: #FFFFFF;
+  color: var(--FFF-white);
+  border-color: var(--white);
 }
 
 
 .Sidebar.violet .CreateBoardSection .CreateBoardBtn{
-  background-color: #B8BCFD;
-  color: #FFFFFF;
+  background-color: var(--white-violet);
+  color: var(--white);
 } 
 
 .Sidebar.dark .SideBardContent,
 .Sidebar.dark .LogOut{
-  background-color: #121212;
-  color: #FFFFFF;
+  background-color: var(--black);
+  color: var(--white);
 }
 
 .Sidebar.violet .LogOut svg {
-  stroke: #FFFFFF;
+  stroke: var(--white);
 }
 
 @media screen and (min-width: 768px) {

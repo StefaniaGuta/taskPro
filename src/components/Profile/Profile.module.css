@@ -8,10 +8,10 @@
 }
 
 .MenuContainer h1 {
-    font-family: Poppins,sans-serif;
+    font-family: var(--font-family);
     font-size: 14px;
     font-weight: 500;
-    line-height: 21px;
+    line-height: var(--line-height);
     letter-spacing: -0.02em;
     text-align: left;
     text-transform: capitalize;
@@ -25,5 +25,5 @@
 }
 
 .MenuContainer.dark h1 {
-    color: #FFFFFF;
+    color: var(--white);
 } 

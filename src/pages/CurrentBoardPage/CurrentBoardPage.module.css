@@ -20,12 +20,12 @@
   width: 100px;
   height: 21px;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-family);
   font-size: 14px;
   font-weight: 500;
-  line-height: 21px;
+  line-height: var(--line-height);
   letter-spacing: -0.02em;
-  color: #161616;
+  color: var(--black);
   text-transform: capitalize;
 }
 
@@ -36,8 +36,8 @@
   box-sizing: border-box;
   width: 300px;
   height: 157px;
-  border-radius: 8px;
-  background-color: #ffffff;
+  border-radius: var(--border-radius);
+  background-color: var(--white);
   gap: 5px;
 }
 
@@ -53,17 +53,17 @@
 }
 
 .card-high {
-  border-left: 4px solid #BEDBB0;
+  border-left: 4px solid var(--green);
 }
 
 .card-title {
   width: 256px;
   height: 21px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-family);
   font-weight: 600;
   font-size: 14px;
-  line-height: 21px;
-  letter-spacing: -2%;
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
   text-transform: capitalize;
   margin: 0;
 }
@@ -71,7 +71,7 @@
 .card-description {
   width:256px;
   height: 30px;
-  font-family: 'Poppins', sans-serif;
+  font-family:var(--font-family);
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
@@ -101,13 +101,13 @@
 .columnName svg,
 .bottomCard .Svgs svg:not(:first-child) {
   fill: transparent;
-  stroke:#161616;
+  stroke:var(--black);
   cursor: pointer;
 }
 
 .columnName svg:hover,
 .bottomCard .Svgs svg:hover{
-  stroke: #BEDBB0;
+  stroke: var(--green);
 }
 
 .DeadlineBell{
@@ -116,7 +116,7 @@
 
 .Cards .deadlineBell-high{
   visibility: visible;
-  stroke:#BEDBB0;
+  stroke:var(--green);
   fill: transparent;
 }
 
@@ -124,10 +124,10 @@
 .Deadline{
   display: flex;
   flex-direction: column;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-family);
   font-size: 8px;
   line-height: 12px;
-  letter-spacing: -2%;
+  letter-spacing: var(--letter-spacing);
   color: #16161680;
 }
 
@@ -135,14 +135,14 @@
 .Deadline h4{
   width: 40px;
   height: 15px;
-  font-family: 'Poppins', sans-serif;
+  font-family:var(--font-family);
   font-size: 10px;
   line-height: 15px;
-  letter-spacing: -2%;
+  letter-spacing: var(--letter-spacing);
   font-weight: 400;
   text-transform: capitalize;
   margin: 0;
-  color: #161616;
+  color: var(--black);
 }
 
 .ColumnsSection {
@@ -175,19 +175,19 @@
   text-transform: capitalize;
   width: 300px;
   height: 56px;
-  background-color: #ffffff;
+  background-color: var(--white);
   box-sizing: border-box;
   padding: 18px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-family);
   font-size: 14px;
   font-weight: 500;
-  line-height: 21px;
+  line-height: var(--line-height);
   letter-spacing: -0.02em;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
 }
 
 .AddColumBtn{
@@ -197,17 +197,17 @@
   justify-content: center;
   height: 56px;
   box-sizing: border-box;
-  background-color: #ffffff;
-  fill: #161616;
+  background-color: var(--white);
+  fill: var(--black);
   border: none;
   gap: 10px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-family);
   font-size: 14px;
   font-weight: 500;
-  line-height: 21px;
+  line-height: var(--line-height);
   letter-spacing: -0.02em;
   text-align: left;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   text-transform: capitalize;
 }
 
@@ -218,18 +218,18 @@
   justify-content: center;
   height: 56px;
   box-sizing: border-box;
-  background-color: #BEDBB0;
+  background-color: var(--green);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   gap: 10px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-family);
   font-size: 14px;
   font-weight: 500;
-  line-height: 21px;
+  line-height: var(--line-height);
   letter-spacing: -0.02em;
   text-align: left;
   margin-top: 10px;
-  fill: #161616;
+  fill: var(--black);
 }
 
 .BoardsSection .PriorityColor{
@@ -249,7 +249,7 @@
   background-color: #E09CB5;
 }
 .priority-high {
-  background-color: #BEDBB0;
+  background-color: var(--green);
 }
 
 .BoardsSection .Cards{
@@ -262,7 +262,7 @@
 }
 
 .BoardsSection .Cards{
-  scrollbar-color: #1616165D #FFFFFF4D;
+  scrollbar-color: #1616165D var(--dark-grey);
   scrollbar-width: thin;
 }
 
@@ -270,23 +270,23 @@
 
 .BoardsSection.dark h1,
 .Cards.dark .bottomCard h4{
-  color: #FFFFFF;
+  color: var(--white);
 }
 
 .Column.dark .columnName,
 .Cards.dark .task-card{
-  background-color: #121212;
-  color: #FFFFFF;
+  background-color: var(--black);
+  color: var(--white);
 }
 
 .Column.dark .columnName svg,
 .Cards.dark .Svgs svg{
-  stroke: #FFFFFF80;
+  stroke: var(--white-grey);
 }
 
 .Cards.dark .card-description,
 .Cards.dark .bottomCard span{
-  color: #FFFFFF80;
+  color: var(--white-grey);
 }
 
 .Cards.dark .bottomCard {
@@ -294,37 +294,37 @@
 } 
 
 .Cards.dark .priority-without{
-  background-color: #FFFFFF4D;
+  background-color: var(--dark-grey);
 }
 
 .Cards.dark .card-without{
-  border-left: 4px solid #FFFFFF4D;
+  border-left: 4px solid var(--dark-grey);
 }
 
 .Cards.dark .Svgs svg:hover,
 .Column.dark .columnName svg:hover{
-  stroke: #BEDBB0;
+  stroke: var(--green);
 }
 
 .BoardsSection .Cards.dark{
-  scrollbar-color: #121212 #FFFFFF4D;
+  scrollbar-color: var(--black) var(--dark-grey);
   scrollbar-width: thin;
 }
 
 .BoardsSection.dark .AddColumBtn{
-  background-color: #121212;
-  color: #FFFFFF;
-  fill: #FFFFFF;
+  background-color: var(--black);
+  color: var(--white);
+  fill: var(--white);
 }
 .BoardsSection.violet .AddColumBtn{
-  background-color: #FFFFFF;
-  fill: #5255BC;
+  background-color: var(--white);
+  fill: var(--violet);
 }
 
 .BoardsSection.violet .AddCardBtn{
-  background-color: #5255BC;
-  color: #FFFFFF;
-  fill: #FFFFFF;
+  background-color: var(--violet);
+  color: var(--white);
+  fill: var(--white);
 }
 
 .BoardsSection .Cards.violet{
@@ -334,7 +334,7 @@
 .Cards.violet .Svgs svg:hover,
 .Column.violet .columnName svg:hover,
 .Cards.violet .deadlineBell-high{
-  stroke: #5255BC;
+  stroke: var(--violet);
 }
 
 

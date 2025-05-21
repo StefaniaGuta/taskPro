@@ -16,22 +16,22 @@ export const ModalCard = styled.div`
   background-color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#161616';
+        return 'var(--black16)';
       default:
-        return '#FCFCFC';
+        return 'var(--grey-white)';
     }
   }};
   border-radius: 8px;
   border: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '1px solid #BEDBB080';
+        return '1px solid var(--green)';
       default:
         return 'none';
     }
   }};
   padding: 24px;
-  font-family: var(--poppinsFont);
+  font-family: var(--font-family);
   box-shadow: 0px 4px 16px 0px #1616160D;
   z-index: 20000;
   margin-inline: auto;
@@ -54,15 +54,15 @@ export const Title = styled.h2`
   color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
-  font-size: var(--fontSize18);
-  font-family: var(--poppinsFont);
-  font-weight: (--fontWeight500);
-  letter-spacing: var(--letterSpacing36);
+  font-size: 18px;
+  font-family: var(font-family);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing);
   text-align: start;
   margin-bottom: 24px;
 `;
@@ -81,10 +81,10 @@ export const ErrorMessage = styled(FormikError)`
   position: absolute;
   top: 120px;
   /* margin-top: 5px; */
-  color: var(--errorColor);
+  color: orange;
   font-size: 10px;
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
+  font-family: var(--font-family);
+  font-weight: 500;
 `;
 
 export const FieldTitle = styled(Field)`
@@ -94,22 +94,29 @@ export const FieldTitle = styled(Field)`
   margin-bottom: 24px;
   align-items: center;
   border-radius: 8px;
-  background: var(--bgInputBoardColor);
+  background: transparent;
   border:${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '1px solid #5255BC';
+        return '1px solid var(--violet)';
       default:
-        return '1px solid #BEDBB0;';
+        return '1px solid var(--green);';
     }
   }};
   opacity: 0.4000000059604645;
 
-  box-shadow: 0px 4px 16px 0px rgba(var(--boxShadowInputBoardColor));
-  color: var(--textInputBoardColor);
+  box-shadow: 0px 4px 16px 0px rgba(0,0,0, .3));
+  color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return 'var(--white-grey)';
+      default:
+        return 'var(--black16)';
+    }
+    }}
 
-  font-size: var(--fontSize14);
-  font-family: var(--poppinsFont), var(--roboto);
+  font-size: 14px;
+  font-family: var(--font-family);
   letter-spacing: -0.28px;
 
   @media screen and (min-width: 375px) {
@@ -120,7 +127,18 @@ export const FieldTitle = styled(Field)`
   &:focus,
   &:active {
     opacity: 1;
-    outline: 1px solid var(--accentColor);
+    outline: none;
+  }
+
+   &::placeholder{
+   color: ${({ theme }) => {
+    switch (theme) {
+      case 'dark':
+        return 'var(--white-grey)';
+      default:
+        return 'var(--black16)';
+    }
+    }}
   }
 
   @media screen and (min-width: 768px) {
@@ -132,15 +150,15 @@ export const Text = styled.h3`
   color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
-  font-size: var(--fontSize14);
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
-  letter-spacing: var(--letterSpacing28);
+  font-size: 14px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  letter-spacing: var(--letter-spacing);
   text-align: start;
   margin-bottom: 14px;
 `;
@@ -153,7 +171,6 @@ export const IconContainer = styled.div`
 
 export const Icon = styled.svg`
   fill: none;
-  stroke: var(--iconBoardColor);
   transition-duration: 250ms;
   cursor: pointer;
 `;
@@ -162,18 +179,6 @@ export const FormikField = styled(Field)`
   opacity: 0;
   position: absolute;
   cursor: pointer;
-  transition-duration: 250ms;
-
-  &:hover + ${Icon},
-  &:focus + ${Icon} {
-    stroke: var(--iconBoardActiveColor);
-    transition-duration: 250ms;
- 
-
-  &:checked + ${Icon} {
-    stroke: var(--iconBoardActiveColor);
-    transition-duration: 250ms;
-  }
 `;
 
 export const ImageContainer = styled.div`
@@ -204,11 +209,11 @@ export const ImageContainer = styled.div`
     &:hover,
     &:focus,
     &:active {
-      outline-color: var(--accentColor);
+      outline-color: var(--FFF-white);
     }
   }
   label:first-of-type {
-    background-color: var(--iconImageBGColor);
+    background-color: var(--FFF-white);
   }
 `;
 export const ImgBox = styled.div`
@@ -227,7 +232,7 @@ export const FormikFieldImage = styled(Field)`
   display: none;
 
   &:checked + ${ImgBox} {
-    outline-color: var(--accentColor);
+    outline-color: var(--FFF-white);
     outline-offset: 0;
     transition-duration: 250ms;
   }
@@ -257,22 +262,22 @@ export const Button = styled.button`
   background-color:${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#5255BC';
+        return 'var(--violet)';
       default:
-        return '#BEDBB0';
+        return 'var(--green)';
     }
   }};
   color: ${({ theme }) => {
     switch (theme) {
       case 'violet':
-        return '#FFFFFF';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
-  font-size: var(--fontSize14);
-  font-family: var(--poppinsFont);
-  font-weight: var(--fontWeight500);
+  font-size: 14px;
+  font-family: var(--font-family);
+  font-weight: 500;
   letter-spacing: -0.28px;
   cursor: pointer;
 
@@ -319,19 +324,7 @@ export const Button = styled.button`
   }
 `;
 
-export const ContainerIconButton = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  margin-right: 8px;
-  background-color: var(--iconBoardBgColor);
-  border-radius: var(--borderRadius8);
-  stroke: var(--iconPlusBoardColor);
-`;
-
 export const ImgStyled = styled.img`
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
 `;

@@ -3,21 +3,18 @@ import styled from 'styled-components';
 export const IconButton = styled.button`
   position: absolute;
   border: none;
-  stroke: var(--iconCloseColor);
   background-color: inherit;
   color: ${({ theme }) => {
     switch (theme) {
       case 'dark':
-        return '#FFFFFF';
-      case 'violet':
-        return '#161616';
+        return 'var(--white)';
       default:
-        return '#161616';
+        return 'var(--black16)';
     }
   }};
   cursor: pointer;
-  top: 14px;
-  right: 14px;
+  top: 24px;
+  right: 24px;
   padding: 0px;
   margin: 0px;
 
@@ -27,16 +24,3 @@ export const IconButton = styled.button`
     transform: scale(1.2);
   }
 `;
-
-
-// export const BtnClose = styled.button`
-//   background-color: transparent;
-//   border: none;
-//   cursor: pointer;
-//   stroke: var(--iconCloseColor);
-//   transition: transform 0.3s ease-in-out;
-
-//   &:hover {
-//     transform: scale(1.2);
-//   }
-// `;

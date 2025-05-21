@@ -1,5 +1,5 @@
 .container {
-  background: linear-gradient(180deg, rgba(196, 196, 196, 0) 25%, #BEDBB0 92.19%);
+  background: linear-gradient(180deg, rgba(196, 196, 196, 0) 25%, var(--green) 92.19%);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,14 +22,14 @@
 .text{
   width: 90vw;
   height: 54px;
-  font-family: 'Poppins';
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
   text-align: center;
   letter-spacing: -0.02em;
-  color: #161616;
+  color: var(--black);
 }
 
 .authButtons {
@@ -40,14 +40,13 @@
 }
 
 .LoginButton {
-  font-family: 'Poppins';
+  font-family: var(--font-family);
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  line-height: 21px;
-  /* identical to box height */
+  line-height: var(--line-height);
   letter-spacing: -0.02em;
-  color: #161616;
+  color: var(--black);
   width: 40px;
   height: 21px;
   text-decoration: none;
@@ -65,9 +64,9 @@
   height: 49px;
   margin-top: 35px;
   margin-bottom: 14px;
-  background: #161616;
-  border-radius: 8px;
-  color: white;
+  background: var(--black);
+  border-radius: var(--border-radius);
+  color: var(--white);
   text-decoration: none;
 }
 
