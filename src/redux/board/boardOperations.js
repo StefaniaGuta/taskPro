@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
-axios.defaults.baseURL =  'http://localhost:5000/'
+axios.defaults.baseURL =  'https://backend-pro-beige.vercel.app/'
 
 export const getBackgroundIcons = createAsyncThunk(
   'boards/getBackgroundIcons',

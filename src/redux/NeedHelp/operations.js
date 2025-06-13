@@ -2,7 +2,8 @@ import axios from "axios";
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 
-const URL = 'http://localhost:5000/';
+const URL = 'https://backend-pro-beige.vercel.app/';
+
 export const sendHelp = createAsyncThunk(
     'needHelp/help',
     async (comment, thunkAPI) => {

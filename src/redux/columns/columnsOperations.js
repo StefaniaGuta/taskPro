@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const URL = 'http://localhost:5000/'
+const URL = 'https://backend-pro-beige.vercel.app/'
 
 export const addColumn = createAsyncThunk(
   'columns/addColumn',

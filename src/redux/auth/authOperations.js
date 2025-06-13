@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Notiflix from "notiflix";
 
-const API_URL = 'http://localhost:5000/';
+const API_URL = 'https://backend-pro-beige.vercel.app/';
 
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
@@ -60,7 +60,6 @@ export const logIn = createAsyncThunk(
       if (error.response.data.message === "Email or password is wrong") {
         Notiflix.Notify.failure('Email or password is wrong');
       }
-      console.log(error.response.data.message)
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }

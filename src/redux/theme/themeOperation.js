@@ -7,7 +7,7 @@ export const updateTheme = createAsyncThunk(
   async (newTheme, thunkAPI) => {
     try {
       const { data } = await axios.patch(
-        'http://localhost:5000/api/auth/change-theme', 
+        'https://backend-pro-beige.vercel.app/api/auth/change-theme', 
         { theme: newTheme },
       );
 
