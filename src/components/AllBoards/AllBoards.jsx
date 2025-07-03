@@ -68,7 +68,7 @@ const AllBoards = () => {
       )
     );
   };
-  console.log(boards)
+
   return(
     <>
       {boards.length > 0 ? (
