@@ -49,7 +49,9 @@ const AllBoards = () => {
     try {
       const boardName = board.slug;
       if (location.pathname.includes(boardName)) {
-        navigate('/page');
+        setTimeout(() => {
+          navigate('/page');
+        }, 2000)
       }
       await dispatch(deleteBoard(boardName)).unwrap();
       setBoards((prevBoards) => prevBoards.filter((board) => board.slug !== boardName));
@@ -66,7 +68,7 @@ const AllBoards = () => {
       )
     );
   };
-  
+  console.log(boards)
   return(
     <>
       {boards.length > 0 ? (

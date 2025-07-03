@@ -1,4 +1,4 @@
-import url from '../../../images/icons/sprite.svg';
+import url from '../../PopUp/icons.svg';
 import { useSelector } from 'react-redux';
 
 import s from './ModalBoardIcons.module.css'

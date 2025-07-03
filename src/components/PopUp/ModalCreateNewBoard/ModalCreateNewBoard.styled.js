@@ -210,7 +210,9 @@ export const ImageContainer = styled.div`
     &:hover,
     &:focus,
     &:active {
-      outline-color: var(--FFF-white);
+      transform:scale(1.4);
+      transition: transform var(--transition);
+      z-index: 1111111;
     }
   }
   label:first-of-type {
@@ -227,7 +229,6 @@ export const ImgBox = styled.div`
   width: 28px;
   height: 28px;
   border-radius: var(--border-radius);
-  outline: 2px solid transparent;
 `;
 
 export const FormikFieldImage = styled(Field)`

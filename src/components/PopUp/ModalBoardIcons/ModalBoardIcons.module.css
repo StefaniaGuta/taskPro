@@ -21,8 +21,8 @@
 
 .Icon:hover,
 .Icon:focus {
-    stroke: var(--black);
-    transition: stroke var(--transition);
+    transform:scale(1.5);
+    transition: transform var(--transition);
 } 
 
 .Icon.dark:hover{
