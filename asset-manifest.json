@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/taskPro/static/css/main.34958c49.css",
-    "main.js": "/taskPro/static/js/main.6d4ecabc.js",
+    "main.js": "/taskPro/static/js/main.0385c29b.js",
     "static/css/690.2476694d.chunk.css": "/taskPro/static/css/690.2476694d.chunk.css",
     "static/js/690.914fe1b0.chunk.js": "/taskPro/static/js/690.914fe1b0.chunk.js",
     "static/css/956.e4782127.chunk.css": "/taskPro/static/css/956.e4782127.chunk.css",
@@ -110,7 +110,7 @@
     "static/media/icons.svg": "/taskPro/static/media/icons.0f71d48bd89c13bb85c96b1bdf77fdf9.svg",
     "index.html": "/taskPro/index.html",
     "main.34958c49.css.map": "/taskPro/static/css/main.34958c49.css.map",
-    "main.6d4ecabc.js.map": "/taskPro/static/js/main.6d4ecabc.js.map",
+    "main.0385c29b.js.map": "/taskPro/static/js/main.0385c29b.js.map",
     "690.2476694d.chunk.css.map": "/taskPro/static/css/690.2476694d.chunk.css.map",
     "690.914fe1b0.chunk.js.map": "/taskPro/static/js/690.914fe1b0.chunk.js.map",
     "956.e4782127.chunk.css.map": "/taskPro/static/css/956.e4782127.chunk.css.map",
@@ -129,6 +129,6 @@
   },
   "entrypoints": [
     "static/css/main.34958c49.css",
-    "static/js/main.6d4ecabc.js"
+    "static/js/main.0385c29b.js"
   ]
 }
